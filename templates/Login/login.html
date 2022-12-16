@@ -1,0 +1,28 @@
+{% extends 'Login/base.html' %}
+
+
+{% load static %}
+{% block content %}
+  <div class="main">
+        <div class="left">
+            <div class="illustration">
+                <h3><span>Dunmark |</span> <span>Tileshop</span></h3>
+                <img src="{% static 'images/Login-bro.svg' %}">
+            </div>
+        </div>
+        <div class="right">
+          <div class="right-upper">
+            <img src="{% static 'images/lock.svg' %}" alt="" />
+            {% if message %}
+            <h5 class="login-err">{{ message }}</h5>
+            {% endif %}
+          </div>
+          <form id="login-form" method="post" accept-charset="utf-8">
+            
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><button type="submit">Login</button></p>
+          </form>
+        </div>
+    </div>
+{% endblock %}
