@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <title>Dunmark Tileshop</title>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static 'css/UI.css' %}"/>
+   
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/f8a99d4330.js" crossorigin="anonymous"></script>
+    
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Quicksand&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="main">
+        
+        <!-- Side navigation -->
+        <div class="sidenav">
+            <img src="{% static 'images/LogoMakerCa-1671720038103.png' %}" alt="">
+            <ul type="none" class="sidenav-menu">
+                <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
+                <li><a href="{% url 'usermanagement' %}" {% if request.resolver_match.url_name == "usermanagement" %} id="nav-active" {% endif %}><i class="fa-solid fa-gear"></i><span>User Management</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Sales Transaction</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-table-columns"></i><span>Product Management</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i><span>Return Product</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i><span>Audit Trail</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i><span>Reports</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i><span>About System</span></a></li>
+            </ul>
+        </div>
+        
+        <!-- header -->
+        <div class="content">
+            
+            <!-- Header -->
+            <div class="header">
+                
+            </div>
+            
+            <!-- Content Here -->
+            {% block content %}
+            {% endblock %}
+            
+        </div>
+    </div>
+</body>
+</html>
