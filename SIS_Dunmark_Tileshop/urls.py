@@ -18,7 +18,16 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/', include('VisitorsPage.urls')),
     path('Login/', include('LoginAuthentication.urls')),
-    path('Dashboard/', include('Dashboard.urls')),
+    path('Dashboard/', include('Dashboard.urls'), name="dashboard"),
     path('UserManagement/', include('UserManagement.urls')),
+    path('POS/', include('PointOfSale.urls')),
+    path('SalesTransaction/', include('SalesTransaction.urls')),
+    path('ProductManagement/', include('ProductManagement.urls')),
+    path('ReturnProduct/', include('ReturnProduct.urls')),
+    path('Settings/', include('Settings.urls')),
+    path('AuditTrail/', include('AuditTrail.urls')),
+    path('Reports/', include('Reports.urls')),
+    path('AboutSystem/', include('AboutSystem.urls')),
 ]
