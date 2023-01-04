@@ -27,8 +27,8 @@
             <ul type="none" class="sidenav-menu">
                 <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
                 <li><a href="{% url 'usermanagement' %}" {% if request.resolver_match.url_name == "usermanagement" %} id="nav-active" {% endif %}><i class="fa-solid fa-gear"></i><span>User Management</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Sales Transaction</span></a></li>
+                <li><a href="{% url 'pos' %}" {% if request.resolver_match.url_name == "pos" %} id="nav-active" {% endif %}><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
+                <li><a href="{% url 'sales_transaction' %}" {% if request.resolver_match.url_name == "sales_transaction" %} id="nav-active" {% endif %}><i class="fa-solid fa-sack-dollar"></i><span>Sales Transaction</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i><span>Product Management</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-gear"></i><span>Return Product</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>

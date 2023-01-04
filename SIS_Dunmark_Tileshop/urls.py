@@ -18,16 +18,18 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', include('VisitorsPage.urls')),
+    #path('/', include('VisitorsPage.urls')),
     path('Login/', include('LoginAuthentication.urls')),
-    path('Dashboard/', include('Dashboard.urls'), name="dashboard"),
+    path('Dashboard/', include('Dashboard.urls')),
     path('UserManagement/', include('UserManagement.urls')),
     path('POS/', include('PointOfSale.urls')),
-    path('SalesTransaction/', include('SalesTransaction.urls')),
-    path('ProductManagement/', include('ProductManagement.urls')),
-    path('ReturnProduct/', include('ReturnProduct.urls')),
-    path('Settings/', include('Settings.urls')),
-    path('AuditTrail/', include('AuditTrail.urls')),
-    path('Reports/', include('Reports.urls')),
-    path('AboutSystem/', include('AboutSystem.urls')),
+    path('Sales_transaction/', include('SalesTransaction.urls')),
+    
+    #PATH('SALESTRANSACTION/', INCLUDE('SALESTRANSACTION.URLS')),
+    #PATH('PRODUCTMANAGEMENT/', INCLUDE('PRODUCTMANAGEMENT.URLS')),
+    #PATH('RETURNPRODUCT/', INCLUDE('RETURNPRODUCT.URLS')),
+    #PATH('SETTINGS/', INCLUDE('SETTINGS.URLS')),
+    #PATH('AUDITTRAIL/', INCLUDE('AUDITTRAIL.URLS')),
+    #PATH('REPORTS/', INCLUDE('REPORTS.URLS')),
+    #PATH('ABOUTSYSTEM/', INCLUDE('ABOUTSYSTEM.URLS')),
 ]
