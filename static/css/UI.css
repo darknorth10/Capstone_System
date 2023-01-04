@@ -68,8 +68,6 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 
 .sidenav-menu i {
     font-size: 0.9rem;
-    position: relative;
-    top: 1px;
     margin-right: 8px;
 }
 
