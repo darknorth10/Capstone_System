@@ -8,6 +8,6 @@ ROLE_CHOICES = [
 
 class CustomUser(AbstractUser):
   role = models.CharField(max_length=7, choices=ROLE_CHOICES, default="Cashier")
-
+  
   def __str__(self):
     return self.username

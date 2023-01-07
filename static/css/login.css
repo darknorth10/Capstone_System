@@ -144,15 +144,15 @@ body {
   font-size:1.1rem;
 }
 .login-err {
-  border: 2px solid #f9494d;
-  width:70%;
+  border: 1px solid #f9494d;
+  width:80%;
   padding:15px 0px;
   margin-top: 5px;
   text-align: center;
   font-weight: normal;
   background: #f9f8e2;
   font-size: 0.7rem;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from . import forms
+
 # Create your views here.
 
 def login_page(request):
@@ -14,13 +15,17 @@ def login_page(request):
       user = authenticate(
         username = form.cleaned_data['username'],
         password = form.cleaned_data['password'],
-        
         )
+      
+
+      
       if user is not None:
         login(request, user)
         return redirect('dashboard')
       else:
+        print("Wrong username or pass")
         message = "Wrong username or password"
+          
           
   return render(request, 'Login/login.html', context={'form': form, 'message': message})
 
