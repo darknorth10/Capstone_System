@@ -8,6 +8,8 @@
     
     <title>Dunmark Tileshop</title>
     
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
     <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/UI.css' %}"/>
    
@@ -23,7 +25,10 @@
         
         <!-- Side navigation -->
         <div class="sidenav">
+            <button class="btn btn-primary rounded-circle" id="shrink"><i class="fa-solid fa-chevron-left"></i></button>
+            <!-- Logo -->
             <img src="{% static 'images/LogoMakerCa-1671720038103.png' %}" alt="">
+            <!-- nav links -->
             <ul type="none" class="sidenav-menu">
                 <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
                 <li><a href="{% url 'usermanagement' %}" {% if request.resolver_match.url_name == "usermanagement" %} id="nav-active" {% endif %}><i class="fa-solid fa-user"></i><span>User Management</span></a></li>
@@ -43,7 +48,40 @@
             
             <!-- Header -->
             <div class="header">
+                <h4>Dunmark Tileshop</h4>
                 
+                <!-- Notifications -->
+                <div class="notification">
+                  <!-- icon -->
+                  <a class="rounded" id="notif-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                  </a>
+                  <!-- notif content -->
+                  <div class="card" id="notif-content">
+                    
+                  </div>
+                </div>
+                
+                <!-- Logout div -->
+                <div class="d-flex me-3">
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-light dropdown-toggle"
+                      id="dropdownMenuOffset"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                      
+                    >
+                      {{ user }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuOffset">
+                      <li><a class="dropdown-item shadow" href="{%  url 'logout' %}" id="logout">Logout</a></li>
+                      
+                    </ul>
+                  </div>
+                </div>
             </div>
             
             <!-- Content Here -->
@@ -52,5 +90,11 @@
             
         </div>
     </div>
+    <!-- MDB -->
+<script
+  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
+  <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8" src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

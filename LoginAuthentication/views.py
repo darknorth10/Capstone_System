@@ -18,7 +18,7 @@ def login_page(request):
         )
       if user is not None:
         login(request, user)
-        message = f'You are Logged in as {user.username}!'
+        return redirect('dashboard')
       else:
         message = "Wrong username or password"
           
