@@ -31,13 +31,13 @@ body {
     display: flex;
 }
 .sidenav {
-    height: 100%;
-    width: 230px;
+    height: 100vh;
+    width: 210px;
     background: rgb(7,33,91);
-background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
+    background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
     position: relative;
     transition: width 0.6s;
@@ -46,12 +46,14 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 .sidenav-menu {
     padding:5%;
     width: 100%;
+    position: relative;
+    bottom: 30px;
 }
 .sidenav-menu li {
     padding: 0 5px 0 5px;
     font-size: 0.7rem;
-    margin:0;
-    font-family: 'Whitney', 'Inter', sans-serif;
+    margin:5px 0;
+    font-family: 'Quicksand', 'Whitney', sans-serif;
     letter-spacing: 0.5px;
     font-weight: bold;
 }
@@ -81,19 +83,20 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 }
 
 .sidenav-menu i {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     margin-right: 8px;
 }
 
-.sidenav-menu span {
-    animation: fade-in-right 0.5s;
-}
+
 
 .sidenav img {
     display: block;
     height: 100px;
     width: 100px;
     padding-top: 5px;
+    margin: 20px 0 30px 0;
+   /* position: relative;
+    bottom: 80px ; */
 }
 
 .content {
@@ -106,9 +109,8 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 }
 
 .header {
-    height: 50px;
+    height: 60px;
     background: #fff;
-    border: 0.5px solid #212121;
     padding: 0 20px 0 20px;
     display: flex;
     justify-content: space-between;
@@ -117,17 +119,17 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 #dropdownMenuOffset {
   font-size: 0.7rem;
   text-transform: capitalize;
-  font-family: 'Whitney';
+  font-family: 'Quicksand';
   font-weight: bold;
   padding: 5px 15px;
 }
 
 #logout {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .header h4 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   font-family: 'Essen';
   color: rgb(7,33,91);
@@ -137,7 +139,7 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
 
 .notification {
   position: relative;
-  left: 60px;
+  left: 190px;
 }
 
 #notif-btn {
@@ -218,20 +220,22 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
   background-size: cover;
 }
 .dash-upper .card {
-  height: 100%;
-  width: 28%;
+  height: 80%;
+  width: 24%;
   position: relative;
-  top:40px;
+  top:50px;
   background: white;
+  animation: fade-in-right 0.5s;
 }
 .dash-lower {
   height: 65%;
   width: 100%;
   background: #eee;
-  margin-top: 45px;
+  margin-top: 55px;
   display: flex;
   gap: 20px;
   padding: 15px;
+  animation: fade-in-right 0.8s;
 }
 .stock-graph {
   width: 55%;
@@ -242,4 +246,71 @@ background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
   width: 40%;
   height: 130%;
   background: white;
+}
+
+/* User Management */
+.user-management {
+   height: 100%;
+   width: 100%;
+   box-sizing: border-box;
+   margin: 0;
+   overflow: scroll;
+}
+
+.um-header {
+  margin:0;
+  width: 100%;
+  height: 20%;
+  padding: 20px; auto 0 auto;
+  background: url('../images/peakpx.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+.um-header h3 {
+  font-family: 'Quicksand';
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  text-align: center;
+  animation: fade-in-right 0.5s;
+  text-shadow: 2px 2px 1px #212121;
+}
+.um-actionbar {
+  height: 15%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:20px 45px 0 45px;
+  animation: fade-in-right 0.7s;
+}
+#um-search {
+  width: 35%;
+  font-size: 0.8rem;
+}
+#adduser-btn {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  padding: 10px 17px;
+}
+#um-search input, #um-search button {
+  font-size: 0.8rem;
+}
+.um-tablediv {
+  height: auto;
+  width: 90%;
+  background: white;
+  margin: 20px auto;
+  animation: fade-in-right 0.9s;
+  overflow: scroll;
+}
+
+#user-table {
+  font-family: 'Whitney';
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-sizing: border-box;
 }

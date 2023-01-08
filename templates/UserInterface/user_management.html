@@ -1,5 +1,152 @@
 {% extends 'UserInterface/base.html' %}
 
 {% block content %}
-<h1>User Management</h1>
+  <div class="user-management">
+    <!-- User management header -->
+    <div class="um-header">
+      <h3>User Management</h3>
+    </div>
+    
+    <!-- User management action div -->
+    <div class="um-actionbar">
+      <!-- Add new user button -->
+      <button class="btn btn-primary" id="adduser-btn"><i class="fa-solid fa-add"></i> New User</button>
+      <!-- search -->
+      <div class="input-group" id="um-search">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control bg-white shadow-sm" />
+          <label class="form-label" for="form1">Search User</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    <!-- User management table div -->
+    <div class="um-tablediv shadow-sm rounded-5 p-1">
+      <table class="table table-hover align-middle mb-0 bg-white" id="user-table">
+        <thead class="bg-primary text-white">
+          <tr class="text-center">
+            <th>Name</th>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for User in Users %}
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                    alt=""
+                    style="width: 45px; height: 45px"
+                    class="rounded-circle"
+                    />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{ User.get_full_name }}</p>
+                  <p class="text-muted mb-0">{{ User.email}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">{{ User.username }}</p>
+            </td>
+            <td>
+              {% if User.is_active %}<span class="badge badge-success rounded-pill d-inline"> Active </span> {% else %}<span class="badge badge-danger rounded-pill d-inline"> Inactive </span>{% endif %}
+            </td>
+            <td style="text-transform: capitalize;">{{ User.role }}</td>
+            <td class="d-inline-flex flex-column justify-content-evenly">
+              <button type="button" class="btn btn-outline-primary btn-sm btn-rounded mb-1">
+                Edit
+              </button>
+              {% if User.is_active %}
+              <button type="button" class="btn btn-danger btn-sm btn-rounded" data-mdb-ripple-color="dark">
+                Deactivate
+              </button> {% else %}
+              <button type="button" class="btn btn-success btn-sm btn-rounded" data-mdb-ripple-color="dark">
+                Activate
+              </button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          <!-- SAMPLE DATA
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                    src="https://mdbootstrap.com/img/new/avatars/6.jpg"
+                    class="rounded-circle"
+                    alt=""
+                    style="width: 45px; height: 45px"
+                    />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Alex Ray</p>
+                  <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Consultant</p>
+              <p class="text-muted mb-0">Finance</p>
+            </td>
+            <td>
+              <span class="badge badge-primary rounded-pill d-inline"
+                    >Onboarding</span
+                >
+            </td>
+            <td>Junior</td>
+            <td>
+              <button
+                      type="button"
+                      class="btn btn-link btn-rounded btn-sm fw-bold"
+                      data-mdb-ripple-color="dark"
+                      >
+                Edit
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                    src="https://mdbootstrap.com/img/new/avatars/7.jpg"
+                    class="rounded-circle"
+                    alt=""
+                    style="width: 45px; height: 45px"
+                    />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Kate Hunington</p>
+                  <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Designer</p>
+              <p class="text-muted mb-0">UI/UX</p>
+            </td>
+            <td>
+              <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
+            </td>
+            <td>Senior</td>
+            <td>
+              <button
+                      type="button"
+                      class="btn btn-link btn-rounded btn-sm fw-bold"
+                      data-mdb-ripple-color="dark"
+                      >
+                Edit
+              </button>
+            </td>
+          </tr>
+          
+          -->
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}
