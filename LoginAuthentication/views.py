@@ -16,7 +16,6 @@ def login_page(request):
         username = form.cleaned_data['username'],
         password = form.cleaned_data['password'],
         )
-      
 
       
       if user is not None:

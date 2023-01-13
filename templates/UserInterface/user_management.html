@@ -10,7 +10,7 @@
     <!-- User management action div -->
     <div class="um-actionbar">
       <!-- Add new user button -->
-      <button class="btn btn-primary" id="adduser-btn"><i class="fa-solid fa-add"></i> New User</button>
+      <button class="btn btn-primary" id="adduser-btn" data-mdb-toggle="modal" data-mdb-target="#modal-user"><i class="fa-solid fa-add"></i> New User</button>
       <!-- search -->
       <div class="input-group" id="um-search">
         <div class="form-outline">
@@ -55,7 +55,7 @@
               <p class="fw-normal mb-1">{{ User.username }}</p>
             </td>
             <td>
-              {% if User.is_active %}<span class="badge badge-success rounded-pill d-inline"> Active </span> {% else %}<span class="badge badge-danger rounded-pill d-inline"> Inactive </span>{% endif %}
+              {% if User.is_active %}<span class="badge badge-success rounded-pill d-inline">Active</span> {% else %}<span class="badge badge-danger rounded-pill d-inline"> Inactive </span>{% endif %}
             </td>
             <td style="text-transform: capitalize;">{{ User.role }}</td>
             <td class="d-inline-flex flex-column justify-content-evenly">
@@ -66,7 +66,7 @@
               <button type="button" class="btn btn-danger btn-sm btn-rounded" data-mdb-ripple-color="dark">
                 Deactivate
               </button> {% else %}
-              <button type="button" class="btn btn-success btn-sm btn-rounded" data-mdb-ripple-color="dark">
+              <button type="button" class="btn btn-primary btn-sm btn-rounded" data-mdb-ripple-color="dark" style="padding: auto 40px;">
                 Activate
               </button>
               {% endif %}
@@ -147,6 +147,31 @@
           
         </tbody>
       </table>
+    </div>
+    <div class="um-modals">
+      <div class="modal fade" tabindex="-1" id="modal-user">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="nu-modalbody">
+              <form method="post" accept-charset="utf-8">
+                
+                {% csrf_token %}
+                {{ form }}
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}

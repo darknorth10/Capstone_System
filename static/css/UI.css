@@ -220,8 +220,8 @@ body {
   background-size: cover;
 }
 .dash-upper .card {
-  height: 80%;
-  width: 24%;
+  height: 75%;
+  width: 22%;
   position: relative;
   top:50px;
   background: white;
@@ -313,4 +313,21 @@ body {
   font-weight: bold;
   font-size: 0.8rem;
   box-sizing: border-box;
+}
+
+#nu-modalbody p {
+  margin: 10px 15px;
+  
+}
+
+#nu-modalbody p input {
+  border: 0;
+  outline: 0;
+  padding: 5px 10px;
+  border-bottom: 1px solid #009aff;
+
+}
+
+.helptext {
+  display: none;
 }
