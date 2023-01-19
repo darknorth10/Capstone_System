@@ -315,19 +315,31 @@ body {
   box-sizing: border-box;
 }
 
-#nu-modalbody p {
-  margin: 10px 15px;
-  
+#nu-modalbody div {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
 }
 
-#nu-modalbody p input {
+#nu-modalbody div input {
   border: 0;
   outline: 0;
   padding: 5px 10px;
-  border-bottom: 1px solid #009aff;
-
+  background: #eee;
+  border-radius: 5px;
 }
-
+#nu-modalbody div select {
+  width: 64%;
+  border: 0;
+  background: #eee;
+  border-radius:5px;
+  padding: 5px 10px;
+  text-align: center;
+}
+#nu-modalbody label {
+  padding-top: 5px;
+}
 .helptext {
   display: none;
 }
