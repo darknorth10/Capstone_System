@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'dunmark_db',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -138,5 +138,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login and Logout Redirection
 
-LOGIN_REDIRECT_URL = "/Login/"
-LOGOUT_REDIRECT_URL = "/Login/logout.html"

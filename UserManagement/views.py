@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from LoginAuthentication.models import CustomUser
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required(login_url='login')
 def user_management(request):
   form_adduser = CustomUserCreationForm()
   if request.method == "POST":

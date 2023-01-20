@@ -13,4 +13,10 @@
     {% block content %}
     {% endblock content %}
   </body>
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script>
+    $(document).ready(function() {
+      $("#id_username").focus()
+    })
+  </script>
 </html>
