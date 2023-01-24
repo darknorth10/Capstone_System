@@ -48,11 +48,13 @@ body {
     width: 100%;
     position: relative;
     bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 .sidenav-menu li {
     padding: 0 5px 0 5px;
     font-size: 0.7rem;
-    margin:5px 0;
     font-family: 'Quicksand', 'Whitney', sans-serif;
     letter-spacing: 0.5px;
     font-weight: bold;
@@ -139,7 +141,7 @@ body {
 
 .notification {
   position: relative;
-  left: 190px;
+  left: 25%;
 }
 
 #notif-btn {
@@ -151,6 +153,7 @@ body {
   display: inline-block;
   transition: all 0.6s;
 }
+
 #notif-btn:hover {
    cursor: pointer;
 }

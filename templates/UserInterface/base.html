@@ -27,7 +27,7 @@
         <div class="sidenav">
             <button class="btn btn-primary rounded-circle" id="shrink"><i class="fa-solid fa-chevron-left"></i></button>
             <!-- Logo -->
-            <img src="{% static 'images/LogoMakerCa-1671720038103.png' %}" alt="">
+            <img src="{% static 'images/LogoMakerCa-1671720038103.png' %}" alt="" id="navlogo">
             <!-- nav links -->
             <ul type="none" class="sidenav-menu">
                 <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
@@ -45,8 +45,8 @@
             </ul>
         </div>
         
-        <!-- header -->
-        <div class="content">
+        <!-- content -->
+        <div class="content" id="content">
             
             <!-- Header -->
             <div class="header shadow">
