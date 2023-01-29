@@ -15,6 +15,8 @@ $(document).ready(function() {
       $('.sidenav-menu li i').css("margin-bottom", "5px");
       $('#navlogo').css('visibility', 'hidden');
       $('#shrink').css('transform', 'rotate(180deg)');
+      $('.left-symbol').css('width', '30%')
+      $('.text-label h2:last-of-type').css('font-size', '1rem')
       shrink = true;
     } else {
       $('.sidenav').css('width', "210px");
@@ -25,6 +27,8 @@ $(document).ready(function() {
       $('#navlogo').css('visibility', 'visible');
       $('.sidenav-menu').css('gap', '5px');
       $('#shrink').css('transform', 'rotate(0deg)');
+      $('.left-symbol').css('width', '20%')
+      $('.text-label h2:last-of-type').css('font-size', '0.9rem')
       shrink = false;
       
     }
