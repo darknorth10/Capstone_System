@@ -15,7 +15,7 @@
 }
 
 html {
-    font-size: 16px;
+    
     font-family: sans-serif;
 }
 
@@ -103,7 +103,7 @@ body {
 }
 
 .content {
-    background: #eee;
+    background: rgb(238, 238, 238);
     flex:auto;
     display: flex;
     flex-direction: column;
@@ -120,6 +120,14 @@ body {
     align-items: center;
     z-index: 2;
 }
+
+.notif-logout-div {
+  width: 170px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #dropdownMenuOffset {
   font-size: 0.7rem;
   text-transform: capitalize;
@@ -141,10 +149,6 @@ body {
   padding: 10px 0 0 10px;
 }
 
-.notification {
-  position: relative;
-  left: 30%;
-}
 
 #notif-btn {
   font-size: 1.3rem;
@@ -203,14 +207,25 @@ body {
   }
 }
 
+@keyframes scale-up-hor-left {
+  0% {
+    transform:scaleX(.4);
+    transform-origin:0 0
+}
+100% {
+  transform:scaleX(1);
+  transform-origin:0 0
+  }
+}
+
 /* DASHBOARD */
 .dashboard {
   flex: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding-bottom: 10px;
   overflow: auto;
+  font-size: 1vw;
 }
 .dash-upper {
   display: flex;
@@ -248,7 +263,7 @@ body {
 }
 .left-symbol h3 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: rgb(46, 45, 51);
 }
 
@@ -269,7 +284,7 @@ body {
 .text-label h2:first-of-type {
   color: rgb(9, 83, 157);
   font-family: 'Inter';
-  font-size: 0.6rem;
+  font-size: 0.6em;
   font-weight: bold;
   padding-top: 10px;
   margin-top: 10px;
@@ -277,7 +292,7 @@ body {
 }
 
 #dash-annual {
-  font-size: 0.9rem;
+  font-size: 0.9em;
   font-weight: bold;
   padding-bottom: 15px;
   font-family: 'Inter';
@@ -311,7 +326,7 @@ body {
 }
 
 .stock-header, .topselling-header {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   font-family: 'Quicksand';
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -325,13 +340,13 @@ body {
 .stock-progress > div {
   padding: 10px;
   width: 100%;
-  height: 18%;
+  height: 20%;
   margin: 0;
   box-sizing: border-box;
 }
 
 .label-progress {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-family: 'Quicksand';
   font-weight: bold;
   display: flex;
@@ -346,11 +361,33 @@ body {
   height: 20%;
 }
 
+.progress-bar {
+  animation:scale-up-hor-left .4s ease-out both;
+  transition: all 0.6s;
+}
+
 .top-selling {  
   width: 40%;
-  height: 130%;
+  height: 120%;
   background: white;
   padding: 15px;
+}
+
+.topselling-graph {
+  display: flex;
+  flex-direction: column;
+}
+.graph {
+  flex: auto;
+  overflow: hidden;
+}
+.chart-area {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -393,13 +430,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:20px 50px 0 50px;
+  padding:20px 60px 0 60px;
   animation: fade-in-right 0.7s;
 }
 #um-search {
-  width: 35%;
+  width: 30%;
   font-size: 0.8rem;
+  color: gray;
 }
+
 #adduser-btn {
   font-size: 0.8rem;
   text-transform: capitalize;
@@ -422,39 +461,44 @@ body {
   font-size: 0.8rem;
 }
 
-.theader {
+#user-table .theader {
   font-weight: bold;
   font-size: 0.8rem;
-}
-#user-table tbody tr td button {
-  font-size: 0.6rem;
-}
-
-#nu-modalbody div {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: 10px auto;
-}
-
-#nu-modalbody div input {
-  border: 0;
-  outline: 0;
-  padding: 5px 10px;
-  background: #eee;
-  border-radius: 5px;
-}
-#nu-modalbody div select {
-  width: 64%;
-  border: 0;
-  background: #eee;
-  border-radius:5px;
-  padding: 5px 10px;
   text-align: center;
 }
-#nu-modalbody label {
-  padding-top: 5px;
+.theader th:first-of-type {
+  border-radius: 5px 0 0 5px;
 }
-.helptext {
-  display: none;
+.theader th:last-of-type {
+  border-radius: 0 5px 5px 0 ;
+}
+
+#user-table tbody tr td {
+  text-align: center;
+}
+
+#user-table tbody tr td button {
+  font-size: 0.6rem;
+  width: 90px;
+}
+
+
+/* add user form */
+
+
+.pagination li {
+  margin: 0 5px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.role-select {
+  border: 1px solid rgb(171, 171, 171);
+  padding: 5px 15px;
+  width: 70%;
+  transition: all 0.6s;
+}
+
+#fas {
+  color: rgb(237, 91, 91);
 }

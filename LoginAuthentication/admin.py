@@ -6,6 +6,9 @@ from .models import CustomUser
 
 # Modified User Admin due to custom user model
 class CustomUserAdmin(UserAdmin):
+  form = CustomUserChangeForm
+  add_form = CustomUserCreationForm
+
   list_display = (
         'username', 'email', 'first_name', 'last_name', 'role',
         )
