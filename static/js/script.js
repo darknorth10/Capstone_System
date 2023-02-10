@@ -67,9 +67,13 @@ $(document).ready(function() {
   });
   
 
-  // User Form input
-  $("#userform div input").attr("class", "form-control");
+  // User Form input class
+  $("#userform div input").attr("class", "form-control shadow-inner");
+  // Edit user input class
+  $("#userform-edit div input").attr("class", "form-control shadow-inner active");
+  // For Select Role class
   $("#userform div select").attr("class", "role-select rounded");
+  $("#userform-edit div select").attr("class", "role-select rounded");
   
   
   // user client side validation for password

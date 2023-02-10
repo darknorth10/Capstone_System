@@ -66,7 +66,7 @@ body {
 .sidenav-menu li {
     padding: 0 5px 0 5px;
     font-size: 0.7rem;
-    font-family: 'Quicksand', 'Whitney', sans-serif;
+    font-family: 'Montserrat', 'Whitney', sans-serif;
     letter-spacing: 0.5px;
     font-weight: bold;
 }
@@ -302,7 +302,7 @@ body {
   font-size: 0.9em;
   font-weight: bold;  
   padding-bottom: 15px;
-  font-family: 'Montserrat';
+  font-family: 'Barlow';
   letter-spacing: 1px;
 }
 
@@ -464,7 +464,7 @@ body {
 }
 
 #user-table {
-  font-family: 'Quicksand';
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.8rem;
 }
 
@@ -484,7 +484,8 @@ body {
   text-align: center;
 }
 
-#user-table tbody tr td button {
+#user-table tbody tr td a {
+  display: inline-block;
   font-size: 0.6rem;
   width: 90px;
 }
@@ -493,7 +494,7 @@ body {
 /* add user form */
 
 #userform {
-  font-family: 'Montserrat';
+  font-family: 'Barlow';
   font-size: 0.9em;
 }
 
@@ -510,6 +511,11 @@ body {
   padding: 5px 15px;
   width: 70%;
   transition: all 0.6s;
+  font-family: 'Montserrat';
+  padding: 10px;
+}
+.role-select option {
+  padding: 10px;
 }
 
 #fas {
@@ -519,4 +525,15 @@ body {
 #fas1 {
   /* color: rgb(51, 204, 158); */
   color: rgb(220, 71, 66);
+}
+
+.edituser {
+  width: 80%;
+}
+
+
+#userform-edit div input {
+  font-family: 'Montserrat';
+  font-size: 1em;
+  padding: 10px;
 }
