@@ -1,6 +1,7 @@
 {% extends 'UserInterface/base.html' %}
 
 {% block content %}
+
   <div class="user-management">
     <!-- User management header -->
     <div class="um-header">
@@ -135,25 +136,29 @@
                   <label class="form-label" for="id_username"><i class="fa-solid fa-user mx-2"></i>Username</label>
                 </div>
                 
-                <div class="form-outline mb-4">
+                <div class="form-outline mb-5">
+                  <!-- <i class="fa-solid fa-circle-check trailing" id="fas1"></i> -->
+                  <i class="fas fa-exclamation-circle trailing" id="fas1"></i>
                   {{ form.password1 }}
                   <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>Password</label>
+                  <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
                 </div>
 
                 <div class="form-outline mb-4" id="pass2-outline">
-                  <i class="fas fa-exclamation-circle trailing" id="fas" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Tooltip on right"></i>
+                  <i class="fas fa-exclamation-circle trailing" id="fas"></i>
                   {{ form.password2 }}
                   <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="id_role">Chooose Role : </label>
+                  <label class="form-label" for="id_role">Choose Role : </label>
                   {{ form.role }}
                 </div>
                 
                 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                  <input type="reset" value="" style="display: none;" id="adduser_reset">
+                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="adduser_close">Close</button>
                   <button type="submit" class="btn btn-primary" id="userform-submit">Create User</button>
                 </div>
               </form>

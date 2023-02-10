@@ -30,6 +30,16 @@ body {
     overflow: hidden;
     display: flex;
 }
+
+#alert_box {
+    position: absolute;
+    top: -10%;
+    left: 23%;
+    width: 60%;
+    text-align: center;
+    z-index: 999;
+    transition: all 0.6s;
+}
 .sidenav {
     height: 100vh;
     width: 210px;
@@ -51,7 +61,7 @@ body {
     bottom: 30px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
 }
 .sidenav-menu li {
     padding: 0 5px 0 5px;
@@ -92,14 +102,11 @@ body {
 
 
 
-.sidenav img {
+#navlogo {
     display: block;
-    height: 100px;
-    width: 100px;
-    padding-top: 5px;
+    height: 70px;
+    width: 90%;
     margin: 20px 0 30px 0;
-   /* position: relative;
-    bottom: 80px ; */
 }
 
 .content {
@@ -283,8 +290,8 @@ body {
 
 .text-label h2:first-of-type {
   color: rgb(9, 83, 157);
-  font-family: 'Inter';
-  font-size: 0.6em;
+  font-family: 'Montserrat';
+  font-size: 0.7em;
   font-weight: bold;
   padding-top: 10px;
   margin-top: 10px;
@@ -293,9 +300,9 @@ body {
 
 #dash-annual {
   font-size: 0.9em;
-  font-weight: bold;
+  font-weight: bold;  
   padding-bottom: 15px;
-  font-family: 'Inter';
+  font-family: 'Montserrat';
   letter-spacing: 1px;
 }
 
@@ -327,7 +334,7 @@ body {
 
 .stock-header, .topselling-header {
   font-size: 0.7em;
-  font-family: 'Quicksand';
+  font-family: 'Montserrat';
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: center;
@@ -485,6 +492,12 @@ body {
 
 /* add user form */
 
+#userform {
+  font-family: 'Montserrat';
+  font-size: 0.9em;
+}
+
+
 
 .pagination li {
   margin: 0 5px;
@@ -500,5 +513,10 @@ body {
 }
 
 #fas {
-  color: rgb(237, 91, 91);
+  color: rgb(220, 71, 66);
+}
+
+#fas1 {
+  /* color: rgb(51, 204, 158); */
+  color: rgb(220, 71, 66);
 }

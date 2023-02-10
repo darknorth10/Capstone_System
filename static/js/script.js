@@ -1,76 +1,5 @@
 
-
-$(document).ready(function() {
-
-  var shrink = false;
-  
-  $('#shrink').click(function() {
-    
-    if (shrink == false) {
-      $('.sidenav').css('width', "60px");
-      $('.sidenav').css('justify-content', "center");
-      $('.sidenav-menu li span').hide();
-      $('.sidenav-menu').css('gap', '15px');
-      $('.sidenav-menu li i').css("font-size", "0.8rem");
-      $('.sidenav-menu li i').css("margin-bottom", "5px");
-      $('#navlogo').css('visibility', 'hidden');
-      $('#shrink').css('transform', 'rotate(180deg)');
-      $('.left-symbol').css('width', '30%')
-      $('.text-label h2:last-of-type').css('font-size', '1em')
-      shrink = true;
-    } else {
-      $('.sidenav').css('width', "210px");
-      setTimeout(function() {
-        $('.sidenav-menu li span').show();
-      }, 500);
-      $('.sidenav-menu li i').css("font-size", "0.7rem");
-      $('#navlogo').css('visibility', 'visible');
-      $('.sidenav-menu').css('gap', '5px');
-      $('#shrink').css('transform', 'rotate(0deg)');
-      $('.left-symbol').css('width', '20%')
-      $('.text-label h2:last-of-type').css('font-size', '0.9em')
-      shrink = false;
-      
-    }
-    
-  });
-  
-
-  // User Form input
-  $("#userform div input").attr("class", "form-control");
-  $("#userform div select").attr("class", "role-select rounded");
-  
-  // user client side validation for password
-
-  $('#id_password1').focus(function () { 
-    $('#userform-submit').attr('disabled', 'true');
-  });
-
-  // Password validation using regex
-  $('#id_password1').keyup(function () { 
-    const password_pattern = /(?=.*\d)(?=.*[a-z]).{8,}/i;
-
-    if ($(this).val().match(password_pattern)) {
-      console.log('yep')
-    } else {
-      console.log('nope')
-    }
-  });
-  $('#fas').hide();
-  $('#id_password2').keyup(function () { 
-    if ($('#id_password1').val() == $('#id_password2').val()) {
-      $('#userform-submit').removeAttr('disabled');
-      $('#fas').hide();
-    } else  {
-      $('#userform-submit').attr('disabled', 'true');
-      $('#fas').show();
-    }
-  });
-});
-
-
-
-// Dashboard Graph
+// Dashboard Top Selling Graph
 $('.dashboard').ready(function () {
   const data = {
     labels: [
@@ -96,3 +25,158 @@ $('.dashboard').ready(function () {
     data: data,
   });
 });
+
+// document is ready and loaded
+$(document).ready(function() {
+
+  var shrink = false;
+  
+  $('#shrink').click(function() {
+    
+    if (shrink == false) {
+      $('.sidenav').css('width', "60px");
+      $('.sidenav').css('justify-content', "center");
+      $('.sidenav-menu li span').hide();
+      //$('.sidenav-menu').css('gap', '15px');
+      $('.sidenav-menu li i').css("font-size", "0.8rem");
+      $('.sidenav-menu li i').css("margin-bottom", "5px");
+      // $('#navlogo').css('visibility', 'hidden');
+      $('#navlogo').hide()
+      $('#shrink').css('transform', 'rotate(180deg)');
+      $('.left-symbol').css('width', '30%')
+      $('.text-label h2:last-of-type').css('font-size', '1em')
+      shrink = true;
+    } else {
+      $('.sidenav').css('width', "210px");
+      setTimeout(function() {
+        $('.sidenav-menu li span').show();
+      }, 500);
+      $('.sidenav-menu li i').css("font-size", "0.7rem");
+      $('.sidenav').css('justify-content', "space-evenly");
+      $('#navlogo').css('visibility', 'visible');
+      // $('#navlogo').css('visibility', 'visible');
+      $('#navlogo').show()
+      //$('.sidenav-menu').css('gap', '15px');
+      $('#shrink').css('transform', 'rotate(0deg)');
+      $('.left-symbol').css('width', '20%')
+      $('.text-label h2:last-of-type').css('font-size', '0.9em')
+      shrink = false;
+      
+    }
+    
+  });
+  
+
+  // User Form input
+  $("#userform div input").attr("class", "form-control");
+  $("#userform div select").attr("class", "role-select rounded");
+  
+  
+  // user client side validation for password
+
+  $('#id_password1').focus(function () { 
+    $('#userform-submit').attr('disabled', 'true');
+  });
+
+  // Password validation using regex
+  $('#fas1').hide();
+  $('#id_password1').keyup(function () { 
+    const password_pattern = /(?=.*\d)(?=.*[a-z]).{8,}/i;
+
+    if ($(this).val().match(password_pattern)) {
+      $('#fas1').removeAttr('class');
+      $('#fas1').attr('class', 'fa-solid fa-circle-check trailing');
+      $('#fas1').css('color', 'rgb(51, 204, 158)');
+    } else {
+      $('#fas1').show();
+      $('#fas1').removeAttr('class');
+      $('#fas1').css('color', 'rgb(220, 71, 66)');
+      $('#fas1').attr('class', 'fas fa-exclamation-circle trailing')
+    }
+  });
+
+  // validation indicator in confirm password
+  $('#fas').hide();
+  $('#id_password2').keyup(function () { 
+    if ($('#id_password1').val() == $('#id_password2').val()) {
+      $('#userform-submit').removeAttr('disabled');
+      $('#fas').removeAttr('class');
+      $('#fas').attr('class', 'fa-solid fa-circle-check trailing');
+      $('#fas').css('color', 'rgb(51, 204, 158)');
+    } else  {
+      $('#userform-submit').attr('disabled', 'true');
+      $('#fas').show();
+      $('#fas').removeAttr('class');
+      $('#fas').css('color', 'rgb(220, 71, 66)');
+      $('#fas').attr('class', 'fas fa-exclamation-circle trailing');
+    }
+  });
+  
+  // close the alert window
+  $('#close_alert').click(function (e) { 
+    e.preventDefault();
+    $('#alert_box').css('top', '-10%');
+  });
+
+  //  User form using ajax request / preventing from reloading when submitting
+  $('#userform').submit(function (e) { 
+    e.preventDefault();
+    
+    //ajaxx request
+    $.ajax({
+      type: "post",
+      url: "",
+      data: $(this).serialize(),
+      success: function (response) {
+
+        if (response.success) {
+          $('#adduser_close').click() // close the form
+          $('#adduser_reset').click() // reset the form
+          $("#alert_box").css('top', '5%'); // show the alert box
+          $("#user-table").load(window.location.href + " #user-table") // load the user table with new data
+
+            // alert will be hidden after 4 seconds
+          setTimeout(function () {
+            $("#alert_box").css('top', '-10%');
+          }, 4000);
+
+        }
+        
+        else { // alert the validation error
+  
+          var usernameErrExist = response.errors.hasOwnProperty('username');
+          var pwdErrExist = response.errors.hasOwnProperty('password2');
+          var errormessage;
+
+          // check if username err exist in the object
+          if (usernameErrExist && !pwdErrExist) {
+            // check if username err is only 1
+            if (response.errors.username.length == 1) {
+              errormessage = response.errors.username
+            }
+          } else if(pwdErrExist && !usernameErrExist) { // Check if pwd err exist in the object
+            if (response.errors.password2.length == 1) { // Check if password err is only 1
+              errormessage = response.errors.password2;
+            } else if (response.errors.password2.length == 2) {
+              errormessage = response.errors.password2[0] + "\n" + response.errors.password2[1];
+            }
+          } else if (usernameErrExist && pwdErrExist) {
+            if (response.errors.password2.length == 2 && response.errors.username.length == 1) {
+              errormessage = response.errors.username + "\n" + response.errors.password2[0] + "\n" + response.errors.password2[1];
+            } else if(response.errors.password2.length == 1 && response.errors.username.length == 1) {
+              errormessage = response.errors.username + "\n" + response.errors.password2;
+            }
+          } else {
+            errormessage = response.errors
+          }
+          
+          alert(errormessage);
+        }
+        
+      }
+    });
+  });
+});
+
+
+

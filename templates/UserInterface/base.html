@@ -17,17 +17,18 @@
     <script src="https://kit.fontawesome.com/f8a99d4330.js" crossorigin="anonymous"></script>
     
     <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Quicksand&family=Work+Sans:wght@300;400&family=Roboto+Serif:opsz@8..144&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Quicksand&family=Work+Sans:wght@300;400&family=Roboto+Serif:opsz@8..144&display=swap" rel="stylesheet">
     
 </head>
 <body>
+
     <div class="main">
         
         <!-- Side navigation -->
         <div class="sidenav">
             <button class="btn btn-primary rounded-circle" id="shrink"><i class="fa-solid fa-chevron-left"></i></button>
             <!-- Logo -->
-            <img src="{% static 'images/LogoMakerCa-1671720038103.png' %}" alt="" id="navlogo">
+            <img src="{% static 'images/dunmark_logo.jpg' %}" alt="" class="rounded" id="navlogo">
             <!-- nav links -->
             <ul type="none" class="sidenav-menu">
                 <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
@@ -47,7 +48,13 @@
         
         <!-- content -->
         <div class="content" id="content">
-            
+
+            <!-- Alerts -->
+          <div class="alert alert-success shadow-lg border d-flex align-items-center" id="alert_box">
+            <h5 class="flex-grow-1">Added Successfully</h5>
+            <a href="#" class="btn-close" style="font-size: 0.7rem;" id="close_alert"></a>
+          </div>
+
             <!-- Header -->
             <div class="header shadow">
                 <h4><a href="{% url 'dashboard' %}" style="color:rgb(7,33,91);">Dunmark Tileshop</a></h4>
@@ -55,7 +62,7 @@
 
              <div class="notif-logout-div">
                 <!-- Notifications -->
-                <div class="notification">
+                <div class="notification" style="z-index: 5;">  
                   <!-- icon -->
                   <a class="rounded" id="notif-btn">
                     <i class="fa-solid fa-bell"></i>
