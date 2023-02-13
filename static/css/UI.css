@@ -441,7 +441,6 @@ body {
   animation: fade-in-right 0.7s;
 }
 #um-search {
-  width: 30%;
   font-size: 0.8rem;
   color: gray;
 }
@@ -497,7 +496,6 @@ body {
   font-family: 'Barlow';
   font-size: 0.9em;
 }
-
 
 
 .pagination li {

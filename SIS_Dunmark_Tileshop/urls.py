@@ -21,6 +21,7 @@ urlpatterns = [
     #path('/', include('VisitorsPage.urls')),
     path('Login/', include('LoginAuthentication.urls')),
     path('Dashboard/', include('Dashboard.urls')),
+    path('CustomerProfile/', include('CustomerProfile.urls')),
     path('UserManagement/', include('UserManagement.urls')),
     path('POS/', include('PointOfSale.urls')),
     path('Sales_transaction/', include('SalesTransaction.urls')),

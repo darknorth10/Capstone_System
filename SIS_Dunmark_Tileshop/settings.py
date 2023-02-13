@@ -39,6 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'LoginAuthentication',
+    'UserManagement',
+    'Dashboard',
+    'CustomerProfile',
+    'PointOfSale',
+    'SalesTransaction',
+    'ProductManagement',
+    'Reports',
+    'VisitorsPage',
+    'AuditTrail',
+    
     
 ]
 
