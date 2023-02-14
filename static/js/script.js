@@ -47,7 +47,7 @@ $(document).ready(function() {
       $('.text-label h2:last-of-type').css('font-size', '1em')
       shrink = true;
     } else {
-      $('.sidenav').css('width', "210px");
+      $('.sidenav').css('width', "18%");
       setTimeout(function() {
         $('.sidenav-menu li span').show();
       }, 500);
@@ -280,6 +280,12 @@ $(document).ready(function() {
     updateStatus();
   });
   
+
+  // Product management
+  $("#regprod").click(function () { 
+    
+    $("#add_prod_submit").click();
+  });
 });
 
 

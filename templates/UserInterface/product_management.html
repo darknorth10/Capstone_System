@@ -2,6 +2,84 @@
 
 {% block content %}
 
-<h1>Product Management</h1>
+<div class="product_management flex-fill p-4 shadow-inner">
+    <!-- header -->
+    <h5 class="pmheader py-2 mb-4">Product Management</h5>
+    <div class="pmcontent w-100 h-75 rounded p-0">
+        <!-- Action bar -->
+        <div class="pmactionbar bg-white rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
+            <button type="button" class="btn btn-info" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
+            <button type="button" class="btn btn-info">Add Stocks</button>
+            <div class="input-group" style="width: 30%;">
+                <div class="form-outline">
+                  <input type="search" id="form1" class="form-control" />
+                  <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="button" class="btn btn-dark">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+        </div>
+        <!-- Product table -->
+        <div class="pmtablediv card bg-white h-100 my-3 p-2 overflow-scroll">
+            <table class="pmtable table table-hover table-striped
+            " style="font-size: 0.7rem; font-family: 'Montserrat'; min-width: 130%;">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Product #</th>
+                        <th>Product Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Size</th>
+                        <th>Price</th> 
+                        <th>Stock</th> 
+                        <th>Date last stocked</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.brand }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.product_size }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.current_stock }}</td>
+                        <td>{{ product.date_last_stocked }}</td>
+                        <td>{{ product.availability }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Modal fro creating product -->
+    <div class="modal fade" tabindex="-1" id="addProductModal" data-mdb-backdrop="static" data-mdb-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Register Product</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="add_prod_form">
+                {% csrf_token %}
+                {{ product_form.as_p }}
+                <button type="submit" id="add_prod_submit"></button>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="regprod">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
 
 {% endblock %}

@@ -42,7 +42,7 @@ body {
 }
 .sidenav {
     height: 100vh;
-    width: 210px;
+    width: 18%;
     background: rgb(7,33,91);
     background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
     display: flex;
@@ -420,7 +420,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-.um-header h3 {
+.um-header h3, .cpheader, .pmheader {
   font-family: 'Quicksand';
   color: white;
   font-weight: bold;
@@ -534,4 +534,36 @@ body {
   font-family: 'Montserrat';
   font-size: 1em;
   padding: 10px;
+}
+
+/* Customer Profile */
+
+.customerprofile {
+  background-image: url('../images/peakpx.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.cptbl th:first-of-type {
+  border-radius: 5px 0 0 0;
+}
+.cptbl th:last-of-type {
+  border-radius: 0 5px 0 0;
+}
+
+
+/* Product Management */
+.product_management {
+  background-image: url('../images/peakpx6.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.pmtable th:first-of-type {
+  border-radius: 5px 0 0 0;
+}
+.pmtable th:last-of-type {
+  border-radius: 0 5px 0 0;
 }

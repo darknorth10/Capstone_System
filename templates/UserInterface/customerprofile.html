@@ -1,6 +1,58 @@
 {% extends 'UserInterface/base.html' %}
 
 {% block content %}
-    <h1>This is Customers Profile</h1>
+    <div class="customerprofile p-4 shadow-inner" style="flex:auto;">
+        <h4 class="cpheader fs-5 p-2 mb-4">Customers Profile</h4>
+        <div class="customer_content bg-white card shadow d-flex flex-column" style="width: 100%; height: 90%;">
+            <div class="cpactionbar p-2 d-flex align-items-center justify-content-evenly" style="height: 17%;">
+                <button type="button" class="btn btn-dark">New Profile</button>
+                <div class="input-group w-25">
+                    <div class="form-outline">
+                      <input type="search" id="form1" class="form-control" />
+                      <label class="form-label" for="form1">Search</label>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+            </div>
+
+            <div class="cptable p-2 card flex-fill overflow-x-scroll overflow-y-scroll">
+                <table class="cptbl table table-hover rounded shadow-sm" style="min-width: 140%; font-size: 0.8rem; font-family: 'Montserrat';">
+                    <thead class="table-dark text-center rounded">
+                        <th>Customer #</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Sex</th>
+                        <th>Birthdate</th>
+                        <th>Email</th>
+                        <th>Phone #</th>
+                        <th>Permanent Address</th>
+                        <th>Delivery Address</th>
+                        <th>Credit Eligibility</th>
+                    </thead>
+                    <tbody id="cptbody">
+                        {% for customer in customers %}
+                        <tr class="text-center">
+                            <td>{{ customer.id }}</td>
+                            <td>{{ customer.last_name }}</td>
+                            <td>{{ customer.fist_name }}</td>
+                            <td>{{ customer.sex }}</td>
+                            <td>{{ customer.birthdate }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.phone_number }}</td>
+                            <td>{{ customer.permanent_address }}</td>
+                            <td>{{ customer.delivery_address }}</td>
+                            <td>{% if customer.credit_eligibility %}<span class="badge badge-success rounded-pill d-inline">Eligible</span>
+                                {% else %}
+                                <span class="badge badge-warning rounded-pill d-inline">Not Eligible</span>
+                                {% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
