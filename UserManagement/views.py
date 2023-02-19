@@ -3,6 +3,7 @@ from LoginAuthentication.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from LoginAuthentication.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.http import JsonResponse
+from django.contrib import messages
 
 # Create your views here.
 @login_required(login_url='login')
@@ -26,8 +27,9 @@ def user_management(request):
       print('ok')
 
       # for sending response through ajax
+      messages.success(request, 'User added successfully')
       return JsonResponse({"success": True}, status=200)
-      form_adduser = CustomUserCreationForm()
+
     else:
       print('error')
       return JsonResponse({"errors": errors}, status=200)
@@ -45,33 +47,38 @@ def edit_user(request, id):
   form_update = CustomUserChangeForm(request.POST or None, instance = obj)
   form_update.fields['username'].widget.attrs.update({'readonly': 'true'})
   errors = form_update.errors
-  if form_update.is_valid():
-    form_update.save()
-    return JsonResponse({"success": True}, status=200)
-    
-  else:
-    print(form_update.errors)
+  if request.method == 'POST':
+    if form_update.is_valid():
+      form_update.save()
+      messages.success(request, 'User updated successfully')
+      return redirect('usermanagement')
+    else:
+      print(form_update.errors)
+      messages.error(request, 'Error updating user')
 
   return render(request, 'UserInterface/edituser.html', context = { 'Users': User, 'form': form_update})
 
 
 # update user status (active or inactive)
-def update_status_inactive(request):
+def update_status_inactive(request, id):
+  User_status = CustomUser.objects.get(id=id)
 
   if request.method == "POST":
     # get user id sent via ajax
-    update_id = request.POST['id']
-    User_status = CustomUser.objects.get(id=update_id)
+   
     # activates user status
     if not User_status.is_active:
-      User_status.is_active =  True
+      User_status.is_active = True
       User_status.save()
-      return JsonResponse({"success": "activated"}, status=200)
+      messages.success(request, 'User activated successfully')
+      return redirect('usermanagement')
     # deactivates user status
     else:
-      User_status.is_active =  False
-      User_status.save() 
-      return JsonResponse({"success": "deactivated"}, status=200)
-
+      User_status.is_active = False
+      User_status.save()
+      messages.error(request, 'User has been deactivated')
+      return redirect('usermanagement')
+  
+  return render(request, 'UserInterface/userstatus.html', context = {'User': User_status})
 
 

@@ -2,28 +2,27 @@
 
 {% block content %}
 
-<div class="product_management flex-fill p-4 shadow-inner">
+<div class="product_management flex-fill p-4 shadow-inner overflow-auto">
     <!-- header -->
     <h5 class="pmheader py-2 mb-4">Product Management</h5>
-    <div class="pmcontent w-100 h-75 rounded p-0">
+    <div class="pmcontent h-75 rounded p-0">
         <!-- Action bar -->
         <div class="pmactionbar bg-white rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
-            <button type="button" class="btn btn-info" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
-            <button type="button" class="btn btn-info">Add Stocks</button>
+            <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
+            
             <div class="input-group" style="width: 30%;">
                 <div class="form-outline">
-                  <input type="search" id="form1" class="form-control" />
+                  <input type="search" id="form1" class="form-control bg-light shadow-sm" />
                   <label class="form-label" for="form1">Search</label>
                 </div>
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-primary">
                   <i class="fas fa-search"></i>
                 </button>
               </div>
         </div>
         <!-- Product table -->
-        <div class="pmtablediv card bg-white h-100 my-3 p-2 overflow-scroll">
-            <table class="pmtable table table-hover table-striped
-            " style="font-size: 0.7rem; font-family: 'Montserrat'; min-width: 130%;">
+        <div class="pmtablediv card bg-white h-100 my-3 p-2" style=" max-height: 90%; overflow: scroll;">
+            <table class="pmtable table table-hover table-striped" style="font-size: 0.7rem; font-family: 'Montserrat'; min-width: 110%;">
                 <thead class="table-dark text-center">
                     <tr>
                         <th>Product #</th>
@@ -35,6 +34,7 @@
                         <th>Stock</th> 
                         <th>Date last stocked</th>
                         <th>Availability</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -48,38 +48,89 @@
                         <td>{{ product.price }}</td>
                         <td>{{ product.current_stock }}</td>
                         <td>{{ product.date_last_stocked }}</td>
-                        <td>{{ product.availability }}</td>
+                        <td>{% if product.availability %}<span class="badge badge-success rounded-pill d-inline">Available</span>
+                          {% else %}
+                          <span class="badge badge-warning rounded-pill d-inline">Unavailable</span>
+                          {% endif %}</td>
+                        <td class="py-2">
+                          <a href="{% url 'edit_prod' product.id %}" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a>
+                          <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
+                        </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
     </div>
+    
 
+</div>
 
-    <!-- Modal fro creating product -->
+ <!-- Modal fro creating product -->
     <div class="modal fade" tabindex="-1" id="addProductModal" data-mdb-backdrop="static" data-mdb-keyboard="false" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Register Product</h5>
-              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              <h5 class="modal-title text-primary">Register Product</h5>
+  
             </div>
             <div class="modal-body">
-              <form method="post" id="add_prod_form">
+              <form method="post" class="p-1" id="add_prod_form" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ product_form.as_p }}
-                <button type="submit" id="add_prod_submit"></button>
+                
+                <div class="form-outline px-2 mb-4 shadow-inner">
+                  {{ product_form.product_name }}
+                  <label class="form-label" for="id_product_name">Product Name</label>
+                </div>
+
+                <div class="form-outline px-2 mb-4 shadow-inner">
+                  {{ product_form.brand }}
+                  <label class="form-label" for="id_brand">Brand Name</label>
+                </div>
+        
+                <div class="form-outline mb-4 d-flex justify-content-end">
+                  <label class="form-label me-1" for="id_category">Select Category : </label>
+                  {{ product_form.category }}
+                </div>
+
+                <div class="form-outline mb-4 d-flex justify-content-end">
+                  <label class="form-label me-1" for="id_product_size">Select Size : </label>
+                  {{ product_form.product_size }}
+                </div>
+
+                <div class="input-group mb-3 shadow-inner">
+                  <span class="input-group-text">Price :</span>
+                  {{ product_form.price }}
+                  <span class="input-group-text">.00</span>
+                </div>
+                
+                <div class="input-group mb-3 shadow-inner">
+                  <span class="input-group-text">Initial Stocks :</span>
+                  {{ product_form.current_stock }}
+                </div>
+
+                <label class="form-label" for="id_product_img">Select Product Image :</label>
+                {{ product_form.product_img }}
+
+                <div class="form-outline mt-4">
+                  {{ product_form.availability }}
+                  <label class="form-label" for="id_availability">Post as available</label>
+                </div>
+                
+
+              
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" id="regprod">Register</button>
+                </div>
               </form>
 
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="regprod">Register</button>
-            </div>
+            
           </div>
         </div>
       </div>
-</div>
 
 {% endblock %}

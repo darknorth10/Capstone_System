@@ -1,0 +1,40 @@
+{% extends 'UserInterface/base.html' %}
+
+
+{% block content %}
+    <div class="wrapper_editprod h-100 w-100">
+        <div class="edit_product card shadow bg-white p-3 w-50 mx-auto mt-5" style="font-family: 'Barlow';">
+            <h5 class="card-header mb-3">Edit Product info for : <span class="text-primary">{{ product.product_name }} 
+            {% if product.category == 'Porcelain Tiles' or product.category == 'Ceramic Tiles' %}
+            {{ product.product_size }}
+            {% endif %}
+                </span></h5>
+            <form method="post" class="p-1" enctype="multipart/form-data">
+                {% csrf_token %}
+    
+                <div class="input-group mb-3 shadow-sm">
+                  <span class="input-group-text">Price :</span>
+                  {{ product_form.price }}
+                  <span class="input-group-text">.00</span>
+                </div>
+    
+                <label class="form-label" for="id_product_img">Select Product Image :</label><br>
+                {{ product_form.product_img }}
+    
+                <div class="form-outline mt-4 mb-2">
+                  {{ product_form.availability }}
+                  <label class="form-label" for="id_availability">Post as available</label>
+                </div>
+                
+    
+              
+                <div class="card-footer d-flex justify-content-end">
+                  <a href="{% url 'product_management' %}" class="btn btn-secondary">Back</a>
+                  <button type="submit" class="btn btn-primary mx-3">Update</button>
+                </div>
+              </form>
+        </div>
+    </div>
+    
+{% endblock content %}
+    

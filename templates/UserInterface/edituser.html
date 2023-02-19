@@ -4,7 +4,7 @@
 <a class="btn btn-dark d-block mx-4 mt-4" href="{% url 'usermanagement'%}" style="width: 100px;">Go back</a>
 
     <div class="edituser bg-white rounded shadow-3 mx-auto my-3 p-0">
-        <div class="card-header text-center p-3 rounded bg-dark" style=" color: white; font-family: 'Montserrat';">
+        <div class="card-header text-center p-3 rounded bg-dark" style="color: white; font-family: 'Barlow';">
             <h5 style=" font-weight: bold; font-size: 0.9em; letter-spacing: 1px;">Edit User info for  User: <span class="text-warning ">{{ Users.username }}</span></h5>
         </div>
         <form method="post" id="userform-edit" class="m-0 p-4">
@@ -41,7 +41,7 @@
               </div>
 
 
-            <input class="btn btn-primary fs-6 d-block mx-auto" type="submit" value="Save Changes">
+            <input class="btn btn-primary fs-6 d-block mx-auto w-25" type="submit" value="Save Changes" style="font-family: 'Barlow'; ">
         </form>
         
     </div>

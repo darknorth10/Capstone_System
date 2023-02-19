@@ -62,20 +62,20 @@
               {% if User.is_active %}<span class="badge badge-success rounded-pill d-inline">Active</span> {% else %}<span class="badge badge-danger rounded-pill d-inline"> Inactive </span>{% endif %}
             </td>
             <td style="text-transform: capitalize;">{{ User.role }}</td>
-            <td class="d-flex flex-column align-items-center" id="userstatusbtn">
+            <td class="userstatusbtn d-flex flex-column align-items-center" id="">
               <a class="btn btn-outline-primary btn-sm btn-rounded mb-1"  href="{% url 'edit_user' User.id %}">
                 Edit
               </a>
               {% if User.is_active %}
-              <a class="btndeact btn btn-danger btn-sm btn-rounded" data-mdb-target="#conrfirmDialogDeactivate" data-mdb-toggle="modal">
+              <a class="btndeact btn btn-danger btn-sm btn-rounded" href="{% url 'update_status' User.id %}">
                 Deactivate
               </a> {% else %}
-              <a class="btnact btn btn-primary btn-sm btn-rounded" style="padding: auto 40px;" data-mdb-target="#conrfirmDialogActivate" data-mdb-toggle="modal">
+              <a class="btnact btn btn-primary btn-sm btn-rounded" style="padding: auto 40px;" href="{% url 'update_status' User.id %}">
                 Activate
               </a>
               {% endif %}
             </td>
-            <td style="display: none;">{{ User.id }}</td>
+            
           </tr>
           {% endfor %}
           
@@ -105,7 +105,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-primary ms-4">Create New User</h5>
-              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              
             </div>
             <div class="modal-body" id="nu-modalbody">
 
@@ -166,64 +166,6 @@
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Hidden form for passing id to views.py -->
-    <form method="post" id="act-deact">
-      {% csrf_token %}
-        <input type="hidden" name="id" id="user_id">
-        <input type="submit" id="status_submit" class="d-none">
-    </form>
-    
-    <!-- Confirmation popup for activation-->
-    <div
-      class="modal fade"
-      id="conrfirmDialogActivate"
-      data-mdb-backdrop="static"
-      data-mdb-keyboard="false"
-      tabindex="4"
-      aria-labelledby="confirmlabelA"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-primary" style="font-family: 'Barlow';" id="confirmlabelA">Confirm Activation</h5>
-          </div>
-          <div class="modal-body">
-            <h6 class="text-center" style="font-family: 'Barlow';">Do you really want to activate selected user?</h6>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="confirmClose btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="activateUser">Confirm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Confirmation popup for deactivation-->
-    <div
-      class="modal fade"
-      id="conrfirmDialogDeactivate"
-      data-mdb-backdrop="static"
-      data-mdb-keyboard="false"
-      tabindex="4"
-      aria-labelledby="confirmlabelD"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-danger" style="font-family: 'Barlow';" id="confirmlabelD">Confirm Deactivation</h5>
-          </div>
-          <div class="modal-body">
-            <h6 class="text-center" style="font-family: 'Barlow';">Do you really want to deactivate selected user?</h6>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="confirmClose btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="deactivateUser">Confirm</button>
           </div>
         </div>
       </div>

@@ -3,9 +3,9 @@
 {% block content %}
     <div class="customerprofile p-4 shadow-inner" style="flex:auto;">
         <h4 class="cpheader fs-5 p-2 mb-4">Customers Profile</h4>
-        <div class="customer_content bg-white card shadow d-flex flex-column" style="width: 100%; height: 90%;">
-            <div class="cpactionbar p-2 d-flex align-items-center justify-content-evenly" style="height: 17%;">
-                <button type="button" class="btn btn-dark">New Profile</button>
+        <div class="customer_content bg-light card shadow d-flex flex-column" style="width: 100%; height: 90%;">
+            <div class="cpactionbar bg-light rounded-pill p-2 d-flex align-items-center justify-content-evenly" style="height: 17%;">
+                <button type="button" class="btn btn-dark" data-mdb-toggle="modal" data-mdb-target="#addCustomerModal">Create Profile</button>
                 <div class="input-group w-25">
                     <div class="form-outline">
                       <input type="search" id="form1" class="form-control" />
@@ -17,8 +17,8 @@
                   </div>
             </div>
 
-            <div class="cptable p-2 card flex-fill overflow-x-scroll overflow-y-scroll">
-                <table class="cptbl table table-hover rounded shadow-sm" style="min-width: 140%; font-size: 0.8rem; font-family: 'Montserrat';">
+            <div class="cptable p-2 card flex-fill overflow-x-scroll overflow-y-scroll" style="max-height:80%;">
+                <table class="cptbl table table-hover rounded shadow-sm" style="min-width: 155%; font-size: 0.7rem; font-family: 'Montserrat';">
                     <thead class="table-dark text-center rounded">
                         <th>Customer #</th>
                         <th>Last Name</th>
@@ -28,31 +28,57 @@
                         <th>Email</th>
                         <th>Phone #</th>
                         <th>Permanent Address</th>
-                        <th>Delivery Address</th>
                         <th>Credit Eligibility</th>
+                        <th>Actions</th>
                     </thead>
                     <tbody id="cptbody">
                         {% for customer in customers %}
                         <tr class="text-center">
                             <td>{{ customer.id }}</td>
                             <td>{{ customer.last_name }}</td>
-                            <td>{{ customer.fist_name }}</td>
+                            <td>{{ customer.first_name }}</td>
                             <td>{{ customer.sex }}</td>
                             <td>{{ customer.birthdate }}</td>
                             <td>{{ customer.email }}</td>
                             <td>{{ customer.phone_number }}</td>
                             <td>{{ customer.permanent_address }}</td>
-                            <td>{{ customer.delivery_address }}</td>
+                          
                             <td>{% if customer.credit_eligibility %}<span class="badge badge-success rounded-pill d-inline">Eligible</span>
                                 {% else %}
                                 <span class="badge badge-warning rounded-pill d-inline">Not Eligible</span>
                                 {% endif %}</td>
+                            <td class="py-2"><a href="#" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <!-- Modal fro creating product -->
+    <div class="modal fade" tabindex="-1" id="addCustomerModal" data-mdb-backdrop="static" data-mdb-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Customer Profile</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="add_cust_form">
+                {% csrf_token %}
+                {{ customer_form.as_p }}
+                <button type="submit" id="add_cust_submit" class="d-none"></button>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="regcust">Create</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
 {% endblock %}

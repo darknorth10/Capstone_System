@@ -1,0 +1,16 @@
+{% extends 'UserInterface/base.html' %}
+
+
+{% block content %}
+    <div class="card p-1 mx-auto mt-5 border border-{% if User.is_active %}danger{% else %}primary{% endif %}" style="width: 60%; font-size:1rem; font-family: 'Barlow';">
+        <h6 class="card-header p-2"> Update User Status for : <span class="text-primary">{{ User.username }}</span> </>
+        <form class="card-body p-2" method="post">
+            <h6 class="card-text fs-5 text-center py-4">Do you really want to {% if User.is_active %}deactivate{% else %}activate{% endif %} this user?</h6>
+            {% csrf_token %}
+            <input type="hidden" name="id" id="user_id" value="{{ User.id }}">
+            <hr/>
+            <div class="d-flex justify-content-end"><a class="btn btn-secondary" href="{% url 'usermanagement' %}">Back</a> <button class="btn btn-{% if User.is_active %}danger{% else %}primary{% endif %} mx-3"type="submit">Confirm</button></div>
+          </form>
+    </div>
+{% endblock content %}
+    

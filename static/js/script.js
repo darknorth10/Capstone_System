@@ -66,7 +66,17 @@ $(document).ready(function() {
     
   });
   
+  // Alert Function
+  $(document).ready(function () {
+    if ( $("#alert_box h5").text() != "" ) {
+      $("#alert_box").css('top', '5%'); // show the alert box
 
+      setTimeout(function () { // hide the alert box
+        $("#alert_box").css('top', '-20%');
+      }, 3000);
+    }
+
+  });
   // User Form input class
   $("#userform div input").attr("class", "form-control shadow-inner p-2");
   // Edit user input class
@@ -119,7 +129,7 @@ $(document).ready(function() {
   // close the alert window
   $('#close_alert').click(function (e) { 
     e.preventDefault();
-    $('#alert_box').css('top', '-10%');
+    $('#alert_box').css('top', '-20%');
   });
 
   //  User form using ajax request / preventing from reloading when submitting
@@ -136,13 +146,7 @@ $(document).ready(function() {
         if (response.success) {
           $('#adduser_close').click() // close the form
           $('#adduser_reset').click() // reset the form
-          $("#alert_box").css('top', '5%'); // show the alert box
-          $("#user-table").load(window.location.href + " #user-table") // load the user table with new data
-
-            // alert will be hidden after 4 seconds
-          setTimeout(function () {
-            $("#alert_box").css('top', '-10%');
-          }, 4000);
+          location.reload();
 
         }
         
@@ -181,111 +185,68 @@ $(document).ready(function() {
     });
   });
 
-  $('#userform-edit').submit(function (e) { 
+  // Product management
+
+  // form validation for add product
+  $('#id_category').change(function () { 
+    if ($(this).val() == "Porcelain Tiles" || $(this).val() == "Ceramic Tiles") {
+      $("#id_product_size option[value='N/A']").attr('disabled', 'disabled');
+      $("#id_product_size option[value='20 x 20']").removeAttr('disabled');
+      $("#id_product_size option[value='30 x 30']").removeAttr('disabled');
+      $("#id_product_size option[value='60 x 30']").removeAttr('disabled');
+      $("#id_product_size").val('').change();
+    } else {
+
+     $("#id_product_size option[value='N/A']").removeAttr('disabled');
+     $("#id_product_size option[value='20 x 20']").attr('disabled', 'disabled');
+     $("#id_product_size option[value='30 x 30']").attr('disabled', 'disabled');
+     $("#id_product_size option[value='60 x 30']").attr('disabled', 'disabled');
+     $("#id_product_size").val('').change();
+ 
+    }
+  });
+
+
+
+  // Ajax add product
+  $("#add_prod_form").submit(function(e) {
     e.preventDefault();
-    
+    e.stopImmediatePropagation();
+    var formData = new FormData(this);
+
     $.ajax({
       type: "post",
-      url: "",
-      data: $(this).serialize(),
+      url: window.location.href + "add_new_product/",
+      data: formData,
       success: function (response) {
         if (response.success) {
-          $("#alert_box h5").text("Updated Successfully");
-          $("#alert_box").css('top', '5%'); // show the alert box        
-
-            // alert will be hidden after 4 seconds
-          setTimeout(function () {
-            $("#alert_box").css('top', '-10%');
-          }, 3500);
+          location.reload();
         } else {
-          alert("error");  
+          alert(response.errors.__all__ + "\n" + response.errors.price + " in price");
         }
-      }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
     });
-  });
-
-  // when activate button clicked
-  $("#userstatusbtn a").on('click', function () {
-    // selecting hidden id in the users table
-    let userid = $(this).parent().parent().children().last().text();
-    $('#user_id').val(userid);
-    console.log(userid)
-
-  });
-
-  $("#userstatusbtn a").on('click', function () {
-    // selecting hidden id in the users table
-    let userid2 = $(this).parent().parent().children().last().text();
-    $('#user_id').val(userid2);
-    console.log(userid2)
-
-  });
-
-  // function for activating and deactivating the user
-  function updateStatus() {
-    // submitting hidden form to access object.id in the views.py
-    $('#act-deact').submit(function (e) { 
-      e.preventDefault();
-      
-      // ajax request
-      $.ajax({
-        type: "post",
-        url: window.location.href + "edit_user/update_status",
-        data: $(this).serialize(),
-        success: function (response) {
-          if (response.success == 'deactivated') {
-            console.log(response)
-            $(".confirmClose").click()
-            $("#user-table").load(window.location.href + " #user-table") // load the user table with new data
-            $("#alert_box h5").text("Deactivated Successfully");
-            $("#alert_box").removeAttr('class');
-            $("#alert_box").attr('class', 'alert alert-danger shadow-lg border d-flex align-items-center');    
-            $("#alert_box").css('top', '5%'); // show the alert box        
-
-              // alert will be hidden after 4 seconds
-            setTimeout(function () {
-              $("#alert_box").css('top', '-10%');
-              location.reload();
-            }, 2000);
-          } else {
-            console.log(response)
-            $(".confirmClose").click()
-            $("#user-table").load(window.location.href + " #user-table") // load the user table with new data
-            $("#alert_box h5").text("Activated Successfully");
-            $("#alert_box").removeAttr('class');
-            $("#alert_box").attr('class', 'alert alert-primary shadow-lg border d-flex align-items-center');    
-            $("#alert_box").css('top', '5%'); // show the alert box        
-
-              // alert will be hidden after 4 seconds
-            setTimeout(function () {
-              $("#alert_box").css('top', '-10%');
-              location.reload();
-            }, 2000);
-            }
-        }
-      });
-
-    });
-    // force submit
-    $("#status_submit").click();
-
-  }
-
-  // when act button is clicked
-  $("#activateUser").on('click', function () { 
-    updateStatus();
-  });
-  // when deact button is clicked
-  $("#deactivateUser").on('click', function () { 
-    updateStatus();
+  
   });
   
-
-  // Product management
-  $("#regprod").click(function () { 
-    
-    $("#add_prod_submit").click();
+  $("#id_current_stock").keyup(function () { 
+    $("#curr_stock").text($(this).val())
   });
+
+  $("#conf_addStock").click(function () { 
+    $("#addstock_form").submit();
+  });
+
+  
+  // Customer Profile
+  $("#regcust").click(function () { 
+    
+    $("#add_cust_submit").click();
+  });
+
 });
 
 
