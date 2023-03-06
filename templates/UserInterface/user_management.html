@@ -62,18 +62,25 @@
               {% if User.is_active %}<span class="badge badge-success rounded-pill d-inline">Active</span> {% else %}<span class="badge badge-danger rounded-pill d-inline"> Inactive </span>{% endif %}
             </td>
             <td style="text-transform: capitalize;">{{ User.role }}</td>
-            <td class="userstatusbtn d-flex flex-column align-items-center" id="">
-              <a class="btn btn-outline-primary btn-sm btn-rounded mb-1"  href="{% url 'edit_user' User.id %}">
-                Edit
-              </a>
-              {% if User.is_active %}
-              <a class="btndeact btn btn-danger btn-sm btn-rounded" href="{% url 'update_status' User.id %}">
-                Deactivate
-              </a> {% else %}
-              <a class="btnact btn btn-primary btn-sm btn-rounded" style="padding: auto 40px;" href="{% url 'update_status' User.id %}">
-                Activate
-              </a>
-              {% endif %}
+            <td class="userstatusbtn" id="">
+              <div class="d-flex flex-column align-items-center">
+                <a class="btn btn-outline-primary btn-sm btn-rounded mb-1"  href="{% url 'edit_user' User.id %}">
+                  Edit
+                </a>
+                
+                {% if User.username != user.username %}
+                  {% if User.is_active %}
+                  <a class="btndeact btn btn-danger btn-sm btn-rounded" href="{% url 'update_status' User.id %}">
+                    Deactivate
+                  </a> {% else %}
+                  <a class="btnact btn btn-primary btn-sm btn-rounded" style="padding: auto 40px;" href="{% url 'update_status' User.id %}">
+                    Activate
+                  </a>
+                  {% endif %}
+                {% endif %}
+                  
+                
+              </div>
             </td>
             
           </tr>
@@ -100,7 +107,7 @@
 
     <!-- Create user modal form-->
     <div class="um-modals">
-      <div class="modal fade" tabindex="3" id="modal-user">
+      <div class="modal fade" tabindex="3" data-mdb-backdrop="static" data-mdb-keyboard="false" id="modal-user">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -137,21 +144,29 @@
                 <div class="form-outline mb-4">
                   {{ form.username }}
                   <label class="form-label" for="id_username"><i class="fa-solid fa-user mx-2"></i>Username</label>
+                  
+                  {% if form.errors %}
+                  <div class="form-helper text-danger py-1 ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.username.errors }}</div>
+                  {% endif %}
+                
                 </div>
                 
                 <div class="form-outline mb-5">
-                  <!-- <i class="fa-solid fa-circle-check trailing" id="fas1"></i> -->
                   <i class="fas fa-exclamation-circle trailing" id="fas1"></i>
                   {{ form.password1 }}
                   <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>Password</label>
                   <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
                 </div>
 
-                <div class="form-outline mb-4" id="pass2-outline">
+                <div class="form-outline mb-2" id="pass2-outline">
                   <i class="fas fa-exclamation-circle trailing" id="fas"></i>
                   {{ form.password2 }}
                   <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>
                 </div>
+
+                {% if form.errors %}
+                  <div class="form-helper text-danger ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.password2.errors }}</div>
+                  {% endif %}
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="id_role">Choose Role : </label>

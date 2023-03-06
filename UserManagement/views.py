@@ -24,15 +24,11 @@ def user_management(request):
 
     if form_adduser.is_valid():
       form_adduser.save()
-      print('ok')
-
-      # for sending response through ajax
       messages.success(request, 'User added successfully')
-      return JsonResponse({"success": True}, status=200)
-
+      form_adduser = CustomUserCreationForm()
     else:
       print('error')
-      return JsonResponse({"errors": errors}, status=200)
+      messages.error(request, 'Error saving user') 
       
   return render(request, 'UserInterface/user_management.html',
     context = { 'Users': CustomUser.objects.all(), 'form': form_adduser }

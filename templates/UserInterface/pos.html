@@ -2,6 +2,99 @@
 
 {% block content %}
 
-<h1>Point Of Sale</h1>
+<div class="pos p-3" style="width: 100%; height: 100%;">
+    <div class="pos_wrapper h-100 w-100 d-flex">
+        <!-- left Side -->
+        <div class="left_pos w-75 h-100 d-flex flex-column px-2">
+
+            <h3 class="pos_header m-2 p-2 rounded" >Point of Sale</h3>
+
+            <!-- Sort Items -->
+            <div class="sortItems mb-2 w-100 d-flex justify-content-center">
+                <div class="btn-group w-75 rounded-pill" style="font-family: 'Barlow';" id="sort_item">
+                    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked/>
+                    <label class="btn btn-primary btn-rounded" for="option1">All Items</label>
+                  
+                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
+                    <label class="btn btn-primary btn-rounded" for="option2">Porcelain</label>
+                  
+                    <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" />
+                    <label class="btn btn-primary btn-rounded" for="option4">Ceramic</label>
+
+                    <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" />
+                    <label class="btn btn-primary btn-rounded" for="option5">Adhesives</label>
+
+                    <input type="radio" class="btn-check" name="options" id="option6" autocomplete="off" />
+                    <label class="btn btn-primary btn-rounded" for="option6">Sanitary Wares</label>
+                  </div>
+            </div>
+
+            <!-- Seach Item -->
+              <div class="search w-75 align-self-center d-flex justify-content-center rounded-pill bg-white my-3 shadow p-2 overflow-hidden">
+                    <span class="d-block px-4"><i class="fas fa-search"></i></span>
+                    <input type="search" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="w-100" placeholder="Search Item Name"/>
+              </div>
+
+            <!-- Item Drawer -->
+            <div class="item_drawer w-100 h-100 bg-transparent d-flex flex-wrap justify-content-center overflow-y-scroll pb-3">
+
+                
+                {% for product in products %}
+                <div class="itemwrapper 1 p-3" style="width: 30%; height: 60%;" data-productname="{{ product.product_name }}" data-productid="{{ product.id }}">
+                    <div class="item card shadow h-100 w-100">
+                        <img src="{{ product.product_img.url }}" alt="Item Image" class="card-image-top">
+                        <h3 class="card-title"><span>Name:</span> {{ product.product_name }}</h3>
+                        <h3 class=""><span>Size:</span> {{ product.product_size }}</h3>
+                        <h3 class=""><span>Category:</span> {{ product.category }}</h3>
+                    </div>
+                </div>
+                {% endfor %}
+            
+            </div>
+        </div>
+        <!-- Item Invoice -->
+        <div class="invoice w-25 h-100 bg-dark card px-2">
+            <h3 class="text-white p-3 text-center" style="font-family: 'Quicksand'; font-size: 0.9rem; letter-spacing: 1px;">New Transaction</h3>
+
+            <ul class="list-unstyled px-2 overflow-y-scroll" style="max-height: 47%; font-family: 'Barlow'; font-size: 0.9em;">
+              
+              {% for cart in carts %}
+              <li class="mb-1 bg-light d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark me-2 text-danger float-start"></i>{{ cart.name }} ({{ cart.size }})</span><span class="d-inline-block align-self-end">{{ cart.total_price }}</span></li>
+              {% endfor %}
+                                
+              </ul>
+
+              <hr class="bg-white">
+              
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-mdb-toggle="modal" data-mdb-target="#pos_quantity" id="pos_quantity_trigger">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal top fade" id="pos_quantity" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="true">
+    <div class="modal-dialog  ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel" style="font-family: 'Barlow';">Select Quantity: <span class="conf_quantity_pos text-primary"></span></h6>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" class="posform d-flex align-items-center flex-column">
+              
+                {% csrf_token %}
+                {{ form.quantity }}
+                {{ form.product_id }}
+                <button type="submit" class="btn btn-primary d-inline-block w-75 p-2 mb-3">Confirm</button>
+            </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

@@ -420,7 +420,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-.um-header h3, .cpheader, .pmheader {
+.um-header h3, .cpheader, .pmheader, .heading {
   font-family: 'Quicksand';
   color: white;
   font-weight: bold;
@@ -429,6 +429,16 @@ body {
   text-align: center;
   animation: fade-in-right 0.5s;
   text-shadow: 2px 2px 1px #212121;
+}
+.pos_header {
+  font-family: 'Quicksand';
+  color: rgb(33, 33, 33);
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  text-align: center;
+  animation: fade-in-right 0.5s;
+  text-shadow: 1px 1px 1px #212121;
 }
 .um-actionbar {
   height: 15%;
@@ -576,4 +586,68 @@ body {
 }
 .input-group-text {
   font-size: 0.9em;
+}
+
+/* Sales Transactions */
+.sales_transaction {
+  background-image: url('../images/fading-blue-background.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+thead th:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+thead th:last-of-type {
+  border-radius: 0 5px 5px 0 ;
+}
+
+/* POS */
+.pos {
+  background-color: #eee;
+}
+
+#sort_item label{
+ font-size: 0.6em;
+ letter-spacing: 1px;
+}
+
+.item {
+  overflow: hidden;
+  background-image: radial-gradient( circle farthest-corner at 41.5% 52.8%,  rgba(0,133,195,1) 0%, rgba(0,108,159,1) 87.3% );
+
+}
+
+.item_drawer div {
+  transition: all 0.3s;
+}
+.item:hover {
+  background: rgb(6, 26, 58);
+  cursor: pointer;
+  box-shadow: 0 0 5px 2px rgb(54, 84, 254);
+}
+.item:hover h3 {
+  color: white;
+}
+
+
+.item img {
+  height: 60%;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 4px 0 3px #212121;
+}
+
+.item h3 {
+  font-family: 'Barlow', sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 0.7rem;
+  text-align: center;
+  letter-spacing: 1px;
+  word-wrap: break-word;
+}
+
+.delitem:hover {
+  cursor: pointer;
 }

@@ -24,5 +24,3 @@ class Product(models.Model):
     date_last_stocked = models.DateField(null=True, auto_now_add=True)
     availability = models.BooleanField(default=True) 
     product_img = models.ImageField(upload_to='product_images', default='Dunmark.png')
-    def __str__(self):
-        return self.product_name

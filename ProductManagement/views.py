@@ -17,20 +17,21 @@ def product_management(request):
   product_form.fields['availability'].widget.attrs.update({'class': 'form-check-input'})
   product_form.fields['product_img'].widget.attrs.update({'class': 'form-control'})
 
-
-  return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
-
-
-def add_product(request):
   if request.method == 'POST':
     product_form = ProductForm(request.POST, request.FILES)
     if product_form.is_valid():
       product_form.save()
       messages.success(request, 'Product registered successfully')
-      return JsonResponse({"success": True}, status=200)
     else:
       print(product_form.errors)
-      return JsonResponse({"errors": product_form.errors}, status=200)
+      messages.error(request, 'Error registering product')
+
+
+  return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
+
+
+def add_product(request):
+  return
 
 def edit_product(request, id):
   selected_product = Product.objects.get(id=id)

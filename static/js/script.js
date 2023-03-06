@@ -84,6 +84,9 @@ $(document).ready(function() {
   // For Select Role class
   $("#userform div select").attr("class", "role-select rounded");
   $("#userform-edit div select").attr("class", "role-select rounded");
+
+  $(".posform input").attr("class", "form-control text-center w-75 p-2 mb-3 bg-white shadow-inner");
+  $(".posform input").attr("autofocus", 'autofocus');
   
   
   // user client side validation for password
@@ -132,58 +135,6 @@ $(document).ready(function() {
     $('#alert_box').css('top', '-20%');
   });
 
-  //  User form using ajax request / preventing from reloading when submitting
-  $('#userform').submit(function (e) { 
-    e.preventDefault();
-    
-    //ajaxx request
-    $.ajax({
-      type: "post",
-      url: "",
-      data: $(this).serialize(),
-      success: function (response) {
-
-        if (response.success) {
-          $('#adduser_close').click() // close the form
-          $('#adduser_reset').click() // reset the form
-          location.reload();
-
-        }
-        
-        else { // alert the validation error
-  
-          var usernameErrExist = response.errors.hasOwnProperty('username');
-          var pwdErrExist = response.errors.hasOwnProperty('password2');
-          var errormessage;
-
-          // check if username err exist in the object
-          if (usernameErrExist && !pwdErrExist) {
-            // check if username err is only 1
-            if (response.errors.username.length == 1) {
-              errormessage = response.errors.username
-            }
-          } else if(pwdErrExist && !usernameErrExist) { // Check if pwd err exist in the object
-            if (response.errors.password2.length == 1) { // Check if password err is only 1
-              errormessage = response.errors.password2;
-            } else if (response.errors.password2.length == 2) {
-              errormessage = response.errors.password2[0] + "\n" + response.errors.password2[1];
-            }
-          } else if (usernameErrExist && pwdErrExist) {
-            if (response.errors.password2.length == 2 && response.errors.username.length == 1) {
-              errormessage = response.errors.username + "\n" + response.errors.password2[0] + "\n" + response.errors.password2[1];
-            } else if(response.errors.password2.length == 1 && response.errors.username.length == 1) {
-              errormessage = response.errors.username + "\n" + response.errors.password2;
-            }
-          } else {
-            errormessage = response.errors
-          }
-          
-          alert(errormessage);
-        }
-        
-      }
-    });
-  });
 
   // Product management
 
@@ -207,47 +158,39 @@ $(document).ready(function() {
   });
 
 
-
-  // Ajax add product
-  $("#add_prod_form").submit(function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    var formData = new FormData(this);
-
-    $.ajax({
-      type: "post",
-      url: window.location.href + "add_new_product/",
-      data: formData,
-      success: function (response) {
-        if (response.success) {
-          location.reload();
-        } else {
-          alert(response.errors.__all__ + "\n" + response.errors.price + " in price");
-        }
-      },
-      cache: false,
-      contentType: false,
-      processData: false
-    });
-  
-  });
-  
+ // shows current stock in add stock form
   $("#id_current_stock").keyup(function () { 
     $("#curr_stock").text($(this).val())
   });
-
+// submits add stock form on confirm
   $("#conf_addStock").click(function () { 
     $("#addstock_form").submit();
   });
 
   
-  // Customer Profile
+  // Customer Profile 
+  
   $("#regcust").click(function () { 
     
     $("#add_cust_submit").click();
   });
 
-});
 
+
+  // POS
+
+  $('.itemwrapper').on("click", ".item", function () { 
+    var x = $(this).parent().attr("data-productname");
+    var y = $(this).parent().attr("data-productid");
+    $(".conf_quantity_pos").text(x);
+    $('#id_product_id').val(y);
+    
+    $('.posform input[type=number]').val('');
+    $("#pos_quantity_trigger").click();
+    
+  });
+
+
+});
 
 
