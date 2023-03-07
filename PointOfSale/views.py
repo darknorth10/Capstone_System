@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ProductManagement.models import Product
 from .models import Cart
 from .forms import CartQuantityForm
+from django.db.models import Sum
+from django.contrib import messages
+import locale
 # Create your views here.
 
 def pointofsale(request):
@@ -23,7 +26,7 @@ def pointofsale(request):
       total_price = price * quantity
       cartitem = Cart.objects.filter(product_id=prodID)
 
-#  condition for multiple same product in a cart to avoid duplication in invoice order
+    #  condition for multiple same product in a cart to avoid duplication in invoice list
       if cartitem.count() > 1:
         print("2 records")
         min = cartitem[0].id
@@ -57,18 +60,29 @@ def pointofsale(request):
         cartitem.save()
 
       form = CartQuantityForm()
-      print(price)
-      print(quantity)
-      print(total_price)
+
     else:
       print('error')
       print(form.errors)
-      
-      
 
-  return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form})
+  # Subtotal Format from cart database  
+  subtotal = Cart.objects.aggregate(subtotal_cart=Sum('total_price'))
+  
+  if subtotal['subtotal_cart'] is not None:
+    formatted_subtotal = "{:,}".format(subtotal['subtotal_cart'])
+  else:
+    formatted_subtotal = 0
+
+  return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal,})
 
 
 def porcelain(request):
   porcelain = Product.objects.filter(category='Porcelain Tiles')
   return render(request, 'UserInterface/pos/porcelain.html')
+
+
+def pos_clear(request):
+   if request.method == 'POST':
+    Cart.objects.all().delete()
+    messages.success(request, 'Transaction has been cleared')
+    return redirect('pos')

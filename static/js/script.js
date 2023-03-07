@@ -69,7 +69,7 @@ $(document).ready(function() {
   // Alert Function
   $(document).ready(function () {
     if ( $("#alert_box h5").text() != "" ) {
-      $("#alert_box").css('top', '5%'); // show the alert box
+      $("#alert_box").css('top', '3%'); // show the alert box
 
       setTimeout(function () { // hide the alert box
         $("#alert_box").css('top', '-20%');
@@ -85,8 +85,8 @@ $(document).ready(function() {
   $("#userform div select").attr("class", "role-select rounded");
   $("#userform-edit div select").attr("class", "role-select rounded");
 
-  $(".posform input").attr("class", "form-control text-center w-75 p-2 mb-3 bg-white shadow-inner");
-  $(".posform input").attr("autofocus", 'autofocus');
+  $(".posform input").attr("class", "form-control text-center w-75 p-2 bg-white shadow-inner");
+  $(".posform input").attr("min", '1');
   
   
   // user client side validation for password
@@ -157,7 +157,6 @@ $(document).ready(function() {
     }
   });
 
-
  // shows current stock in add stock form
   $("#id_current_stock").keyup(function () { 
     $("#curr_stock").text($(this).val())
@@ -175,8 +174,6 @@ $(document).ready(function() {
     $("#add_cust_submit").click();
   });
 
-
-
   // POS
 
   $('.itemwrapper').on("click", ".item", function () { 
@@ -185,12 +182,85 @@ $(document).ready(function() {
     $(".conf_quantity_pos").text(x);
     $('#id_product_id').val(y);
     
-    $('.posform input[type=number]').val('');
+    //  $('.posform input[type=number]').val('');
     $("#pos_quantity_trigger").click();
     
   });
 
+  // clear the pos transaction
 
+  $('#clearbtn').click(function () { 
+    
+    $('#clearpos').submit();
+
+  });
+
+  // increse decrese quantity pos
+  $('.dcr').click(function () { 
+  
+    if ($(".posform input[type=number]").val() > 1) {
+        $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) - 1)
+    }
+    
+    
+  });
+  
+  $('.incr').click(function () { 
+   $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) + 1);
+     
+  });
+
+  // Initial val of the quantity is 0
+  $(".posform input[type=number]").val('1')
+
+  //  item search shadow on focus
+  $('.positemsearch').focus(function () {
+    $('.pos_search').css('outline', '2px solid rgb(68,168,236)');
+    console.log('test')
+  });
+  $('.positemsearch').blur(function () {
+    $('.pos_search').css('outline', '0');
+    console.log('test')
+  });
+
+
+  
+
+  $('.mop_div div input[name="mop"]').change(function () { 
+    console.log($(this).val())
+    switch ($(this).val()) {
+      case 'cash':
+        $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
+        $('.mop_div div h5').css('color', '#eee')
+        $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
+        $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+        break;
+      
+      case 'gcash':
+        $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
+        $('.mop_div div h5').css('color', '#eee')
+        $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
+        $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+        break;
+
+      case 'installment':
+        $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
+        $('.mop_div div h5').css('color', '#eee')
+        $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
+        $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+        break;
+
+      case 'banking':
+        $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
+        $('.mop_div div h5').css('color', '#eee')
+        $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
+        $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+        break;
+
+      default:
+        break;
+    }
+  });
 });
 
 

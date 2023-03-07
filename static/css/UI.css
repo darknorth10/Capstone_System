@@ -111,7 +111,7 @@ body {
 
 .content {
     background: rgb(238, 238, 238);
-    flex:auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding-bottom: 10px;
@@ -158,7 +158,7 @@ body {
 
 
 #notif-btn {
-  font-size: 1.3rem;
+  font-size: 1rem;
   padding: 5px;
   height: 30px;
   width: 30px;
@@ -290,7 +290,7 @@ body {
 
 .text-label h2:first-of-type {
   color: rgb(9, 83, 157);
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.7em;
   font-weight: bold;
   padding-top: 10px;
@@ -650,4 +650,62 @@ thead th:last-of-type {
 
 .delitem:hover {
   cursor: pointer;
+}
+
+@keyframes slide-right {
+  0% {
+    transform:translateX(-100px)
+  }
+  100% {
+    transform:translateX(0)
+  }
+}
+
+.itemlist {
+  transition: all 0.3s;
+  background-color: #eee;
+}
+.itemlist:hover {
+  background-color: rgb(16, 22, 43);
+  color: #fff;
+}
+.itemlist:last-of-type {
+  animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+
+.mop_div div {
+  outline: 1px solid rgb(145, 145, 145);
+  transition: all 0.3s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  
+}
+.mop_div div:hover {
+  cursor: pointer;
+  background-color: #e9eaeb;
+}
+
+.mop_div div label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mop_div div input[type=radio] {
+  display: none;
+}
+.mop_div div h5 {
+  text-align: center;
+  font-family: 'Barlow' , sans-serif;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+  color: #eee;
 }
