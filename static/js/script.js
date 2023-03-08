@@ -224,16 +224,26 @@ $(document).ready(function() {
   });
 
 
-  
+   // Disable proceed button when mop was not selected
+   $('#pos_proceed').attr('disabled', 'disabled');
 
   $('.mop_div div input[name="mop"]').change(function () { 
     console.log($(this).val())
+    // enables progress button
+    $('#pos_proceed').removeAttr('disabled');
+
     switch ($(this).val()) {
       case 'cash':
         $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
         $('.mop_div div h5').css('color', '#eee')
         $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
         $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+
+        $('#id_transaction_type').val('Cash');
+        var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
+        $('#id_total_price').val(total_amt);
+        
+
         break;
       
       case 'gcash':
@@ -261,6 +271,45 @@ $(document).ready(function() {
         break;
     }
   });
+
+  // compute change on keyup event
+ $('#id_amount').keyup(function () { 
+    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+
+      var a = $(this).val() - parseFloat($('#subtotal').attr('data-subtotal'));
+      $(this).attr('data-value', a);
+    
+      change = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+      $('.x').text('');
+      $('#pos_change').text(change);
+      $('#conf_transaction').removeAttr('disabled');
+
+      $('#id_change').val(a);
+
+    }
+    else {
+      var a = 0
+      $('.x').text('');
+      phcurrency = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+      $('#pos_change').text(phcurrency.toString());
+      $('#conf_transaction').attr('disabled', 'disabled');
+      $('#id_change').val(a);
+    }
+ });
+  
+ // Change currency to PHP currency
+ $('#subtotal2').text()
+
+
+ // adds class for form fields in cash form
+ $('#id_customer_name').attr('class', 'form-control');
+ $('#id_contact').attr('class', 'form-control');
+ $('#id_email').attr('class', 'form-control');
+ $('#id_delivery_address').attr('class', 'form-control');
+ $('#id_amount').attr('class', 'form-control');
+ $('#id_amount').attr('step', '1');
+ $('#id_amount').attr('min', '0');
+
 });
 
 

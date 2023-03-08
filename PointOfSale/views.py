@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from ProductManagement.models import Product
 from .models import Cart
-from .forms import CartQuantityForm
+from SalesTransaction.models import Transaction, Item
+from .forms import CartQuantityForm, CashForm
 from django.db.models import Sum
 from django.contrib import messages
 import locale
@@ -73,7 +74,10 @@ def pointofsale(request):
   else:
     formatted_subtotal = 0
 
-  return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal,})
+
+  cashform = CashForm()
+
+  return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform})
 
 
 def porcelain(request):
@@ -86,3 +90,40 @@ def pos_clear(request):
     Cart.objects.all().delete()
     messages.success(request, 'Transaction has been cleared')
     return redirect('pos')
+
+
+# New Cash MOP Transaction in the pos
+def add_transaction(request):
+  cashform = CashForm()
+
+  if request.method == 'POST':
+    cashform = CashForm(request.POST)
+    
+    if cashform.is_valid():
+       
+       cashform.save()
+
+      #grab lastest record in transaction database
+       obj = Transaction.objects.filter(transaction_type='Cash').order_by('-transaction_no')[0]
+       obj.total_products = Cart.objects.all().count()
+       obj.status = "Complete"
+       obj.save()
+       
+       cart = Cart.objects.all()
+
+       for item in cart:
+        cartTransactionNo = obj.transaction_no
+        cartItemId = item.product_id
+        cartItemName = item.name
+        cartItemSize = item.size
+        cartItemPieces = item.quantity
+        cartItemTotal = item.total_price
+
+        itemX = Item(transaction_no=cartTransactionNo, product_id=cartItemId, name=cartItemName, size=cartItemSize, pieces=cartItemPieces, total=cartItemTotal)
+        itemX.save()
+       # Cart.objects.all().delete()
+       print('successfully added transaction')
+    else:
+      print(cashform.errors)
+
+  return redirect('pos')

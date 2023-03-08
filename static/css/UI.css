@@ -605,7 +605,10 @@ thead th:last-of-type {
 
 /* POS */
 .pos {
-  background-color: #eee;
+  background-image: url('../images/peakpx11.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 #sort_item label{
@@ -616,17 +619,18 @@ thead th:last-of-type {
 .item {
   overflow: hidden;
   background-image: radial-gradient( circle farthest-corner at 41.5% 52.8%,  rgba(0,133,195,1) 0%, rgba(0,108,159,1) 87.3% );
-
 }
 
 .item_drawer div {
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
+
 .item:hover {
-  background: rgb(6, 26, 58);
   cursor: pointer;
   box-shadow: 0 0 5px 2px rgb(54, 84, 254);
+  background: #113d68;
 }
+
 .item:hover h3 {
   color: white;
 }
@@ -666,7 +670,7 @@ thead th:last-of-type {
   background-color: #eee;
 }
 .itemlist:hover {
-  background-color: rgb(16, 22, 43);
+  background-color: #535353;
   color: #fff;
 }
 .itemlist:last-of-type {
@@ -686,8 +690,9 @@ thead th:last-of-type {
 }
 .mop_div div:hover {
   cursor: pointer;
-  background-color: #e9eaeb;
+  background-color: #535353;
 }
+
 
 .mop_div div label {
   position: absolute;
