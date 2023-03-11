@@ -1,32 +1,36 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product
 from .forms import ProductForm, changeProductForm, addStocksForm
-from django.http import JsonResponse
+# from django.http import JsonResponse
 from django.contrib import messages
 # Create your views here.
 
 def product_management(request):
-  products = Product.objects.all()
+  products = Product.objects.all().order_by('category')
+
+  # products with 0 stock will updated to unavailable
+  
+
+  # add product form attribute
   product_form = ProductForm()
-  product_form.fields['product_name'].widget.attrs.update({'class': 'form-control', 'maxlength': '40'})
-  product_form.fields['brand'].widget.attrs.update({'class': 'form-control', 'maxlength': '40'})
-  product_form.fields['product_size'].widget.attrs.update({'class': 'role-select rounded'})
-  product_form.fields['category'].widget.attrs.update({'class': 'role-select rounded'})
-  product_form.fields['price'].widget.attrs.update({'class': 'form-control'})
-  product_form.fields['current_stock'].widget.attrs.update({'class': 'form-control'})
-  product_form.fields['availability'].widget.attrs.update({'class': 'form-check-input'})
-  product_form.fields['product_img'].widget.attrs.update({'class': 'form-control'})
+
 
   if request.method == 'POST':
     product_form = ProductForm(request.POST, request.FILES)
     if product_form.is_valid():
       product_form.save()
       messages.success(request, 'Product registered successfully')
+      product_form = ProductForm()
     else:
       print(product_form.errors)
       messages.error(request, 'Error registering product')
 
-
+  for product in products:
+    if product.current_stock <= 0:
+      product.current_stock = 0
+      product.availability = False
+      product.save()
+        
   return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
 
 
@@ -65,11 +69,18 @@ def add_stock(request, id):
 
   if request.method == 'POST':
     if form.is_valid():
+      
       new_stock = selected_product.current_stock + form.cleaned_data['current_stock']
       print(new_stock)
-
+      # update current stocks
       selected_product.current_stock = new_stock
       selected_product.save()
+
+      # make the product aavailable when restocked and greater than 0
+      if selected_product.current_stock >= 0:
+        selected_product.availability = True
+        selected_product.save()
+        
       messages.success(request, 'Stocks are successfully added.')
       return redirect('product_management')
     else:

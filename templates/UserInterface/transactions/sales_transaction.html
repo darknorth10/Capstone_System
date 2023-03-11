@@ -17,8 +17,8 @@
                 </button>
             </div>
         </div>
-        <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-scroll h-100">
-            <table class="table" style="min-width: 110%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">
+        <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 75%;">
+            <table class="table" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">
                 <thead class="text-light text-center" style="background-color: rgb(43, 55, 61);">
                     <th>Trans No.</th>
                     <th>Trans Type</th>
@@ -38,7 +38,7 @@
                             <td>{{ transaction.total_products }}</td>
                             <td>{{ transaction.date_of_purchace }}</td>
                             <td>{{ transaction.delivery_address }}</td>
-                            <td class="py-2"> <a href="" class="btn m-0" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">Detailed View</a></td>
+                            <td class="parentReceiptBtn py-2"> <a class="receiptbtn btn m-0" data-transnumber="{{ transaction.transaction_no }}" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">Detailed View</a></td>
                         </tr>
                     {% endfor %}
                         
@@ -47,5 +47,34 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-mdb-toggle="modal" data-mdb-target="#receipt" id="trigger3">
+    Launch modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal top fade" id="receipt" tabindex="-1" aria-labelledby="receiptModal" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
+    <div class="modal-dialog  ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>Transaction no: <span id="trans_no_modal"></span></h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="detailed_div" id="detailed_div">
+              <!-- detailed item-transaction modal -->
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-mdb-dismiss="modal">
+            Print Receipt
+            <i class="fa-solid fa-print fa-lg ps-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 {% endblock %}

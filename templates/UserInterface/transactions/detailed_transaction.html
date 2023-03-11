@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+
+
+{% block content %}
+    <div class="detailed_div p-0 rounded overflow-hidden shadow-sm overflow-y-auto" id="detailed_div">
+        <table class="table table-primary rounded text-center m-0" style="font-family: 'Quicksand'; font-size: 0.8em;">
+            <tr class="text-start">
+                <th class="fw-bold text-light bg-primary">Product Name</th>
+                <th class="fw-bold text-light bg-primary">Size</th>
+                <th class="fw-bold text-light bg-primary">Quantity</th>
+                <th class="fw-bold text-light bg-primary">Total Price</th>
+            </tr>
+                
+                {% for item in items  %}
+                <tr class="text-start">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ item.pieces }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+                {% endfor %}
+                
+        </table>
+    </div>
+{% endblock content %}
+    

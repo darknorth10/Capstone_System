@@ -137,6 +137,19 @@ $(document).ready(function() {
 
 
   // Product management
+  // add product form attribute
+
+  $('#id_product_name').attr('class', 'form-control');
+  $('#id_product_name').attr('maxlength', '40');
+  $('#id_brand').attr('class', 'form-control');
+  $('#id_brand').attr('maxlength', '40');
+  $('#id_product_size').attr('class', 'role-select rounded');
+  $('#id_category').attr('class', 'role-select rounded');
+  $('#id_price').attr('class', 'form-control');
+  $('#id_current_stock').attr('class', 'form-control');
+  $('#id_availability').attr('class', 'form-check-input');
+  $('#id_product_img').attr('class', 'form-control');
+
 
   // form validation for add product
   $('#id_category').change(function () { 
@@ -158,7 +171,7 @@ $(document).ready(function() {
   });
 
  // shows current stock in add stock form
-  $("#id_current_stock").keyup(function () { 
+  $("#id_current_stock").change(function () { 
     $("#curr_stock").text($(this).val())
   });
 // submits add stock form on confirm
@@ -179,10 +192,15 @@ $(document).ready(function() {
   $('.itemwrapper').on("click", ".item", function () { 
     var x = $(this).parent().attr("data-productname");
     var y = $(this).parent().attr("data-productid");
+    var z = $(this).parent().attr("data-currentstock");
+
     $(".conf_quantity_pos").text(x);
     $('#id_product_id').val(y);
     
-    //  $('.posform input[type=number]').val('');
+
+    $('#id_quantity').val('1');
+    $('#curr_stock').text(z);
+
     $("#pos_quantity_trigger").click();
     
   });
@@ -202,7 +220,6 @@ $(document).ready(function() {
         $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) - 1)
     }
     
-    
   });
   
   $('.incr').click(function () { 
@@ -210,8 +227,17 @@ $(document).ready(function() {
      
   });
 
-  // Initial val of the quantity is 0
-  $(".posform input[type=number]").val('1')
+  // desired quantity must be less than the number of currrent stocks else  btn is disabled
+  $("#id_quantity").change(function (e) { 
+    var currentStock = parseInt($("#curr_stock").text());
+
+    if ($(this).val() <= currentStock) {
+      $('#quantity_conf').removeAttr('disabled');
+
+    } else {
+      $('#quantity_conf').attr('disabled', 'disabled');
+    }
+  });
 
   //  item search shadow on focus
   $('.positemsearch').focus(function () {
@@ -309,6 +335,23 @@ $(document).ready(function() {
  $('#id_amount').attr('class', 'form-control');
  $('#id_amount').attr('step', '1');
  $('#id_amount').attr('min', '0');
+
+
+
+ // show receipt or detailed view in transaction 
+  
+    // onlick to change hidden traansaction no. value and  trigger modal to pop up
+ $('.parentReceiptBtn').on('click', '.receiptbtn', function () {
+    var trasaction_no = $(this).attr('data-transnumber');
+    console.log(trasaction_no);
+
+    $("#trans_no_modal").text(trasaction_no);
+        // loads the content of detailed table
+    $('#detailed_div').load(window.location.href + trasaction_no + '/ #detailed_div')
+        // shows modal
+    $("#trigger3").click()
+ 
+ });
 
 });
 

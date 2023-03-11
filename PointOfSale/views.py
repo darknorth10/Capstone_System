@@ -9,7 +9,7 @@ import locale
 # Create your views here.
 
 def pointofsale(request):
-  products = Product.objects.all()
+  products = Product.objects.all().order_by('category')
   cart = Cart.objects.all()
   form = CartQuantityForm()
 
@@ -27,7 +27,7 @@ def pointofsale(request):
       total_price = price * quantity
       cartitem = Cart.objects.filter(product_id=prodID)
 
-    #  condition for multiple same product in a cart to avoid duplication in invoice list
+      #  condition for multiple same product in a cart to avoid duplication in invoice list
       if cartitem.count() > 1:
         print("2 records")
         min = cartitem[0].id
@@ -38,9 +38,12 @@ def pointofsale(request):
             min = carts.id
         
         base_cartitem = Cart.objects.get(id=min)
-        base_cartitem.quantity += quantity
-        base_cartitem.total_price += total_price
-        base_cartitem.save()
+        if base_cartitem.quantity + quantity <= Product.objects.get(id=base_cartitem.product_id).current_stock:
+          base_cartitem.quantity += quantity
+          base_cartitem.total_price += total_price
+          base_cartitem.save()
+        else :
+          messages.error(request, 'Desired quantity will exceed current stock')
         
         for carts in cartitem:
           if not carts.id == min:
@@ -63,8 +66,8 @@ def pointofsale(request):
       form = CartQuantityForm()
 
     else:
-      print('error')
       print(form.errors)
+      messages.error(request, "Desired quantity exceeds current stock of the product")
 
   # Subtotal Format from cart database  
   subtotal = Cart.objects.aggregate(subtotal_cart=Sum('total_price'))
@@ -74,17 +77,12 @@ def pointofsale(request):
   else:
     formatted_subtotal = 0
 
-
   cashform = CashForm()
 
   return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform})
 
 
-def porcelain(request):
-  porcelain = Product.objects.filter(category='Porcelain Tiles')
-  return render(request, 'UserInterface/pos/porcelain.html')
-
-
+# clear current transaction
 def pos_clear(request):
    if request.method == 'POST':
     Cart.objects.all().delete()
@@ -119,11 +117,39 @@ def add_transaction(request):
         cartItemPieces = item.quantity
         cartItemTotal = item.total_price
 
+        # update product stock
+        product = Product.objects.get(id = cartItemId)
+        product.current_stock -= cartItemPieces
+
+        #make it unavailable if current stocks hits 0
+        if product.current_stock <= 0:
+          product.current_stock = 0
+          product.availability = False
+
+        product.save()
+
+        # create transaction record
         itemX = Item(transaction_no=cartTransactionNo, product_id=cartItemId, name=cartItemName, size=cartItemSize, pieces=cartItemPieces, total=cartItemTotal)
         itemX.save()
-       # Cart.objects.all().delete()
+
+        #del existing items in cart after saving
+        Cart.objects.all().delete()
+        messages.success(request, 'Transaction completed successfully')
+
        print('successfully added transaction')
+
     else:
       print(cashform.errors)
+      messages.error(request, 'Error processing transaction')
 
   return redirect('pos')
+
+
+# sort items into porcelain in item drawer
+def porcelain(request):
+  porcelain = Product.objects.filter(category='Porcelain Tiles')
+  return render(request, 'UserInterface/pos/porcelain.html')
+
+
+
+

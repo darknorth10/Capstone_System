@@ -42,7 +42,9 @@
 
                 
                 {% for product in products %}
-                <div class="itemwrapper 1 p-2 " style="width: 30%; height: 60%;" data-productname="{{ product.product_name }}" data-productid="{{ product.id }}">
+                
+                {% if product.availability %}
+                  <div class="itemwrapper 1 p-2 " style="width: 30%; height: 60%;" data-productname="{{ product.product_name }}" data-productid="{{ product.id }}" data-currentstock="{{ product.current_stock }}">
                     <div class="item card shadow h-100 w-100">
                         <h3 class="pt-2">Php {{ product.price }}</h3>
                         <img src="{{ product.product_img.url }}" alt="Item Image" class="card-image-top">
@@ -51,7 +53,10 @@
                         <h3 class=""><span>Category:</span> {{ product.category }}</h3>
                         
                     </div>
-                </div>
+                  </div>
+                {% endif %}
+                  
+                
                 {% endfor %}
             
             </div>
@@ -67,7 +72,8 @@
             <ul class="list-unstyled px-2 mt-0 overflow-y-scroll" style="max-height: 47%; font-family: 'Courier'; font-size: 0.7em;">
               
               {% for cart in carts %}
-              <li class="itemlist mb-1 d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark fa-lg me-2 text-danger float-start pt-2"></i>{{ cart.name }}{% if not cart.size == "N/A" %}<span class="text-primary">({{ cart.size }})</span> {% endif %}</span><span class="d-inline-block align-self-end">{{ cart.total_price }}</span></li>
+              <li class="itemlist mb-1 d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark fa-lg me-2 text-danger float-start pt-2"></i>{{ cart.name }}{% if not cart.size == "N/A" %}<span class="text-primary">({{ cart.size }})</span> {% endif %} 
+                <span style="font-size: 0.9em;">x{{ cart.quantity }}</span></span><span class="d-inline-block align-self-end">{{ cart.total_price }}</span></li>
               {% endfor %}
                                 
               </ul>
@@ -132,17 +138,19 @@
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
             <form method="POST" class="posform d-flex align-items-center flex-column">
               
                 {% csrf_token %}
-                
+                <h6 class="container container-fluid py-2" style="font-family: 'Barlow';">Current Stock: <span class="text-primary" id="curr_stock">5</span></h6>
                 <div class="d-inline-flex align-items-center mb-3">
+                  
                   <button type="button" class="dcr btn btn-primary mx-2 p-2" style="height: 100%;"><i class="fa-solid fa-minus"></i></button>
                   {{ form.quantity }}
                   <button type="button" class="incr btn btn-primary mx-2 p-2" style="height: 100%;"><i class="fa-solid fa-plus"></i></button>
                 </div>
                 {{ form.product_id }}
-                <button type="submit" class="btn btn-primary d-inline-block w-75 p-2 mb-3">Confirm</button>
+                <button type="submit" class="btn btn-primary d-inline-block w-75 p-2 mb-3" id="quantity_conf">Confirm</button>
             </form>
         </div>
         
