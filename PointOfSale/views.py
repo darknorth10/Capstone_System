@@ -100,11 +100,11 @@ def add_transaction(request):
     if cashform.is_valid():
        
        cashform.save()
-
+       
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Cash').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "Complete"
+       obj.status = "complete"
        obj.save()
        
        cart = Cart.objects.all()

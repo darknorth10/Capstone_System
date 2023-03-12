@@ -28,7 +28,7 @@ class Transaction(models.Model):
         ('complete', 'Complete'),
         ('pending', 'Pending'),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
 
     def __str__(self):
         return str(self.transaction_no)

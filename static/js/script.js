@@ -268,8 +268,8 @@ $(document).ready(function() {
         $('#id_transaction_type').val('Cash');
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#id_total_price').val(total_amt);
-        
-
+        $('#id_status').val('complete');
+      
         break;
       
       case 'gcash':
