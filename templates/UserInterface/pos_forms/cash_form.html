@@ -1,0 +1,80 @@
+<div class="modal-body p-3" id="transaction_form">
+
+    <form method="post" action="{% url 'transaction' %}">
+      {% csrf_token %}
+      <!-- personal info div -->
+      <div class="personal_info mb-2 rounded p-2 border border-primary" style="background-color: #eee;">
+        <p class="fw-bold mx-0 mb-3 p-2 bg-primary rounded text-white">Personal Information :</p>
+        
+        <!-- first row -->
+        <div class="row mb-3">
+          <div class="col">
+            <!-- Name input -->
+            <div class="form-outline bg-white">
+              {{ cashform.customer_name }}
+              <label class="form-label" for="id_customer_name">Customer Name</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- Contact input -->
+            <div class="form-outline bg-white">
+              {{ cashform.contact }}
+              <label class="form-label" for="id_contact">Mobile Number</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-outline mb-3 bg-white">
+          {{ cashform.email }}
+          <label class="form-label" for="form6Example5">Email</label>
+        </div>
+
+        <div class="form-outline mb-3 bg-white">
+          {{ cashform.delivery_address }}
+          <label class="form-label" for="form6Example5">Delivery Address</label>
+        </div>
+
+      </div>
+
+      <!-- Payment Div -->
+      <div class="payment_info fw-bold mb-2 rounded p-2 border border-success">
+        <p class="mx-0 mb-3 p-2 bg-success rounded text-white">Payment :</p>
+
+        <p class="total p-2 rounded d-flex justify-content-between align-items-center" 
+        style="background-color: #eee;"><span class="d-inline-block ps-2">Total Price:</span>
+        <span class="d-inline-block pe-4 text-primary" id="subtotal2"><span>&#8369;</span> {{ subtotal }}</span></p>
+
+        <div class="row mb-3">
+          <div class="col">
+            <!-- PAYMENT input -->
+            <div class="form-outline bg-white" id="cash_amountpaid">
+              {{ cashform.amount }}
+              <label class="form-label" for="typeText">Amount Paid</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- CHANGE -->
+            <p class="rounded px-3 py-1 d-flex justify-content-between align-items-center" style="background-color: #eee;">
+              <span class="d-inline-block">Change: </span>
+              <span class="d-inline-block pe-4"><span class="x">&#8369; </span><span id="pos_change" data-value="">0.00</span></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- footer -->
+      <div class="modal-footer mt-2">
+        <button type="reset" class="btn btn-secondary">
+          Clear
+        </button>
+        <button type="submit" class="btn btn-primary" disabled id="conf_transaction" >Confirm Transaction</button>
+      </div>
+
+      {{ cashform.transaction_type }}
+      {{ cashform.total_price }}
+      {{ cashform.change }}
+      {{ cashform.status }}
+
+    </form>
+  </div>

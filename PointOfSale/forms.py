@@ -1,9 +1,9 @@
 from django import forms
-from django.forms import ModelForm, HiddenInput
+from django.forms import ModelForm, HiddenInput, TextInput, NumberInput
 from .models import Cart
 from ProductManagement.models import Product
 from SalesTransaction.models import Transaction, Item
-from  django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError
 
 # For Quantity
 class CartQuantityForm(ModelForm):
@@ -33,3 +33,14 @@ class CashForm(ModelForm):
         model = Transaction
         fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'change', 'transaction_type', 'status']
         widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'change': HiddenInput(), 'status': HiddenInput()}
+
+
+class GcashForm(ModelForm):
+
+    class Meta:
+        model = Transaction
+        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'gcash_no', 'reference_no', 'transaction_type', 'status']
+        widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'status': HiddenInput(), 'customer_name': TextInput(attrs={'class': 'form-control'}),
+        'contact': TextInput(attrs={'class': 'form-control'}), 'email': TextInput(attrs={'class': 'form-control'}), 'delivery_address': TextInput(attrs={'class': 'form-control'}),
+        'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'gcash_no': TextInput(attrs={'class': 'form-control'}), 'reference_no': TextInput(attrs={'class': 'form-control'})
+         }

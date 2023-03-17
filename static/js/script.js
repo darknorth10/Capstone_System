@@ -324,7 +324,7 @@ $(document).ready(function() {
  });
   
  // Change currency to PHP currency
- $('#subtotal2').text()
+ // $('#subtotal2').text()
 
 
  // adds class for form fields in cash form

@@ -192,11 +192,9 @@
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-3">
-        <!-- <form action="">
-          {% csrf_token %}
-          {{ cashform.as_p }}
-        </form> -->
-        <form method="post" action="{% url 'transaction' %}" id="transaction_form">
+
+        <!-- cash form -->
+        <form method="post" class="d-none" action="{% url 'cash_transaction' %}" id="cash_form">
           {% csrf_token %}
           <!-- personal info div -->
           <div class="personal_info mb-2 rounded p-2 border border-primary" style="background-color: #eee;">
@@ -243,7 +241,7 @@
             <div class="row mb-3">
               <div class="col">
                 <!-- PAYMENT input -->
-                <div class="form-outline bg-white">
+                <div class="form-outline bg-white" id="cash_amountpaid">
                   {{ cashform.amount }}
                   <label class="form-label" for="typeText">Amount Paid</label>
                 </div>
@@ -271,6 +269,98 @@
           {{ cashform.total_price }}
           {{ cashform.change }}
           {{ cashform.status }}
+
+        </form>
+
+        <!-- gcash form -->
+        <form method="post" action="{% url 'gcash_transaction' %}" id="gcash_form">
+          {% csrf_token %}
+          <!-- personal info div -->
+          <div class="personal_info mb-2 rounded p-2 border border-primary" style="background-color: #eee;">
+            <p class="fw-bold mx-0 mb-3 p-2 bg-primary rounded text-white">Personal Information :</p>
+            
+            <!-- first row -->
+            <div class="row mb-3">
+              <div class="col">
+                <!-- Name input -->
+                <div class="form-outline bg-white">
+                  {{ gcashform.customer_name }}
+                  <label class="form-label" for="id_customer_name">Customer Name</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Contact input -->
+                <div class="form-outline bg-white">
+                  {{ gcashform.contact }}
+                  <label class="form-label" for="id_contact">Mobile Number</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-3 bg-white">
+              {{ gcashform.email }}
+              <label class="form-label" for="form6Example5">Email</label>
+            </div>
+
+            <div class="form-outline mb-3 bg-white">
+              {{ gcashform.delivery_address }}
+              <label class="form-label" for="form6Example5">Delivery Address</label>
+            </div>
+
+          </div>
+
+          <!-- Payment Div -->
+          <div class="payment_info fw-bold mb-2 rounded p-2 border border-success">
+            <p class="mx-0 mb-3 p-2 bg-primary rounded text-white">Payment :</p>
+
+            <p class="total p-2 rounded d-flex justify-content-between align-items-center" 
+            style="background-color: #eee;"><span class="d-inline-block ps-2">Total Price:</span>
+            <span class="d-inline-block pe-4 text-primary" id="subtotal2"><span>&#8369;</span> {{ subtotal }}</span></p>
+
+            <div class="row mb-3">
+              <div class="col">
+                <!-- PAYMENT input -->
+                <div class="form-outline bg-white" id="cash_amountpaid">
+                  {{ gcashform.amount }}
+                  <label class="form-label" for="typeText">Amount Paid</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline bg-white" id="cash_amountpaid">
+                  {{ gcashform.gcash_no }}
+                  <label class="form-label" for="typeText">Gcash Number</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <!-- referrence number -->
+                <div class="form-outline bg-white" id="cash_amountpaid">
+                  {{ gcashform.reference_no }}
+                  <label class="form-label" for="typeText">Reference Number</label>
+                </div>
+                
+              </div>
+              <div class="col">
+                
+              </div>
+            </div>
+          </div>
+
+
+          <!-- footer -->
+          <div class="modal-footer mt-2">
+            <button type="reset" class="btn btn-secondary">
+              Clear
+            </button>
+            <button type="submit" class="btn btn-primary" disabled id="conf_transaction" >Confirm Transaction</button>
+          </div>
+
+          {{ gcashform.transaction_type }}
+          {{ gcashform.total_price }}
+          {{ gcashform.change }}
+          {{ gcashform.status }}
 
         </form>
       </div>

@@ -1,5 +1,6 @@
 from django.db import models
 from ProductManagement.models import Product
+from django.core.validators import RegexValidator
 # Create your models here.
 
 class Transaction(models.Model):
@@ -23,6 +24,7 @@ class Transaction(models.Model):
     contact = models.CharField(max_length=11, null=False)
     email = models.EmailField(max_length=40, null=True, blank=True)
     reference_no = models.CharField(max_length=40, null=True, blank=True)
+    gcash_no = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')], null=True, blank=True)
 
     STATUS_CHOICES = [
         ('complete', 'Complete'),

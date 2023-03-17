@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from ProductManagement.models import Product
 from .models import Cart
 from SalesTransaction.models import Transaction, Item
-from .forms import CartQuantityForm, CashForm
+from .forms import CartQuantityForm, CashForm, GcashForm
 from django.db.models import Sum
 from django.contrib import messages
 import locale
@@ -78,8 +78,11 @@ def pointofsale(request):
     formatted_subtotal = 0
 
   cashform = CashForm()
+  gcashform = GcashForm(auto_id='gcash_%s')
 
-  return render(request, 'UserInterface/pos.html', context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform})
+  context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform}
+
+  return render(request, 'UserInterface/pos.html', context)
 
 
 # clear current transaction
@@ -143,6 +146,64 @@ def add_transaction(request):
       messages.error(request, 'Error processing transaction')
 
   return redirect('pos')
+
+
+# New Gcash transaction MOP
+def add_gcash_transaction(request):
+  gcashform = GcashForm()
+
+  if request.method == 'POST':
+    gcashform = GcashForm(request.POST)
+    
+    if gcashform.is_valid():
+       
+       gcashform.save()
+       
+      #grab lastest record in transaction database
+       obj = Transaction.objects.filter(transaction_type='Gcash').order_by('-transaction_no')[0]
+       obj.total_products = Cart.objects.all().count()
+       obj.status = "complete"
+       obj.save()
+       
+       cart = Cart.objects.all()
+
+       for item in cart:
+        cartTransactionNo = obj.transaction_no
+        cartItemId = item.product_id
+        cartItemName = item.name
+        cartItemSize = item.size
+        cartItemPieces = item.quantity
+        cartItemTotal = item.total_price
+
+        # update product stock
+        product = Product.objects.get(id = cartItemId)
+        product.current_stock -= cartItemPieces
+
+        #make it unavailable if current stocks hits 0
+        if product.current_stock <= 0:
+          product.current_stock = 0
+          product.availability = False
+
+        product.save()
+
+        # create transaction record
+        itemX = Item(transaction_no=cartTransactionNo, product_id=cartItemId, name=cartItemName, size=cartItemSize, pieces=cartItemPieces, total=cartItemTotal)
+        itemX.save()
+
+        #del existing items in cart after saving
+        Cart.objects.all().delete()
+        messages.success(request, 'Transaction completed successfully')
+
+       print('successfully added transaction')
+
+    else:
+      print(gashform.errors)
+      messages.error(request, 'Error processing transaction')
+
+  return redirect('pos')
+
+
+
 
 
 # sort items into porcelain in item drawer
