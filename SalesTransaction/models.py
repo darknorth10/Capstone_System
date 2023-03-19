@@ -19,7 +19,7 @@ class Transaction(models.Model):
 
     #payment
     amount = models.DecimalField(max_digits=9, decimal_places=2, null=False)
-    change = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    change = models.DecimalField(max_digits=5, decimal_places=2, null=False, default=0.00)
     customer_name = models.CharField(max_length=30, null=False)
     contact = models.CharField(max_length=11, null=False)
     email = models.EmailField(max_length=40, null=True, blank=True)

@@ -253,11 +253,16 @@ $(document).ready(function() {
    // Disable proceed button when mop was not selected
    $('#pos_proceed').attr('disabled', 'disabled');
 
+
+   // for selecting mode of payment
   $('.mop_div div input[name="mop"]').change(function () { 
     console.log($(this).val())
-    // enables progress button
-    $('#pos_proceed').removeAttr('disabled');
 
+    // enables proceed button
+    $('#pos_proceed').removeAttr('disabled');
+    
+
+    //  Mode of payment forms hide and show
     switch ($(this).val()) {
       case 'cash':
         $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
@@ -269,7 +274,9 @@ $(document).ready(function() {
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#id_total_price').val(total_amt);
         $('#id_status').val('complete');
-      
+
+        $('#cash_form').show(0);
+        $('#gcash_form').hide(0);
         break;
       
       case 'gcash':
@@ -277,6 +284,14 @@ $(document).ready(function() {
         $('.mop_div div h5').css('color', '#eee')
         $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
         $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+
+        $('#gcash_transaction_type').val('Gcash');
+        var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
+        $('#gcash_total_price').val(total_amt);
+        $('#gcash_status').val('complete');
+
+        $('#cash_form').hide(0);
+        $('#gcash_form').show(0);
         break;
 
       case 'installment':
@@ -298,7 +313,7 @@ $(document).ready(function() {
     }
   });
 
-  // compute change on keyup event
+  // compute change on change event FOR CASH MOP
  $('#id_amount').keyup(function () { 
     if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
 
@@ -308,7 +323,7 @@ $(document).ready(function() {
       change = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
       $('.x').text('');
       $('#pos_change').text(change);
-      $('#conf_transaction').removeAttr('disabled');
+      $('.conf_transaction').removeAttr('disabled');
 
       $('#id_change').val(a);
 
@@ -318,13 +333,24 @@ $(document).ready(function() {
       $('.x').text('');
       phcurrency = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
       $('#pos_change').text(phcurrency.toString());
-      $('#conf_transaction').attr('disabled', 'disabled');
+      $('.conf_transaction').attr('disabled', 'disabled');
       $('#id_change').val(a);
     }
  });
+
+   // compute change on keyup event FOR GCASH MOP
+   $('#gcash_amount').keyup(function () { 
+    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+
+      $('.conf_transaction').removeAttr('disabled');
+
+    }
+    else {   
+      $('.conf_transaction').attr('disabled', 'disabled');
+    }
+ });
   
- // Change currency to PHP currency
- // $('#subtotal2').text()
+
 
 
  // adds class for form fields in cash form
