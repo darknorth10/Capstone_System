@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, HiddenInput, TextInput, NumberInput
+from django.forms import ModelForm, HiddenInput, TextInput, NumberInput, Select
 from .models import Cart
 from ProductManagement.models import Product
 from SalesTransaction.models import Transaction, Item
@@ -43,4 +43,16 @@ class GcashForm(ModelForm):
         widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'status': HiddenInput(), 'customer_name': TextInput(attrs={'class': 'form-control'}),
         'contact': TextInput(attrs={'class': 'form-control'}), 'email': TextInput(attrs={'class': 'form-control'}), 'delivery_address': TextInput(attrs={'class': 'form-control'}),
         'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'gcash_no': TextInput(attrs={'class': 'form-control'}), 'reference_no': TextInput(attrs={'class': 'form-control'})
+         }
+
+
+class BankingForm(ModelForm):
+
+    class Meta:
+        model = Transaction
+        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'banking_type', 'reference_no', 'transaction_type', 'status', 'account_name', 'bank_name']
+        widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'status': HiddenInput(), 'customer_name': TextInput(attrs={'class': 'form-control'}),
+        'contact': TextInput(attrs={'class': 'form-control'}), 'email': TextInput(attrs={'class': 'form-control'}), 'delivery_address': TextInput(attrs={'class': 'form-control'}),
+        'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'reference_no': TextInput(attrs={'class': 'form-control'}),
+        'account_name': TextInput(attrs={'class': 'form-control'}), 'bank_name': TextInput(attrs={'class': 'form-control'}), 'banking_type': Select(attrs={'class': 'role-select rounded'}), 
          }

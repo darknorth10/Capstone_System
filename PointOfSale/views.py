@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from ProductManagement.models import Product
 from .models import Cart
 from SalesTransaction.models import Transaction, Item
-from .forms import CartQuantityForm, CashForm, GcashForm
+from .forms import CartQuantityForm, CashForm, GcashForm, BankingForm
 from django.db.models import Sum
 from django.contrib import messages
 import locale
@@ -79,8 +79,9 @@ def pointofsale(request):
 
   cashform = CashForm()
   gcashform = GcashForm(auto_id='gcash_%s')
+  bankform = BankingForm(auto_id='bank_%s')
 
-  context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform}
+  context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform, 'bankform': bankform}
 
   return render(request, 'UserInterface/pos.html', context)
 
@@ -95,7 +96,6 @@ def pos_clear(request):
 
 # New Cash MOP Transaction in the pos
 def add_transaction(request):
-  cashform = CashForm()
 
   if request.method == 'POST':
     cashform = CashForm(request.POST)
@@ -107,7 +107,7 @@ def add_transaction(request):
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Cash').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "complete"
+       obj.status = "Complete"
        obj.save()
        
        cart = Cart.objects.all()
@@ -150,7 +150,6 @@ def add_transaction(request):
 
 # New Gcash transaction MOP
 def add_gcash_transaction(request):
-  gcashform = GcashForm()
 
   if request.method == 'POST':
     gcashform = GcashForm(request.POST)
@@ -162,7 +161,66 @@ def add_gcash_transaction(request):
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Gcash').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "complete"
+       obj.status = "Complete"
+       obj.save()
+       
+       cart = Cart.objects.all()
+
+       for item in cart:
+        cartTransactionNo = obj.transaction_no
+        cartItemId = item.product_id
+        cartItemName = item.name
+        cartItemSize = item.size
+        cartItemPieces = item.quantity
+        cartItemTotal = item.total_price
+
+        # update product stock
+        product = Product.objects.get(id = cartItemId)
+        product.current_stock -= cartItemPieces
+
+        #make it unavailable if current stocks hits 0
+        if product.current_stock <= 0:
+          product.current_stock = 0
+          product.availability = False
+
+        product.save()
+
+        # create transaction record
+        itemX = Item(transaction_no=cartTransactionNo, product_id=cartItemId, name=cartItemName, size=cartItemSize, pieces=cartItemPieces, total=cartItemTotal)
+        itemX.save()
+
+      #del existing items in cart after saving
+       obj.total_products = Cart.objects.all().count()
+       obj.status = "Complete"
+       obj.save()
+
+       Cart.objects.all().delete()
+       messages.success(request, 'Transaction completed successfully')
+
+       print('successfully added transaction')
+
+    else:
+      print(gashform.errors)
+      messages.error(request, 'Error processing transaction')
+
+  return redirect('pos')
+
+
+
+
+def add_bank_transaction(request):
+
+  if request.method == 'POST':
+    bankform = BankingForm(request.POST)
+    
+    if bankform.is_valid():
+       
+       bankform.save()
+       
+      #grab lastest record in transaction database
+       obj = Transaction.objects.filter(transaction_type='Banking').order_by('-transaction_no')[0]
+       obj.total_products = Cart.objects.all().count()
+       obj.status = "Complete"
        obj.save()
        
        cart = Cart.objects.all()
@@ -197,7 +255,7 @@ def add_gcash_transaction(request):
        print('successfully added transaction')
 
     else:
-      print(gashform.errors)
+      print(bankform.errors)
       messages.error(request, 'Error processing transaction')
 
   return redirect('pos')

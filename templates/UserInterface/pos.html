@@ -197,7 +197,7 @@
         <form method="post" action="{% url 'cash_transaction' %}" id="cash_form">
           {% csrf_token %}
           <!-- personal info div -->
-          <div class="personal_info mb-2 rounded p-2 border border-primary" style="background-color: #eee;">
+          <div class="personal_info mb-2 rounded p-2 border border-success" style="background-color: #eee;">
             <p class="fw-bold mx-0 mb-3 p-2 bg-success rounded text-white">Personal Information :</p>
             
             <!-- first row -->
@@ -285,32 +285,32 @@
                 <!-- Name input -->
                 <div class="form-outline bg-white">
                   {{ gcashform.customer_name }}
-                  <label class="form-label" for="id_customer_name">Customer Name</label>
+                  <label class="form-label" for="">Customer Name</label>
                 </div>
               </div>
               <div class="col">
                 <!-- Contact input -->
                 <div class="form-outline bg-white">
                   {{ gcashform.contact }}
-                  <label class="form-label" for="id_contact">Mobile Number</label>
+                  <label class="form-label" for="">Mobile Number</label>
                 </div>
               </div>
             </div>
 
             <div class="form-outline mb-3 bg-white">
               {{ gcashform.email }}
-              <label class="form-label" for="form6Example5">Email</label>
+              <label class="form-label" for="">Email</label>
             </div>
 
             <div class="form-outline mb-3 bg-white">
               {{ gcashform.delivery_address }}
-              <label class="form-label" for="form6Example5">Delivery Address</label>
+              <label class="form-label" for="">Delivery Address</label>
             </div>
 
           </div>
 
           <!-- Payment Div -->
-          <div class="payment_info fw-bold mb-2 rounded p-2 border border-success">
+          <div class="payment_info fw-bold mb-2 rounded p-2 border border-primary">
             <p class="mx-0 mb-3 p-2 bg-primary rounded text-white">Payment :</p>
 
             <p class="total p-2 rounded d-flex justify-content-between align-items-center" 
@@ -320,15 +320,15 @@
             <div class="row mb-3">
               <div class="col">
                 <!-- PAYMENT input -->
-                <div class="form-outline bg-white" id="cash_amountpaid">
+                <div class="form-outline bg-white">
                   {{ gcashform.amount }}
-                  <label class="form-label" for="typeText">Amount Paid</label>
+                  <label class="form-label" for="">Amount Paid</label>
                 </div>
               </div>
               <div class="col">
-                <div class="form-outline bg-white" id="cash_amountpaid">
+                <div class="form-outline bg-white">
                   {{ gcashform.gcash_no }}
-                  <label class="form-label" for="typeText">Gcash Number</label>
+                  <label class="form-label" for="">Gcash Number</label>
                 </div>
               </div>
             </div>
@@ -336,9 +336,9 @@
             <div class="row mb-3">
               <div class="col">
                 <!-- referrence number -->
-                <div class="form-outline bg-white" id="cash_amountpaid">
+                <div class="form-outline bg-white">
                   {{ gcashform.reference_no }}
-                  <label class="form-label" for="typeText">Reference Number</label>
+                  <label class="form-label" for="">Reference Number</label>
                 </div>
                 
               </div>
@@ -362,6 +362,110 @@
           {{ gcashform.status }}
 
         </form>
+
+        <!-- banking form -->
+        <form method="post" action="{% url 'bank_transaction' %}" id="banking_form">
+          {% csrf_token %}
+          <!-- personal info div -->
+          <div class="personal_info mb-2 rounded p-2 border border-primary" style="background-color: #eee;">
+            <p class="fw-bold mx-0 mb-3 p-2 bg-warning rounded text-white">Personal Information :</p>
+            
+            <!-- first row -->
+            <div class="row mb-3">
+              <div class="col">
+                <!-- Name input -->
+                <div class="form-outline bg-white">
+                  {{ bankform.customer_name }}
+                  <label class="form-label" for="">Customer Name</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Contact input -->
+                <div class="form-outline bg-white">
+                  {{ bankform.contact }}
+                  <label class="form-label" for="">Mobile Number</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-3 bg-white">
+              {{ bankform.email }}
+              <label class="form-label" for="">Email</label>
+            </div>
+
+            <div class="form-outline mb-3 bg-white">
+              {{ bankform.delivery_address }}
+              <label class="form-label" for="">Delivery Address</label>
+            </div>
+
+          </div>
+
+          <!-- Payment Div -->
+          <div class="payment_info fw-bold mb-2 rounded p-2 border border-primary">
+            <p class="mx-0 mb-3 p-2 bg-warning rounded text-white">Payment :</p>
+
+            <p class="total p-2 rounded d-flex justify-content-between align-items-center" 
+            style="background-color: #eee;"><span class="d-inline-block ps-2">Total Price:</span>
+            <span class="d-inline-block pe-4 text-primary" id="subtotal2"><span>&#8369;</span> {{ subtotal }}</span></p>
+
+            <div class="row mb-3">
+              <div class="col">
+                <!-- PAYMENT input -->
+                <div class="form-outline bg-white">
+                  {{ bankform.amount }}
+                  <label class="form-label" for="">Amount Paid</label>
+                </div>
+              </div>
+              <div class="col">
+                <label class="form-label" for="">Type : </label>
+                  {{ bankform.banking_type }}
+                  
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <!-- referrence number -->
+                <div class="form-outline bg-white">
+                  {{ bankform.reference_no }}
+                  <label class="form-label" for="">Reference Number</label>
+                </div>
+                
+              </div>
+              <div class="col">
+                <div class="form-outline bg-white">
+                  {{ bankform.account_name }}
+                  <label class="form-label" for="">Account Name</label>
+                </div>
+
+              </div>
+            </div>
+
+            
+          <div class="form-outline bg-white">
+            {{ bankform.bank_name }}
+            <label class="form-label" for="">Bank Name</label>
+          </div>
+
+          </div>
+
+
+          <!-- footer -->
+          <div class="modal-footer mt-2">
+            <button type="reset" class="btn btn-secondary">
+              Clear
+            </button>
+            <button type="submit" class="conf_transaction btn btn-primary" disabled >Confirm Transaction</button>
+          </div>
+
+          {{ bankform.transaction_type }}
+          {{ bankform.total_price }}
+          {{ bankform.status }}
+
+        </form>
+
+
+
       </div>
       
     </div>

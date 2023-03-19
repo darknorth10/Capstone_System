@@ -19,16 +19,24 @@ class Transaction(models.Model):
 
     #payment
     amount = models.DecimalField(max_digits=9, decimal_places=2, null=False)
-    change = models.DecimalField(max_digits=5, decimal_places=2, null=False, default=0.00)
+    change = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, default=0.00)
     customer_name = models.CharField(max_length=30, null=False)
     contact = models.CharField(max_length=11, null=False)
     email = models.EmailField(max_length=40, null=True, blank=True)
     reference_no = models.CharField(max_length=40, null=True, blank=True)
     gcash_no = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')], null=True, blank=True)
 
+    BANKING_CHOICES = [
+        ('Credit', 'Credit'),
+        ('Debit', 'Debit'),
+        ('Cheque', 'Cheque'),
+    ]
+    account_name = models.CharField(max_length=45, null=True, blank=True)
+    banking_type = models.CharField(max_length=15, null=True, blank=True, choices=BANKING_CHOICES)
+    bank_name = models.CharField(max_length=60, null=True, blank=True)
     STATUS_CHOICES = [
-        ('complete', 'Complete'),
-        ('pending', 'Pending'),
+        ('Complete', 'Complete'),
+        ('Pending', 'Pending'),
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
 

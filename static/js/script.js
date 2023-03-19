@@ -137,6 +137,7 @@ $(document).ready(function() {
 
 
   // Product management
+
   // add product form attribute
 
   $('#id_product_name').attr('class', 'form-control');
@@ -189,6 +190,7 @@ $(document).ready(function() {
 
   // POS
 
+  // clicking items will ask for quantity
   $('.itemwrapper').on("click", ".item", function () { 
     var x = $(this).parent().attr("data-productname");
     var y = $(this).parent().attr("data-productid");
@@ -200,6 +202,7 @@ $(document).ready(function() {
 
     $('#id_quantity').val('1');
     $('#curr_stock').text(z);
+    $('#quantity_conf').removeAttr('disabled');
 
     $("#pos_quantity_trigger").click();
     
@@ -213,22 +216,8 @@ $(document).ready(function() {
 
   });
 
-  // increse decrese quantity pos
-  $('.dcr').click(function () { 
-  
-    if ($(".posform input[type=number]").val() > 1) {
-        $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) - 1)
-    }
-    
-  });
-  
-  $('.incr').click(function () { 
-   $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) + 1);
-     
-  });
-
-  // desired quantity must be less than the number of currrent stocks else  btn is disabled
-  $("#id_quantity").change(function (e) { 
+   // desired quantity must be less than the number of currrent stocks else  btn is disabled
+   $("#id_quantity").change(function (e) { 
     var currentStock = parseInt($("#curr_stock").text());
 
     if ($(this).val() <= currentStock) {
@@ -238,6 +227,42 @@ $(document).ready(function() {
       $('#quantity_conf').attr('disabled', 'disabled');
     }
   });
+  
+  // increase or decrese quantity pos
+  $('.dcr').click(function () { 
+    var currentStock = parseInt($("#curr_stock").text());
+
+    if ($(".posform input[type=number]").val() > 1) {
+
+        $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) - 1)
+    }
+    
+     // disable confirm button when desired quantity exceeded current stocks
+     if ($(".posform input[type=number]").val() <= currentStock) {
+      $('#quantity_conf').removeAttr('disabled');
+
+    } else {
+      $('#quantity_conf').attr('disabled', 'disabled');
+    }
+
+  });
+  
+  $('.incr').click(function () { 
+    var currentStock = parseInt($("#curr_stock").text());
+    
+   $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) + 1);
+     
+    // disable confirm button when desired quantity exceeded current stocks
+    if ($(".posform input[type=number]").val() <= currentStock) {
+      $('#quantity_conf').removeAttr('disabled');
+
+    } else {
+      $('#quantity_conf').attr('disabled', 'disabled');
+    }
+
+  });
+
+ 
 
   //  item search shadow on focus
   $('.positemsearch').focus(function () {
@@ -273,10 +298,11 @@ $(document).ready(function() {
         $('#id_transaction_type').val('Cash');
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#id_total_price').val(total_amt);
-        $('#id_status').val('complete');
+        $('#id_status').val('Complete');
 
         $('#cash_form').show(0);
         $('#gcash_form').hide(0);
+        $('#banking_form').hide(0);
         break;
       
       case 'gcash':
@@ -288,9 +314,10 @@ $(document).ready(function() {
         $('#gcash_transaction_type').val('Gcash');
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#gcash_total_price').val(total_amt);
-        $('#gcash_status').val('complete');
+        $('#gcash_status').val('Complete');
 
         $('#cash_form').hide(0);
+        $('#banking_form').hide(0);
         $('#gcash_form').show(0);
         break;
 
@@ -306,6 +333,14 @@ $(document).ready(function() {
         $('.mop_div div h5').css('color', '#eee')
         $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
         $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
+
+        $('#bank_transaction_type').val('Banking');
+        var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
+        $('#bank_total_price').val(total_amt);
+
+        $('#cash_form').hide(0);
+        $('#banking_form').show(0);
+        $('#gcash_form').hide(0);
         break;
 
       default:
@@ -338,7 +373,7 @@ $(document).ready(function() {
     }
  });
 
-   // compute change on keyup event FOR GCASH MOP
+   // keyup event FOR GCASH MOP to add transaction
    $('#gcash_amount').keyup(function () { 
     if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
 
@@ -349,7 +384,19 @@ $(document).ready(function() {
       $('.conf_transaction').attr('disabled', 'disabled');
     }
  });
+
   
+   // keyup event FOR bank MOP to add transaction
+  $('#bank_amount').keyup(function () { 
+    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+
+      $('.conf_transaction').removeAttr('disabled');
+
+    }
+    else {   
+      $('.conf_transaction').attr('disabled', 'disabled');
+    }
+  });
 
 
 
