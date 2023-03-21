@@ -135,9 +135,9 @@ def add_transaction(request):
         itemX = Item(transaction_no=cartTransactionNo, product_id=cartItemId, name=cartItemName, size=cartItemSize, pieces=cartItemPieces, total=cartItemTotal)
         itemX.save()
 
-        #del existing items in cart after saving
-        Cart.objects.all().delete()
-        messages.success(request, 'Transaction completed successfully')
+      #del existing items in cart after saving
+       Cart.objects.all().delete()
+       messages.success(request, 'Transaction completed successfully')
 
        print('successfully added transaction')
 
@@ -249,8 +249,8 @@ def add_bank_transaction(request):
         itemX.save()
 
         #del existing items in cart after saving
-        Cart.objects.all().delete()
-        messages.success(request, 'Transaction completed successfully')
+       Cart.objects.all().delete()
+       messages.success(request, 'Transaction completed successfully')
 
        print('successfully added transaction')
 
