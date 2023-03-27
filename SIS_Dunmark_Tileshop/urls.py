@@ -26,12 +26,12 @@ urlpatterns = [
     path('CustomerProfile/', include('CustomerProfile.urls')),
     path('UserManagement/', include('UserManagement.urls')),
     path('POS/', include('PointOfSale.urls')),
-    path('Sales_transaction/', include('SalesTransaction.urls')),
+    #path('Sales_transaction/', include('SalesTransaction.urls')),
     path('Product_management/', include('ProductManagement.urls')),
     path('Return_product/', include('ReturnProduct.urls')),
     path('Settings/', include('Settings.urls')),
     path('Audit_trail/', include('AuditTrail.urls')),
-    path('Reports/', include('Reports.urls')),
+    path('Reports/', include('SalesTransaction.urls')),
     path('About_system/', include('AboutSystem.urls')),
     
 ]

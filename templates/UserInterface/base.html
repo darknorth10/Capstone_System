@@ -39,12 +39,13 @@
                 {% endif %}
                 <li><a href="{% url 'customer_profile' %}" {% if request.resolver_match.url_name == "customer_profile" %} id="nav-active" {% endif %}><i class="fa-solid fa-user-group"></i><span>Customer Profiles</span></a></li>
                 <li><a href="{% url 'pos' %}" {% if request.resolver_match.url_name == "pos" %} id="nav-active" {% endif %}><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
-                <li><a href="{% url 'sales_transaction' %}" {% if request.resolver_match.url_name == "sales_transaction" or request.resolver_match.url_name == 'payment_info' %} id="nav-active" {% endif %}><i class="fa-solid fa-sack-dollar"></i><span>Sales Transaction</span></a></li>
                 <li><a href="{% url 'product_management' %}" {% if request.resolver_match.url_name == "product_management" %} id="nav-active" {% endif %}><i class="fa-solid fa-table-columns"></i><span>Product Management</span></a></li>
                 <li><a href="{% url 'return_product' %}" {% if request.resolver_match.url_name == "return_product" %} id="nav-active" {% endif %}><i class="fa-solid fa-arrow-right-arrow-left"></i><span>Return Product</span></a></li>
                 <li><a href="{% url 'settings' %}" {% if request.resolver_match.url_name == "settings" %} id="nav-active" {% endif %}><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+                {% if user.is_staff %}
                 <li><a href="{% url 'audit_trail' %}" {% if request.resolver_match.url_name == "audit_trail" %} id="nav-active" {% endif %}><i class="fa-solid fa-circle-info"></i><span>Audit Trail</span></a></li>
-                <li><a href="{% url 'reports' %}" {% if request.resolver_match.url_name == "reports" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered"></i><span>Reports</span></a></li>
+                <li><a href="{% url 'sales_transaction' %}" {% if request.resolver_match.url_name == "sales_transaction" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered"></i><span>Reports</span></a></li>
+                {% endif %}
                 <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %}><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
             </ul>
         </div>
