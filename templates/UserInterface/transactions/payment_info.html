@@ -3,49 +3,434 @@
 
 {% block content %}
 
-<div class="sales_transaction w-100 h-100 m-0 p-2">
+<div class="payment_info_page w-100 h-100 m-0 p-2">
     <div class="trans_content h-100 2-100 d-flex flex-column p-3">
         <h3 class="heading bg-transparent mb-3 text-center">Payment Infomation</h3>
         <div class="trans_actionbar bg-transparent w-100 rounded d-flex justify-content-between my-3">
-            <a href="{% url 'sales_transaction' %}" class="btn btn-light shadow">Back to Transactions</a>
+            <a href="{% url 'sales_transaction' %}" class="btn btn-light border border-primary border-3 shadow">Back to Transactions</a>
             <div class="input-group w-25">
                 <div class="form-outline shadow">
-                  <input type="search" id="form1" class="form-control bg-light shadow-sm" />
-                  <label class="form-label" for="form1">Search</label>
-                </div>
+                    <input type="search" id="form1" class="form-control bg-light shadow-sm" />
+                    <label class="form-label" for="form1">Search</label>
+                  </div>
                 <button type="button" class="btn btn-secondary">
                   <i class="fas fa-search"></i>
                 </button>
             </div>
         </div>
-        <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 80%;">
-            <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; ">
-                <thead class="text-light text-center" style="background-color: rgb(30, 98, 132);">
-                    <th>Trans No.</th>
-                    <th>Amount Paid</th>
-                    <th>Change</th>
-                    <th>Customer Name</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>Gcash No.</th>
-                    <th>Reference No.</th>
-                </thead>
-                <tbody>
-                    {% for p in payment  %}
-                        <tr class="text-center">
-                            <td>{{ p.transaction_no }}</td>
-                            <td>{{ p.amount }}</td>
-                            <td>{{ p.change }}</td>
-                            <td>{{ p.customer_name }}</td>
-                            <td>{{ p.contact }}</td>
-                            <td>{{ p.email }}</td>
-                            <td>{{ p.gcash_no }}</td>
-                            <td>{{ p.reference_no}}</td>
-                        </tr>
-                    {% endfor %}       
-                </tbody>
-            </table>
+
+
+        <!-- Tabs navs -->
+        <ul class="nav nav-tabs mb-3 bg-secondary w-50 my-0 rounded shadow-sm" id="ex1" role="tablist" style="font-family: 'Montserrat';">
+
+            <li class="nav-item w-50 text-center" role="presentation">
+            <a
+                class="nav-link active"
+                id="ex1-tab-1"
+                data-mdb-toggle="tab"
+                href="#ex1-tabs-1"
+                role="tab"
+                aria-controls="ex1-tabs-1"
+                aria-selected="true"
+                >Full Payment</a
+            >
+            </li>
+            <li class="nav-item w-50  text-center" role="presentation">
+            <a
+                class="nav-link"
+                id="ex1-tab-2"
+                data-mdb-toggle="tab"
+                href="#ex1-tabs-2"
+                role="tab"
+                aria-controls="ex1-tabs-2"
+                aria-selected="false"
+                >Installment</a
+            >
+            </li>
+
+        </ul>
+        <!-- Tabs navs -->
+        
+        <!-- Tabs content -->
+        <div class="tab-content bg-white p-3 my-0 rounded shadow-sm h-100" id="ex1-content">
+            <div
+            class="tab-pane show active"
+            id="ex1-tabs-1"
+            role="tabpanel"
+            aria-labelledby="ex1-tab-1"
+            >
+
+            <div class="row ps-2 w-100">
+                <div class="col-2 p-2 bg-primary h-50 rounded" style="font-family: 'Barlow'; font-weight: 500; letter-spacing: 1px;">
+                  <!-- Tab navs vertical for full payment -->
+                  <div
+                    class="nav flex-column nav-tabs text-center"
+                    id="v-tabs-tab"
+                    role="tablist"
+                    aria-orientation="vertical"
+                  >
+                    <a
+                      class="nav-link mb-2 rounded active"
+                      id="v-tabs-home-tab"
+                      data-mdb-toggle="tab"
+                      href="#v-tabs-home"
+                      role="tab"
+                      aria-controls="v-tabs-home"
+                      aria-selected="true"
+                      >Cash</a
+                    >
+                    <a
+                      class="nav-link mb-2 rounded"
+                      id="v-tabs-profile-tab"
+                      data-mdb-toggle="tab"
+                      href="#v-tabs-profile"
+                      role="tab"
+                      aria-controls="v-tabs-profile"
+                      aria-selected="false"
+                      >Gcash</a
+                    >
+                    <a
+                      class="nav-link rounded"
+                      id="v-tabs-messages-tab"
+                      data-mdb-toggle="tab"
+                      href="#v-tabs-messages"
+                      role="tab"
+                      aria-controls="v-tabs-messages"
+                      aria-selected="false"
+                      >Banking</a
+                    >
+                  </div>
+                  <!-- Tab navs -->
+                </div>
+              
+                <div class="col-10 px-3 bg-light shadow-inner rounded">
+                  <!-- Tab content -->
+                  <div class="tab-content" id="v-tabs-tabContent">
+                    <div
+                      class="tab-pane show active"
+                      id="v-tabs-home"
+                      role="tabpanel"
+                      aria-labelledby="v-tabs-home-tab"
+                    >   
+                        <!-- cash full payment details -->
+                      <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                        <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
+                            <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 132, 118);"> <!-- rgb(30, 98, 132) -->
+                                <th>Trans No.</th>
+                                <th>Amount Paid</th>
+                                <th>Change</th>
+                                <th>Date of Purchace</th>
+                                <th>Customer Name</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                            </thead>
+                            <tbody>
+                                {% for p in payment  %}
+                                    
+                                    {% if p.status == "Complete" and p.transaction_type == "Cash" and p.installment == "false" %}
+                                    <tr class="text-center">
+                                        <td>{{ p.transaction_no }}</td>
+                                        <td>{{ p.amount }}</td>
+                                        <td>{{ p.change }}</td>
+                                        <td>{{ p.date_of_purchace }}</td>
+                                        <td>{{ p.customer_name }}</td>
+                                        <td>{{ p.contact }}</td>
+                                        <td>{{ p.email }}</td>
+                                    </tr>
+                                    {% endif %}
+                                        
+                                    
+                                {% endfor %}       
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    <div
+                      class="tab-pane"
+                      id="v-tabs-profile"
+                      role="tabpanel"
+                      aria-labelledby="v-tabs-profile-tab"
+                    >
+                     <!-- gcash payment detail full payment -->
+                        <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                            <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
+                                <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 66, 132);"> <!-- rgb(30, 98, 132) -->
+                                    <th>Trans No.</th>
+                                    <th>Amount Paid</th>
+                                    <th>Change</th>
+                                    <th>Date of Purchace</th>
+                                    <th>Customer Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Gcash No.</th>
+                                    <th>Reference</th>
+                                </thead>
+                                <tbody>
+                                    {% for p in payment  %}
+                                        
+                                        {% if p.status == "Complete" and p.transaction_type == "Gcash" and p.installment == "false" %}
+                                        <tr class="text-center">
+                                            <td>{{ p.transaction_no }}</td>
+                                            <td>{{ p.amount }}</td>
+                                            <td>{{ p.change }}</td>
+                                            <td>{{ p.date_of_purchace }}</td>
+                                            <td>{{ p.customer_name }}</td>
+                                            <td>{{ p.contact }}</td>
+                                            <td>{{ p.email }}</td>
+                                            <td>{{ p.gcash_no }}</td>
+                                            <td>{{ p.reference_no }}</td>
+                                        </tr>
+                                        {% endif %}
+                                            
+                                        
+                                    {% endfor %}       
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div
+                      class="tab-pane"
+                      id="v-tabs-messages"
+                      role="tabpanel"
+                      aria-labelledby="v-tabs-messages-tab"
+                    >
+                        <!-- banking full payment details -->
+                        <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                            <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
+                                <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(132, 113, 30);"> <!-- rgb(30, 98, 132) -->
+                                    <th>Trans No.</th>
+                                    <th>Amount Paid</th>
+                                    <th>Change</th>
+                                    <th>Date of Purchace</th>
+                                    <th>Customer Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Account</th>
+                                    <th>Type</th>
+                                    <th>BAnk Name</th>
+                                </thead>
+                                <tbody>
+                                    {% for p in payment  %}
+                                        
+                                        {% if p.status == "Complete" and p.transaction_type == "Banking" and p.installment == "false" %}
+                                        <tr class="text-center">
+                                            <td>{{ p.transaction_no }}</td>
+                                            <td>{{ p.amount }}</td>
+                                            <td>{{ p.change }}</td>
+                                            <td>{{ p.date_of_purchace }}</td>
+                                            <td>{{ p.customer_name }}</td>
+                                            <td>{{ p.contact }}</td>
+                                            <td>{{ p.email }}</td>
+                                            <td>{{ p.account_name }}</td>
+                                            <td>{{ p.banking_type }}</td>
+                                            <td>{{ p.bank_name }}</td>
+                                        </tr>
+                                        {% endif %}
+                                            
+                                        
+                                    {% endfor %}       
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- Tab content -->
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <!-- Installment view -->
+            <div class="tab-pane" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                
+                <div class="row ps-2 w-100">
+                    <div class="col-2 p-2 h-50 rounded" style="font-family: 'Barlow'; font-weight: 500; letter-spacing: 1px; background-color: rgb(30, 132, 118);">
+                      <!-- Tab navs vertical for installment  -->
+                      <div
+                        class="nav flex-column nav-tabs text-center"
+                        id="v-tabs-tab"
+                        role="tablist"
+                        aria-orientation="vertical"
+                      >
+                        <a
+                          class="nav-link mb-2 rounded active"
+                          id="v-tabs-home-tab"
+                          data-mdb-toggle="tab"
+                          href="#v-tabs-install1"
+                          role="tab"
+                          aria-controls="v-tabs-home"
+                          aria-selected="true"
+                          >Cash</a
+                        >
+                        <a
+                          class="nav-link mb-2 rounded"
+                          id="v-tabs-profile-tab"
+                          data-mdb-toggle="tab"
+                          href="#v-tabs-install2"
+                          role="tab"
+                          aria-controls="v-tabs-profile"
+                          aria-selected="false"
+                          >Gcash</a
+                        >
+                        <a
+                          class="nav-link rounded"
+                          id="v-tabs-messages-tab"
+                          data-mdb-toggle="tab"
+                          href="#v-tabs-install3"
+                          role="tab"
+                          aria-controls="v-tabs-messages"
+                          aria-selected="false"
+                          >Banking</a
+                        >
+                      </div>
+                      <!-- Tab navs -->
+                    </div>
+                  
+                    <div class="col-10 px-3 bg-light shadow-inner rounded">
+                      <!-- Tab content -->
+                      <div class="tab-content" id="v-tabs-tabContent">
+                        <div
+                          class="tab-pane show active"
+                          id="v-tabs-install1"
+                          role="tabpanel"
+                          aria-labelledby="v-tabs-home-tab"
+                        >   
+                            <!-- cash installment payment details -->
+                          <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                            <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
+                                <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 132, 118);"> <!-- rgb(30, 98, 132) -->
+                                    <th>Trans No.</th>
+                                    <th>Amount Paid</th>
+                                    <th>Change</th>
+                                    <th>Date of Purchace</th>
+                                    <th>Customer Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    {% for p in payment  %}
+                                        
+                                        {% if p.transaction_type == "Cash" and p.installment == "true" %}
+                                        <tr class="text-center">
+                                            <td>{{ p.transaction_no }}</td>
+                                            <td>{{ p.amount }}</td>
+                                            <td>{{ p.change }}</td>
+                                            <td>{{ p.date_of_purchace }}</td>
+                                            <td>{{ p.customer_name }}</td>
+                                            <td>{{ p.contact }}</td>
+                                            <td>{{ p.email }}</td>
+                                            <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
+                                        </tr>
+                                        {% endif %}
+                                            
+                                        
+                                    {% endfor %}       
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                        <div
+                          class="tab-pane"
+                          id="v-tabs-install2"
+                          role="tabpanel"
+                          aria-labelledby="v-tabs-profile-tab"
+                        >
+                         <!-- gcash payment detail installment payment -->
+                            <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                                <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">
+                                    <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 66, 132);"> <!-- rgb(30, 98, 132) -->
+                                        <th>Trans No.</th>
+                                        <th>Amount Paid</th>
+                                        <th>Date of Purchace</th>
+                                        <th>Customer Name</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th>Gcash No.</th>
+                                        <th>Reference</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in payment  %}
+                                            
+                                            {% if p.transaction_type == "Gcash" and p.installment == "true" %}
+                                            <tr class="text-center">
+                                                <td>{{ p.transaction_no }}</td>
+                                                <td>{{ p.amount }}</td>
+                                                <td>{{ p.date_of_purchace }}</td>
+                                                <td>{{ p.customer_name }}</td>
+                                                <td>{{ p.contact }}</td>
+                                                <td>{{ p.email }}</td>
+                                                <td>{{ p.gcash_no }}</td>
+                                                <td>{{ p.reference_no }}</td>
+                                                <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
+                                            </tr>
+                                            {% endif %}
+                                                
+                                            
+                                        {% endfor %}       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div
+                          class="tab-pane"
+                          id="v-tabs-install3"
+                          role="tabpanel"
+                          aria-labelledby="v-tabs-messages-tab"
+                        >
+                            <!-- banking installment payment details -->
+                            <div class="trans_table bg-primary p-1 bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                                <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">
+                                    <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(132, 113, 30);"> <!-- rgb(30, 98, 132) -->
+                                        <th>Trans No.</th>
+                                        <th>Amount Paid</th>
+                                        <th>Date of Purchace</th>
+                                        <th>Due Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th>Account</th>
+                                        <th>Type</th>
+                                        <th>Bank Name</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in payment  %}
+                                            
+                                            {% if p.transaction_type == "Banking" and p.installment == "true" %}
+                                            <tr class="text-center">
+                                                <td>{{ p.transaction_no }}</td>
+                                                <td>{{ p.amount }}</td>
+                                                <td>{{ p.date_of_purchace }}</td>
+                                                <td>{{ p.installment_due }}</td>
+                                                <td>{{ p.customer_name }}</td>
+                                                <td>{{ p.contact }}</td>
+                                                <td>{{ p.email }}</td>
+                                                <td>{{ p.account_name }}</td>
+                                                <td>{{ p.banking_type }}</td>
+                                                <td>{{ p.bank_name }}</td>
+                                                <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
+                                            </tr>
+                                            {% endif %}
+                                                
+                                            
+                                        {% endfor %}       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- Tab content -->
+                    </div>
+                  </div>
+
+            </div>
+       
         </div>
+  
     </div>
 </div>
     

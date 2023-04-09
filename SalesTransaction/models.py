@@ -1,6 +1,7 @@
 from django.db import models
 from ProductManagement.models import Product
 from django.core.validators import RegexValidator
+from datetime import datetime, timedelta
 # Create your models here.
 
 class Transaction(models.Model):
@@ -8,20 +9,19 @@ class Transaction(models.Model):
     TYPE_CHOICES = [
         ('Cash', 'Cash'),
         ('Gcash', 'Gcash'),
-        ('Installment', 'Installment'),
         ('Banking', 'Banking'),
     ]
     transaction_type = models.CharField(max_length=20, null=False, choices=TYPE_CHOICES)
     total_price = models.DecimalField(max_digits=9, decimal_places=2, null=False)
     total_products = models.PositiveIntegerField(null=True, blank=True)
     date_of_purchace = models.DateTimeField(auto_now_add=True, null=False)
-    delivery_address = models.CharField(max_length=80, null=True)
+    delivery_address = models.CharField(max_length=80, null=True, blank=True)
 
     #payment
-    amount = models.DecimalField(max_digits=9, decimal_places=2, null=False)
-    change = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, default=0.00)
-    customer_name = models.CharField(max_length=30, null=False)
-    contact = models.CharField(max_length=11, null=False)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=False)
+    change = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, default=0.00)
+    customer_name = models.CharField(max_length=30, null=True, blank=True)
+    contact = models.CharField(max_length=11, null=True, blank=True)
     email = models.EmailField(max_length=40, null=True, blank=True)
     reference_no = models.CharField(max_length=40, null=True, blank=True)
     gcash_no = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')], null=True, blank=True)
@@ -40,6 +40,10 @@ class Transaction(models.Model):
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
 
+    installment = models.CharField(max_length=10, blank=True, null=True, default='false')
+    installment_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0.00)
+    installment_due = models.DateTimeField(default=datetime.now()+timedelta(days=30))
+    
     def __str__(self):
         return str(self.transaction_no)
 

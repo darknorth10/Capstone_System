@@ -107,11 +107,17 @@ def add_transaction(request):
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Cash').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "Complete"
+
+       if obj.installment == "true":
+          obj.status = "Pending"
+          obj.installment_paid = obj.amount
+       else:
+          obj.status = "Complete"
        obj.save()
        
        cart = Cart.objects.all()
 
+        #transafer cart item to item transaction table
        for item in cart:
         cartTransactionNo = obj.transaction_no
         cartItemId = item.product_id
@@ -161,7 +167,12 @@ def add_gcash_transaction(request):
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Gcash').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "Complete"
+
+       if obj.installment == "true":
+          obj.status = "Pending"
+          obj.installment_paid = obj.amount
+       else:
+          obj.status = "Complete"
        obj.save()
        
        cart = Cart.objects.all()
@@ -220,9 +231,15 @@ def add_bank_transaction(request):
       #grab lastest record in transaction database
        obj = Transaction.objects.filter(transaction_type='Banking').order_by('-transaction_no')[0]
        obj.total_products = Cart.objects.all().count()
-       obj.status = "Complete"
+       
+       if obj.installment == "true":
+          obj.status = "Pending"
+          obj.installment_paid = obj.amount
+       else:
+          obj.status = "Complete"
        obj.save()
        
+
        cart = Cart.objects.all()
 
        for item in cart:

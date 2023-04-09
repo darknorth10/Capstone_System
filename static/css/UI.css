@@ -15,7 +15,7 @@
 }
 
 html {
-    
+    font-size: 17px;
     font-family: sans-serif;
 }
 
@@ -42,16 +42,21 @@ body {
 }
 .sidenav {
     height: 100vh;
-    width: 18%;
+    width: 60px;
     background: rgb(7,33,91);
     background: linear-gradient(0deg, rgba(7,33,91,1) 0%, rgba(14,28,61,1) 100%);
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     flex-direction: column;
+    justify-content:center;
     position: relative;
     transition: width 0.6s;
     z-index: 3;
+    gap: 25px;
+}
+
+.sidenav-menu li span {
+  display: none;
 }
 
 .sidenav-menu {
@@ -61,11 +66,11 @@ body {
     bottom: 30px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
 }
 .sidenav-menu li {
     padding: 0 5px 0 5px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-family: 'Montserrat', 'Whitney', sans-serif;
     letter-spacing: 0.5px;
     font-weight: bold;
@@ -96,15 +101,17 @@ body {
 }
 
 .sidenav-menu i {
-    font-size: 0.7rem;
+    font-size:0.8rem;
     margin-right: 8px;
+    margin-bottom: 5px;
+
 }
 
 
 
 #navlogo {
-    display: block;
-    height: 70px;
+    display: none;
+    height: 90px;
     width: 90%;
     margin: 20px 0 30px 0;
 }
@@ -148,7 +155,7 @@ body {
 }
 
 .header h4 {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   font-family: 'Essen';
   color: rgb(7,33,91);
@@ -193,6 +200,7 @@ body {
   position: absolute;
   top: 5%;
   right:-20px;
+  transform: rotate(180deg);
   transition: transform 0.5s;
   z-index: 1;
 }
@@ -297,9 +305,12 @@ body {
   margin-top: 10px;
   text-transform: uppercase;
 }
+.text-label h2:last-of-type {
+  font-size: 1em;
+}
 
 #dash-annual {
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: bold;  
   padding-bottom: 15px;
   font-family: 'Barlow';
@@ -353,7 +364,7 @@ body {
 }
 
 .label-progress {
-  font-size: 0.8em;
+  font-size: 0.7em;
   font-family: 'Quicksand';
   font-weight: bold;
   display: flex;
@@ -447,7 +458,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:20px 60px 0 60px;
+  padding: 0 60px 0 60px;
   animation: fade-in-right 0.7s;
 }
 #um-search {
@@ -590,11 +601,18 @@ body {
 
 /* Sales Transactions */
 .sales_transaction {
-  background-image: url('../images/fading-blue-background.jpg');
+  background-image: url('../images/peakpx7.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
+.payment_info_page {
+  background-image: url('../images/peakpx6.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
 
 thead th:first-of-type {
   border-radius: 5px 0 0 5px;
@@ -618,7 +636,7 @@ thead th:last-of-type {
 
 .item {
   overflow: hidden;
-  background-image: radial-gradient( circle farthest-corner at 41.5% 52.8%,  rgba(0,133,195,1) 0%, rgba(0,108,159,1) 87.3% );
+  background: white;
 }
 
 .item_drawer div {
@@ -645,7 +663,7 @@ thead th:last-of-type {
 
 .item h3 {
   font-family: 'Barlow', sans-serif;
-  color: rgb(255, 255, 255);
+  color: rgb(26, 26, 26);
   font-size: 0.7rem;
   text-align: center;
   letter-spacing: 1px;
@@ -713,4 +731,23 @@ thead th:last-of-type {
   padding: 0;
   font-size: 0.9em;
   color: #eee;
+} 
+
+.changecash {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eee;
+}
+.downpayment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eee;
+}
+
+.pos_btns a {
+  font-family: 'Quicksand';
+  letter-spacing: 1px;
+  font-size: 0.8rem;
 }

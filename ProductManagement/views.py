@@ -3,6 +3,7 @@ from .models import Product
 from .forms import ProductForm, changeProductForm, addStocksForm
 # from django.http import JsonResponse
 from django.contrib import messages
+from datetime import date
 # Create your views here.
 
 def product_management(request):
@@ -74,8 +75,9 @@ def add_stock(request, id):
       print(new_stock)
       # update current stocks
       selected_product.current_stock = new_stock
+      selected_product.date_last_stocked = date.today()
       selected_product.save()
-
+      print(date.today())
       # make the product aavailable when restocked and greater than 0
       if selected_product.current_stock >= 0:
         selected_product.availability = True

@@ -3,6 +3,7 @@
 
 {% block content %}
     <div class="wrapper_editprod h-100 w-100">
+      <a href="{% url 'product_management' %}" class="btn btn-secondary m-4" style="width: 150px;">Back</a>
         <div class="edit_product card shadow bg-white p-3 w-50 mx-auto mt-5" style="font-family: 'Barlow';">
             <h5 class="card-header mb-3">Edit Product info for : <span class="text-primary">{{ product.product_name }} 
             {% if product.category == 'Porcelain Tiles' or product.category == 'Ceramic Tiles' %}
@@ -27,10 +28,8 @@
                 </div>
                 
     
-              
                 <div class="card-footer d-flex justify-content-end">
-                  <a href="{% url 'product_management' %}" class="btn btn-secondary">Back</a>
-                  <button type="submit" class="btn btn-primary mx-3">Update</button>
+                  <button type="submit" class="btn btn-primary w-25 fs-6 mx-3">Update</button>
                 </div>
               </form>
         </div>

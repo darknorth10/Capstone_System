@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="addstock_div  h-100 w-100 p-3">
-        <a class="btn btn-dark d-block mx-4 mt-4" href="{% url 'product_management' %}" style="width: 100px;">Go back</a>
+        <a class="btn btn-dark d-block mx-4 mt-4" href="{% url 'product_management' %}" style="width: 150px;">Go back</a>
         <div class="card w-50 p-3 mx-auto mt-5" style="font-family: 'Barlow'; color: black;">
             <h6 class="card-header d-inline-flex justify-content-evenly"><span>Add Stocks to: <span class="text-primary">{{ product.product_name }}</span></span> <span class="">Current Stocks: {{ product.current_stock}}</span></h6>
             
@@ -21,13 +21,13 @@
                 {% endif %}
                 {% if form.errors %}
                 <div class="alert alert-primary p-0 text-center">
-                    <strong style="font-size: 0.8em;">{{ form.current_stock.errors }}</strong>   
+                    <strong style="font-size: 0.9em;">{{ form.current_stock.errors }}</strong>   
                 </div>
                 {% endif %}
                     
    
                     
-                <button type="button" class="btn btn-primary w-100" data-mdb-toggle="modal" data-mdb-target="#confirmAddStock">Submit</button>
+                <button type="button" class="btn btn-primary w-100 fs-6" data-mdb-toggle="modal" data-mdb-target="#confirmAddStock">ADD STOCKS</button>
             </form>
         </div>
     </div>

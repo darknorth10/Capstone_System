@@ -30,10 +30,11 @@ $('.dashboard').ready(function () {
 $(document).ready(function() {
 
   var shrink = false;
-  
+
+
   $('#shrink').click(function() {
     
-    if (shrink == false) {
+    if (shrink == true) {
       $('.sidenav').css('width', "60px");
       $('.sidenav').css('justify-content', "center");
       $('.sidenav-menu li span').hide();
@@ -45,14 +46,14 @@ $(document).ready(function() {
       $('#shrink').css('transform', 'rotate(180deg)');
       $('.left-symbol').css('width', '30%')
       $('.text-label h2:last-of-type').css('font-size', '1em')
-      shrink = true;
+      shrink = false;
     } else {
       $('.sidenav').css('width', "18%");
       setTimeout(function() {
         $('.sidenav-menu li span').show();
       }, 500);
       $('.sidenav-menu li i').css("font-size", "0.7rem");
-      $('.sidenav').css('justify-content', "space-evenly");
+      $('.sidenav').css('justify-content', "flex-start");
       $('#navlogo').css('visibility', 'visible');
       // $('#navlogo').css('visibility', 'visible');
       $('#navlogo').show()
@@ -60,11 +61,14 @@ $(document).ready(function() {
       $('#shrink').css('transform', 'rotate(0deg)');
       $('.left-symbol').css('width', '20%')
       $('.text-label h2:last-of-type').css('font-size', '0.9em')
-      shrink = false;
+      shrink = true;
       
     }
     
   });
+
+
+  
   
   // Alert Function
   $(document).ready(function () {
@@ -278,6 +282,9 @@ $(document).ready(function() {
    // Disable proceed button when mop was not selected
    $('#pos_proceed').attr('disabled', 'disabled');
 
+   // downpayment value
+   var downpayment = parseFloat($('#subtotal').attr('data-subtotal')) * .3;
+  
 
    // for selecting mode of payment
   $('.mop_div div input[name="mop"]').change(function () { 
@@ -300,6 +307,11 @@ $(document).ready(function() {
         $('#id_total_price').val(total_amt);
         $('#id_status').val('Complete');
 
+        var dp = downpayment.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        console.log(dp);
+        $('.dp').text('');
+        $('.pos_downpayment').text(dp);
+
         $('#cash_form').show(0);
         $('#gcash_form').hide(0);
         $('#banking_form').hide(0);
@@ -310,23 +322,22 @@ $(document).ready(function() {
         $('.mop_div div h5').css('color', '#eee')
         $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
         $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
-
+      
         $('#gcash_transaction_type').val('Gcash');
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#gcash_total_price').val(total_amt);
         $('#gcash_status').val('Complete');
+
+        var dp = downpayment.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        console.log(dp);
+        $('.dp').text('');
+        $('.pos_downpayment').text(dp);
 
         $('#cash_form').hide(0);
         $('#banking_form').hide(0);
         $('#gcash_form').show(0);
         break;
 
-      case 'installment':
-        $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
-        $('.mop_div div h5').css('color', '#eee')
-        $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
-        $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
-        break;
 
       case 'banking':
         $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
@@ -338,6 +349,11 @@ $(document).ready(function() {
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#bank_total_price').val(total_amt);
 
+        var dp = downpayment.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        console.log(dp);
+        $('.dp').text('');
+        $('.pos_downpayment').text(dp);
+
         $('#cash_form').hide(0);
         $('#banking_form').show(0);
         $('#gcash_form').hide(0);
@@ -348,54 +364,152 @@ $(document).ready(function() {
     }
   });
 
+  //  Installment Switch
+ var toggelInstallment = false;
+ $('.downpayment').hide();
+ 
+ 
+ $("#installmentswitch").change(function() {
+ 
+     if (toggelInstallment) {
+      // Cash
+       $(".downpayment").hide();
+       $(".changecash").show();
+       $('#id_installment').val("false");
+       $('#gcash_installment').val("false");
+       $('#bank_installment').val("false");
+       toggelInstallment = false;
+
+       $('#id_customer_name').removeAttr('required');
+       $('#id_contact').removeAttr('required');
+       $('#id_email').removeAttr('required');
+       $('#id_delivery_address').removeAttr('required');
+
+       $('#gcash_customer_name').removeAttr('required');
+       $('#gcash_contact').removeAttr('required');
+       $('#gcash_email').removeAttr('required');
+       $('#gcash_delivery_address').removeAttr('required');
+
+
+       
+     } else {
+      // Cash
+       $(".downpayment").show(0);
+       $(".changecash").hide(0);
+       $('#id_installment').val("true");
+       $('#gcash_installment').val("true");
+       $('#bank_installment').val("true");
+       toggelInstallment = true;
+
+       $('#id_customer_name').attr('required', 'required');
+       $('#id_contact').attr('required', 'required');
+       $('#id_email').attr('required', 'required');
+       $('#id_delivery_address').attr('required', 'required');
+
+       $('#gcash_customer_name').attr('required', 'required');
+       $('#gcash_contact').attr('required', 'required');
+       $('#gcash_email').attr('required', 'required');
+       $('#gcash_delivery_address').attr('required', 'required');
+     }
+   
+ });
+ 
+  //  Change cash on change event
+
   // compute change on change event FOR CASH MOP
  $('#id_amount').keyup(function () { 
-    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+    if(!toggelInstallment) {
+      if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal')) ) {
 
-      var a = $(this).val() - parseFloat($('#subtotal').attr('data-subtotal'));
-      $(this).attr('data-value', a);
-    
-      change = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
-      $('.x').text('');
-      $('#pos_change').text(change);
-      $('.conf_transaction').removeAttr('disabled');
-
-      $('#id_change').val(a);
-
+        var a = $(this).val() - parseFloat($('#subtotal').attr('data-subtotal'));
+        $(this).attr('data-value', a);
+      
+        change = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        $('.x').text('');
+        $('#pos_change').text(change);
+        $('.conf_transaction').removeAttr('disabled');
+  
+        $('#id_change').val(a);
+  
+      }
+      else {
+        var a = 0
+        $('.x').text('');
+        phcurrency = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        $('#pos_change').text(phcurrency.toString());
+        $('.conf_transaction').attr('disabled', 'disabled');
+        $('#id_change').val(a);
+      }
     }
+    // if installment is toggled
     else {
-      var a = 0
-      $('.x').text('');
-      phcurrency = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
-      $('#pos_change').text(phcurrency.toString());
-      $('.conf_transaction').attr('disabled', 'disabled');
-      $('#id_change').val(a);
+
+      if ($(this).val() >= downpayment) {
+
+        var b = 0.00
+        var change = b;
+
+        $('.conf_transaction').removeAttr('disabled');
+        $('#id_change').val(b);
+        $('.conf_transaction').removeAttr('disabled');
+      }
+      else {
+        var a = 0
+        $('.dp').text('');
+        phcurrency = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
+        $('#pos_change').text(phcurrency.toString());
+        $('.conf_transaction').attr('disabled', 'disabled');
+        $('#id_change').val(a);
+      }
     }
  });
 
    // keyup event FOR GCASH MOP to add transaction
    $('#gcash_amount').keyup(function () { 
-    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+      if(!toggelInstallment) {
+        
+        if ($(this).val() == parseFloat($('#subtotal').attr('data-subtotal'))) {
 
-      $('.conf_transaction').removeAttr('disabled');
+          $('.conf_transaction').removeAttr('disabled');
 
-    }
-    else {   
-      $('.conf_transaction').attr('disabled', 'disabled');
+        }
+        else {   
+          $('.conf_transaction').attr('disabled', 'disabled');
+        }
+
+        // if Installment Banking mop
+    } else {
+        if($(this).val() >= downpayment) {
+          $('.conf_transaction').removeAttr('disabled');
+        } else {
+          $('.conf_transaction').attr('disabled', 'disabled');
+        }
     }
  });
 
   
    // keyup event FOR bank MOP to add transaction
   $('#bank_amount').keyup(function () { 
-    if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal'))) {
+    // if not installment and banking mop
+      if(!toggelInstallment) {
+      
+        if ($(this).val() == parseFloat($('#subtotal').attr('data-subtotal'))) {
 
-      $('.conf_transaction').removeAttr('disabled');
+          $('.conf_transaction').removeAttr('disabled');
 
-    }
-    else {   
-      $('.conf_transaction').attr('disabled', 'disabled');
-    }
+        }
+        else {   
+          $('.conf_transaction').attr('disabled', 'disabled');
+        }
+
+        // if Installment Banking mop
+     } else {
+        if($(this).val() >= downpayment) {
+          $('.conf_transaction').removeAttr('disabled');
+        } else {
+          $('.conf_transaction').attr('disabled', 'disabled');
+        }
+     }
   });
 
 
@@ -425,6 +539,9 @@ $(document).ready(function() {
     $("#trigger3").click()
  
  });
+
+
+
 
 });
 

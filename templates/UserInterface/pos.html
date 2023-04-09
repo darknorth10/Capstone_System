@@ -32,10 +32,21 @@
             </div>
 
             <!-- Seach Item -->
-              <div class="pos_search w-75 align-self-center d-flex justify-content-center rounded-pill bg-white my-3 shadow-sm p-2 overflow-hidden">
-                    <span class="d-block px-4"><i class="fas fa-search"></i></span>
-                    <input type="search" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="positemsearch w-100" placeholder="Search Item Name"/>
+            <div class="actionbars_pos row d-flex align-items-center bg-transparent p-3">
+              <div class="col d-inline-flex justify-content-end">
+                <div class="pos_search w-75 align-self-center d-flex justify-content-center rounded-pill bg-white my-3 shadow-sm p-2 overflow-hidden">
+                  <span class="d-block px-4"><i class="fas fa-search"></i></span>
+                  <input type="search" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="positemsearch w-100" placeholder="Search Item Name"/>
+                </div>
               </div>
+              
+              <div class="pos_btns col d-inline-flex justify-content-center" >
+                <a href="{% url 'sales_transaction' %}" class="btn px-3 py-2 btn-light mx-4"><i class="fa-solid fa-clock-rotate-left fa-lg mx-2"></i>Transactions</a>
+                <a href="" class="btn px-3 py-2 btn-light"><i class="fa-solid fa-coins fa-lg mx-2"></i>Installments</a>
+              </div>
+
+            </div>
+              
 
             <!-- Item Drawer -->
             <div class="item_drawer w-100 h-100 bg-transparent d-flex flex-wrap justify-content-center overflow-y-scroll pb-5 mb-3">
@@ -69,7 +80,7 @@
             
             <p class="px-4 py-2 mb-0 text-light d-inline-flex justify-content-between" style="font-family: 'Courier'; font-size: 0.8em;"><span class="d-inline-block">Product</span><span class="d-inline-block pe-2">Price</span></p>
 
-            <ul class="list-unstyled px-2 mt-0 overflow-y-scroll" style="max-height: 47%; font-family: 'Courier'; font-size: 0.7em;">
+            <ul class="list-unstyled px-2 mt-0 overflow-y-scroll" style="max-height: 47%; height:47%; font-family: 'Courier'; font-size: 0.7em;">
               
               {% for cart in carts %}
               <li class="itemlist mb-1 d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark fa-lg me-2 text-danger float-start pt-2"></i>{{ cart.name }}{% if not cart.size == "N/A" %}<span class="text-primary">({{ cart.size }})</span> {% endif %} 
@@ -82,10 +93,16 @@
               <span class="d-inline-block">Subtotal:</span><span class="d-inline-block" id="subtotal" data-subtotal="{{ subtotal_raw }}">Php {{ subtotal }}</span></h3>
               <hr class="bg-light mt-2 mb-0">
 
-              <p class="m-0 p-2 text-center" style="font-family: 'Quicksand'; color: #eee; font-size: 0.8em;">Select Mode of Payment</p>
+              <!-- Installment switch -->
+              <div class="form-check form-switch mx-auto my-3 text-white">
+                <label class="form-check-label" for="installmentswitch" id="switchInstallment">Installment</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="installmentswitch" />
+              </div>
+
+              <p class="m-0 p-2 text-center" style="font-family: 'Quicksand'; color: #6396f5; font-size: 0.9em;">Select Mode of Payment</p>
 
               <div class="mop_div w-100 bg-dark rounded mb-3 d-flex flex-wrap p-2" style="height: 15%;">
-                <div class="cash w-50">
+                <div class="cash w-100">
                   <label for="mop1"></label>
                   <input type="radio" name="mop" id="mop1" value="cash">
                   <h5>Cash</h5>
@@ -94,11 +111,6 @@
                   <label for="mop2"></label>
                   <input type="radio" name="mop" id="mop2" value="gcash">
                   <h5>Gcash</h5>
-                </div>
-                <div class="installment w-50">
-                  <label for="mop3"></label>
-                  <input type="radio" name="mop" id="mop3" value="installment">
-                  <h5>Installment</h5>
                 </div>
                 <div class="banking w-50">
                   <label for="mop4"></label>
@@ -131,7 +143,7 @@
   
   <!-- MODAL FORM FOR SELECTIONG QUANTITY -->
   <div class="modal top fade" id="pos_quantity" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="true">
-    <div class="modal-dialog  ">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h6 class="modal-title" id="exampleModalLabel" style="font-family: 'Barlow';">Select Quantity: <span class="conf_quantity_pos text-primary"></span></h6>
@@ -160,7 +172,7 @@
 
 <!-- CLEARING TRANSACTION CONFIRMATION -->
   <div class="modal top fade" id="confirmClear" tabindex="-1" aria-labelledby="confirm_clear" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
-    <div class="modal-dialog  ">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
@@ -185,7 +197,7 @@
 
 <!-- Modal -->
 <div class="modal top fade" id="proceedModal" tabindex="-1" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
-  <div class="modal-dialog modal-lg ">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Fill in the Information</h5>
@@ -248,9 +260,14 @@
               </div>
               <div class="col">
                 <!-- CHANGE -->
-                <p class="rounded px-3 py-1 d-flex justify-content-between align-items-center" style="background-color: #eee;">
+                <p class="changecash rounded px-3 py-1">
                   <span class="d-inline-block">Change: </span>
-                  <span class="d-inline-block pe-4"><span class="x">&#8369; </span><span id="pos_change" data-value="">0.00</span></span>
+                  <span class="d-inline-block pe-4"><span class="x">&#8369; </span><span id="pos_change">0.00</span></span>
+                </p>
+                <!-- Installment minumum downpayment -->
+                <p class="downpayment rounded px-3 py-1">
+                  <span class="d-inline-block">Downpayment Minimum: </span>
+                  <span class="d-inline-block pe-4"><span class="dp">&#8369; </span><span class="pos_downpayment">0.00</span></span>
                 </p>
               </div>
             </div>
@@ -269,6 +286,7 @@
           {{ cashform.total_price }}
           {{ cashform.change }}
           {{ cashform.status }}
+          {{ cashform.installment }}
 
         </form>
 
@@ -343,7 +361,11 @@
                 
               </div>
               <div class="col">
-                
+                <!-- Installment minumum downpayment -->
+                <p class="downpayment rounded px-3 py-1">
+                  <span class="d-inline-block">Downpayment Minimum: </span>
+                  <span class="d-inline-block pe-4"><span class="dp">&#8369; </span><span class="pos_downpayment">0.00</span></span>
+                </p>
               </div>
             </div>
           </div>
@@ -360,6 +382,7 @@
           {{ gcashform.transaction_type }}
           {{ gcashform.total_price }}
           {{ gcashform.status }}
+          {{ gcashform.installment }}
 
         </form>
 
@@ -441,12 +464,22 @@
               </div>
             </div>
 
-            
-          <div class="form-outline bg-white">
-            {{ bankform.bank_name }}
-            <label class="form-label" for="">Bank Name</label>
-          </div>
-
+            <div class="row">
+              <div class="col">
+                <div class="form-outline bg-white">
+                  {{ bankform.bank_name }}
+                  <label class="form-label" for="">Bank Name</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Installment minumum downpayment -->
+                <p class="downpayment rounded px-3 py-1">
+                  <span class="d-inline-block">Downpayment Minimum: </span>
+                  <span class="d-inline-block pe-4"><span class="dp">&#8369; </span><span class="pos_downpayment">0.00</span></span>
+                </p>
+              </div>
+              
+            </div>
           </div>
 
 
@@ -461,7 +494,7 @@
           {{ bankform.transaction_type }}
           {{ bankform.total_price }}
           {{ bankform.status }}
-
+          {{ bankform.installment }}
         </form>
 
 

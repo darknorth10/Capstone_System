@@ -22,7 +22,7 @@ def view_detailed(request, id):
 
 def payment_info(request):
   payment = Transaction.objects.all().order_by('-transaction_no')
-
-  return render(request, 'UserInterface/transactions/payment_info.html', context = {'payment': payment,})
+  installment = Transaction.objects.filter(installment='true').order_by('-transaction_no')
+  return render(request, 'UserInterface/transactions/payment_info.html', context = {'payment': payment, 'installment': installment,})
 
  
