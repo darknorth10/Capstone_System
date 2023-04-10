@@ -2,6 +2,167 @@
 
 
 {% block content   %}
-        
+        <div class="installments p-3 h-100 bg-transparent">
+            <h6 class="installment_header py-4 fs-5 bg-dark rounded-3">Installments</h6>
+
+            
+
+            <!-- Tabs navs -->
+            <ul class="nav nav-tabs my-3 d-flex align-items-center ps-3" id="ex1" role="tablist" style="font-family: 'Barlow'; letter-spacing: 1px;">
+                <li class="nav-item w-25" role="presentation">
+                <a
+                    class="nav-link shadow-sm active"
+                    id="ex1-tab-1"
+                    data-mdb-toggle="tab"
+                    href="#ex1-tabs-1"
+                    role="tab"
+                    aria-controls="ex1-tabs-1"
+                    aria-selected="true"
+                    >PAY BALANCE</a
+                >
+                </li>
+                <li class="nav-item w-25" role="presentation">
+                <a
+                    class="nav-link shadow-sm"
+                    id="ex1-tab-2"
+                    data-mdb-toggle="tab"
+                    href="#ex1-tabs-2"
+                    role="tab"
+                    aria-controls="ex1-tabs-2"
+                    aria-selected="false"
+                    >Entries</a
+                >
+                </li>
+                
+            </ul>
+            <!-- Tabs navs -->
+            
+            <!-- Tabs content -->
+            <div class="tab-content px-3  pb-3" id="ex1-content">
+                <div
+                class="tab-pane show active"
+                id="ex1-tabs-1"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-1"
+                >
+                    <!-- Installment form and installment table -->
+                    <div class="add_entry p-2 rounded">
+                        <form class="w-75 bg-white shadow-sm rounded mx-auto" method="post">
+                            {% csrf_token %}
+                            <h3 class="text-white bg-primary ps-4 py-3 rounded-3" style="font-family: 'Barlow'; font-size: 1.2rem; letter-spacing: 1px;">Pay Balance Form</h3>
+                            <div class="fields p-2">
+
+                                <div class="row px-3 py-2 mb-2">
+
+                                    <div class="col">
+                                        <select name="trans_no" id="trans_reference" class="role-select w-100 fs-6 rounded border border-3">
+                                            <option class="fs-6 text-center" value="">----- Select Transaction Reference -----</option>
+                                            {% for transaction in installments  %}
+                                                <option class="fs-6 text-center" value="{{transaction.transaction_no}}" data-total="{{ transaction.total_price }}"
+                                                data-paid="{{ transaction.installment_paid }}" data-due="{{ transaction.installment_due }}" data-cname="{{ transaction.customer_name }}">Transaction no. {{ transaction.transaction_no }} | {{ transaction.customer_name }}</option>
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <p class="paybalance_labels rounded text-primary px-3 py-1" style="font-family: 'Quicksand'; font-weight: bold; font-size: 1.1rem;">
+                                            <span class="d-inline-block ">Balance: </span>
+                                            <span class="d-inline-block ps-4"><span id="balance">0.00</span></span>
+                                        </p>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row mb-1 p-3">
+                                    <div class="col">
+                                        <p class="paybalance_labels rounded px-3 py-1" style="font-family: 'Quicksand'; font-weight: bold; font-size: 1.1rem;">
+                                            <span class="d-inline-block ">Customer Name: <span class="d-inline-block px-4 text-primary" id="balance_cname"></span></span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="paybalance_labels rounded px-3 py-1" style="font-family: 'Quicksand'; font-weight: bold; font-size: 1.1rem;">
+                                            <span class="d-inline-block ">Due Date: <span class="d-inline-block px-2 text-danger" id="balance_due"></span></span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row px-3 py-2 mb-2">
+                                    <div class="col">
+                                        {{ balanceform.payment_method}}
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-outline bg-white">
+                                            {{ balanceform.amount_paid }}
+                                            <label class="form-label" for="">Amount Paid</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row px-3 py-2 mb-2">
+                                    <div class="col">
+                                        <div class="form-outline bg-white" id="balance_refno" style="display: none;">
+                                            {{ balanceform.reference_no }}
+                                            <label class="form-label" for="">Reference No.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        {{ balanceform.transaction_reference }}
+                                        {{ balanceform.customer_name }}
+                                        <button type="submit" class="btn btn-primary fs-6 w-100" style="font-family: 'Barlow';">Pay Now</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                    
+                    <!-- Search for transactions -->
+                    <div class="col d-flex justify-content-end pe-3 pt-2">
+                        <div class="pos_search w-50 align-self-center d-flex justify-content-center rounded-pill bg-white my-3 shadow-sm p-2 overflow-hidden">
+                        <span class="d-block px-4"><i class="fas fa-search"></i></span>
+                        <input type="search" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="positemsearch w-100" placeholder="Search Transaction No. / Customer Name"/>
+                        </div>
+                    </div>
+
+                    <div class="trans_table bg-primary bg-white shadow rounded overflow-y-scroll" style="max-height: 600px;">
+                        <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">
+                            <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 66, 132);"> <!-- rgb(30, 98, 132) -->
+                                <th>Trans No.</th>
+                                <th>Transaction Reference to</th>
+                                <th>Customer Name</th>
+                                <th>Payment Method</th>
+                                <th>Amount Paid</th>
+                                <th>Date Paid</th>
+                                <th>Reference No.</th>
+                            </thead>
+                            <tbody>
+                                {% for p in entries  %}
+                                    
+                                <tr class="text-center">
+                                    <td>{{ p.transaction_no }}</td>
+                                    <td>{{ p.transaction_reference }}</td>
+                                    <td>{{ p.customer_name }}</td>
+                                    <td>{{ p.payment_method }}</td>
+                                    <td>{{ p.amount_paid }}</td>
+                                    <td>{{ p.date_paid }}</td>
+                                    <td>{{ p.reference_no }}</td>
+                                </tr>  
+                                    
+                                {% endfor %}       
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <!-- Tabs content -->
+        </div>
 {% endblock content   %}
     

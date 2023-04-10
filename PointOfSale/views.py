@@ -1,15 +1,30 @@
 from django.shortcuts import render, redirect
 from ProductManagement.models import Product
 from .models import Cart
-from SalesTransaction.models import Transaction, Item
-from .forms import CartQuantityForm, CashForm, GcashForm, BankingForm
+from SalesTransaction.models import Transaction, Item, Installment
+from .forms import CartQuantityForm, CashForm, GcashForm, BankingForm, BalanceForm
 from django.db.models import Sum
 from django.contrib import messages
+from django.http import JsonResponse
 import locale
 # Create your views here.
+def sortItems(request):
+  if request.method == 'POST':
+    cat = request.POST.get('sortProdcategory')
+    request.session['prod_category_sorted'] = cat
+    
+
+    return JsonResponse({'success': cat}, status=200)
 
 def pointofsale(request):
+  
   products = Product.objects.all().order_by('category')
+  if 'prod_category_sorted' in request.session:
+    cat = request.session['prod_category_sorted']
+    products = Product.objects.filter(category__startswith=cat)
+    print(products)
+    
+
   cart = Cart.objects.all()
   form = CartQuantityForm()
 
@@ -81,6 +96,7 @@ def pointofsale(request):
   gcashform = GcashForm(auto_id='gcash_%s')
   bankform = BankingForm(auto_id='bank_%s')
 
+
   context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform, 'bankform': bankform}
 
   return render(request, 'UserInterface/pos.html', context)
@@ -88,6 +104,7 @@ def pointofsale(request):
 
 # clear current transaction
 def pos_clear(request):
+
    if request.method == 'POST':
     Cart.objects.all().delete()
     messages.success(request, 'Transaction has been cleared')
@@ -238,7 +255,7 @@ def add_bank_transaction(request):
        else:
           obj.status = "Complete"
        obj.save()
-       
+
 
        cart = Cart.objects.all()
 
@@ -278,6 +295,58 @@ def add_bank_transaction(request):
   return redirect('pos')
 
 
+
+
+def installment_view(request):
+  balanceform = BalanceForm(auto_id='balance_%s')
+
+  if request.method == 'POST':
+    balanceform = BalanceForm(request.POST)
+
+    if balanceform.is_valid():
+      update_installment_paid = {};
+      amount_paid = balanceform.cleaned_data['amount_paid']
+      get_trans_id = balanceform.cleaned_data['transaction_reference']
+      
+      update_installment_paid = Transaction.objects.get(transaction_no = int(get_trans_id))
+      
+      if amount_paid > update_installment_paid.total_price - update_installment_paid.installment_paid or amount_paid <= 0 :
+        print("Exceeded the balance amount")
+        messages.error(request, 'Error Creating Transaction, Exceeded the balance amount')
+        balanceform = BalanceForm(auto_id='balance_%s')
+      else:
+        if update_installment_paid.installment_paid + amount_paid <= update_installment_paid.total_price : # check the installment paid amount if less than total price
+          update_installment_paid.installment_paid += amount_paid # update the installer paid amount
+          
+          #  if the the balance has been settled make its status as complete
+          if update_installment_paid.installment_paid == update_installment_paid.total_price :
+            update_installment_paid.status = "Complete"
+          
+          update_installment_paid.save() # save the transaction
+          balanceform.save() # save the form
+        else:
+          messages.error(request, 'Error Creating Transaction, you excceeded the balance remaining')
+          balanceform = BalanceForm(auto_id='balance_%s')
+          return redirect('installment_view')
+
+        
+        balanceform = BalanceForm(auto_id='balance_%s')
+        messages.success(request, 'Transaction completed successfully')
+      
+    else: # if not valid
+        print(balanceform.errors)
+        balanceform = BalanceForm(auto_id='balance_%s')
+        messages.error(request, 'Error Creating Transaction, Transaction reference and payment method are required')
+      
+
+
+  context = {
+    'installments': Transaction.objects.filter(status="Pending").filter(installment="true"),
+    'entries' : Installment.objects.all(),
+    'balanceform' : balanceform,
+  }
+
+  return render(request, 'UserInterface/transactions/installments.html', context)
 
 
 

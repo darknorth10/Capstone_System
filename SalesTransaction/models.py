@@ -58,3 +58,20 @@ class Item(models.Model):
     def __str__(self):
         return "Item for Transaction no. " + str(self.transaction_no)
 
+
+class Installment(models.Model):
+    transaction_no = models.BigAutoField(primary_key=True)
+    transaction_reference = models.IntegerField(null=True, blank=True) # hidden
+    customer_name = models.CharField(max_length=45, null=True, blank=True)
+    amount_paid = models.DecimalField(null=False, decimal_places=2, max_digits=10)
+    date_paid = models.DateField(auto_now=True) #not included in form
+
+    TYPE_CHOICES = [
+        ('false', '----- Select Payment Method -----'),
+        ('Cash', 'Cash'),
+        ('Gcash', 'Gcash'),
+        ('Banking', 'Banking'),
+    ]
+
+    payment_method = models.CharField(max_length=20, null=False, choices=TYPE_CHOICES, default="false")
+    reference_no = models.CharField(max_length=40, null=True, blank=True)

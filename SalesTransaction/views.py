@@ -12,12 +12,11 @@ def sales_transaction(request):
   # transaction_no = 0
   context = {'transactions': transactions, 'payments': payments}
 
-
   return render(request, 'UserInterface/transactions/sales_transaction.html', context)
 
+#receipt table
 def view_detailed(request, id):
   item = Item.objects.filter(transaction_no=id)
-  
   return render(request, 'UserInterface/transactions/detailed_transaction.html', context = {'items': item})
 
 def payment_info(request):

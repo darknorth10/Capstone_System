@@ -431,12 +431,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-.um-header h3, .cpheader, .pmheader, .heading {
+.um-header h3, .cpheader, .pmheader, .heading, .installment_header {
   font-family: 'Quicksand';
   color: white;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   text-align: center;
   animation: fade-in-right 0.5s;
   text-shadow: 2px 2px 1px #212121;
@@ -750,4 +750,15 @@ thead th:last-of-type {
   font-family: 'Quicksand';
   letter-spacing: 1px;
   font-size: 0.8rem;
+}
+
+.paybalance_labels {
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+}
+
+#balance_payment_method option {
+  text-align: center;
+  font-size: 1rem;
 }

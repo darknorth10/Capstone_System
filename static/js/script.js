@@ -195,7 +195,7 @@ $(document).ready(function() {
   // POS
 
   // clicking items will ask for quantity
-  $('.itemwrapper').on("click", ".item", function () { 
+  $(document).on("click", ".itemwrapper .item", function () { 
     var x = $(this).parent().attr("data-productname");
     var y = $(this).parent().attr("data-productid");
     var z = $(this).parent().attr("data-currentstock");
@@ -541,8 +541,80 @@ $(document).ready(function() {
  });
 
 
+  // INSTALLMENT BALANCCE TRANSACTION
 
+  $("#trans_reference").change(function (e) { 
+
+    var selectedOption = $('option:selected', this);
+
+    var cname = selectedOption.attr('data-cname');
+    var total_amount = selectedOption.attr('data-total');
+    var paid_amount = selectedOption.attr('data-paid');
+    var due_date = selectedOption.attr('data-due');
+    var balance = parseFloat(total_amount) - parseFloat(paid_amount);
+
+    if ($(this).val() == "") {
+      $("#balance").text("");
+      $("#balance_cname").text("");
+      $("#balance_due").text("");
+      $("#balance_transaction_reference").val($(this).val());
+      $("#balance_customer_name").val("");
+    } else {
+      console.log(due_date);
+
+      $("#balance").text(balance.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'}));
+      $("#balance_cname").text(cname);
+      $("#balance_due").text(due_date);
+      $("#balance_transaction_reference").val($(this).val());
+      $("#balance_customer_name").val(cname); 
+    }
+    
+
+    
+  });
+  $("#balance_transaction_reference").val($("#trans_reference").val());
+  
+  // hide or show he referrence no in pay balance form depending on the payment method
+  $("#balance_payment_method").change(function (e) { 
+    if( $(this).val() == "Cash") {
+        $("#balance_refno").hide(0);
+        $("#balance_reference_no").removeAttr('required');
+    } else if( $(this).val() == "Gcash" || $(this).val() == "Banking") {
+        $("#balance_refno").show(0);
+        $("#balance_reference_no").attr('required', 'required');
+    } else {
+         $("#balance_refno").hide(0);
+         $("#balance_reference_no").removeAttr('required');
+    }
+  });
+
+
+  // sort items by category POS through ajax
+
+  $("input[name='pos_prod_category']").change(function () { 
+      var category = $(this).val();
+
+      $("#sortProdcategory").val(category);
+      
+      $("#pos_ajaxsort").submit(function (e) { 
+        e.preventDefault();
+
+        $.ajax({
+          type: "POST",
+          url: window.location.href + "sort_items/",
+          data: $(this).serialize(),
+          success: function (response) {
+            $('#itemDrawer').load(window.location.href + ' #itemDrawer')
+          }
+        });
+        
+      });
+
+      // submit everytime radio button value changes
+      $("#pos_ajaxsort").submit()
+  });
 
 });
+
 
 
