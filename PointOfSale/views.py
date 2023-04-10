@@ -3,27 +3,32 @@ from ProductManagement.models import Product
 from .models import Cart
 from SalesTransaction.models import Transaction, Item, Installment
 from .forms import CartQuantityForm, CashForm, GcashForm, BankingForm, BalanceForm
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.contrib import messages
 from django.http import JsonResponse
 import locale
-# Create your views here.
-def sortItems(request):
-  if request.method == 'POST':
-    cat = request.POST.get('sortProdcategory')
-    request.session['prod_category_sorted'] = cat
-    
 
-    return JsonResponse({'success': cat}, status=200)
+# search item by name on key up
+def searchItems(request):
+  
+  if request.method == 'POST':
+    itemName = request.POST.get('itemNameSearch')
+    request.session['prod_name_search'] = itemName
+    return JsonResponse({'success': itemName}, status=200)
+
 
 def pointofsale(request):
-  
   products = Product.objects.all().order_by('category')
-  if 'prod_category_sorted' in request.session:
-    cat = request.session['prod_category_sorted']
-    products = Product.objects.filter(category__startswith=cat)
-    print(products)
+
+
+  # sorts items by name or category when ajax request
+  if 'prod_name_search' in request.session:
     
+    itemName = request.session['prod_name_search']
+    products = Product.objects.filter(Q(product_name__icontains=itemName) | Q(category__icontains=itemName))
+  else:
+    products = Product.objects.all().order_by('category')
+
 
   cart = Cart.objects.all()
   form = CartQuantityForm()
@@ -342,7 +347,7 @@ def installment_view(request):
 
   context = {
     'installments': Transaction.objects.filter(status="Pending").filter(installment="true"),
-    'entries' : Installment.objects.all(),
+    'entries' : Installment.objects.all().order_by('-transaction_no'),
     'balanceform' : balanceform,
   }
 

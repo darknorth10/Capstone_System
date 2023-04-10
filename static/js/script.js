@@ -589,31 +589,33 @@ $(document).ready(function() {
   });
 
 
-  // sort items by category POS through ajax
+  // sort items by name or category POS through ajax call
 
-  $("input[name='pos_prod_category']").change(function () { 
-      var category = $(this).val();
+  $("input[name='searchItemName']").change(function (e) { 
+    var itemName = $(this).val();
 
-      $("#sortProdcategory").val(category);
-      
-      $("#pos_ajaxsort").submit(function (e) { 
-        e.preventDefault();
-
-        $.ajax({
-          type: "POST",
-          url: window.location.href + "sort_items/",
-          data: $(this).serialize(),
-          success: function (response) {
-            $('#itemDrawer').load(window.location.href + ' #itemDrawer')
-          }
+      $("#itemNameSearch").val(itemName);
+  
+        $("#searchItemForm").submit(function (e) { 
+          e.preventDefault();
+  
+          $.ajax({
+            type: "POST",
+            url: window.location.href + "search_items/",
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response.success);
+              $('#itemDrawer').load(window.location.href + ' #itemDrawer>*')
+            }
+          });
+          
         });
-        
-      });
-
-      // submit everytime radio button value changes
-      $("#pos_ajaxsort").submit()
+  
+        // submit everytime search name input value changes
+        $("#searchItemForm").submit()
+    
+      
   });
-
 });
 
 

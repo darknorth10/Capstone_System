@@ -10,6 +10,6 @@ urlpatterns = [
   path('porcelain/', views.porcelain, name='porc'),
   path('clear/', views.pos_clear, name='clear'),
   path('installments/', views.installment_view, name='installment_view'),
-  path('sort_items/', views.sortItems, name='sort_items'),
+  path('search_items/', views.searchItems, name='search_items'),
 
 ]

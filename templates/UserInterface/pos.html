@@ -11,39 +11,20 @@
 
             <h3 class="pos_header m-1 p-1 rounded" >Point of Sale</h3>
 
-            <!-- Sort Items -->
-            <div class="sortItems mb-2 w-100 d-flex justify-content-center">
-                <div class="btn-group w-75 rounded-pill" style="font-family: 'Barlow';" id="sort_item">
-                    <input type="radio" class="btn-check"  name="pos_prod_category" value="" id="option1" checked/>
-                    <label class="btn btn-secondary btn-rounded" for="option1">All Items</label>
-                  
-                    <input type="radio" class="btn-check" name="pos_prod_category" value="Porcelain" id="option2" />
-                    <label class="btn btn-secondary btn-rounded" for="option2">Porcelain</label>
-                  
-                    <input type="radio" class="btn-check" name="pos_prod_category" value="Ceramic" id="option4" />
-                    <label class="btn btn-secondary btn-rounded" for="option4">Ceramic</label>
-
-                    <input type="radio" class="btn-check" name="pos_prod_category" value="Adhesive" id="option5" />
-                    <label class="btn btn-secondary btn-rounded" for="option5">Adhesives</label>
-
-                    <input type="radio" class="btn-check" name="pos_prod_category" value="Sanitary" id="option6" />
-                    <label class="btn btn-secondary btn-rounded" for="option6">Sanitary Wares</label>
-                  </div>
-            </div>
-            <!-- sort item invisible form -->
-            <form class="sortitems d-none" id="pos_ajaxsort">
-              {% csrf_token %}
-              <input type="hidden" name="sortProdcategory" id="sortProdcategory">
-            </form>
-
             <!-- Seach Item -->
             <div class="actionbars_pos row d-flex align-items-center bg-transparent p-3">
               <div class="col d-inline-flex justify-content-end">
                 <div class="pos_search w-75 align-self-center d-flex justify-content-center rounded-pill bg-white my-3 shadow-sm p-2 overflow-hidden">
                   <span class="d-block px-4"><i class="fas fa-search"></i></span>
-                  <input type="search" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="positemsearch w-100" placeholder="Search Item Name"/>
+                  <input type="search" name="searchItemName" style="border: 0; outline: 0; font-family: 'Quicksand'; font-size: 0.9rem; text-align: center; letter-spacing: px;" class="positemsearch w-100" placeholder="Search Item Name"/>
                 </div>
               </div>
+
+              <!-- search item invisible form -->
+              <form class="d-none" id="searchItemForm">
+                {% csrf_token %}
+                <input type="hidden" name="itemNameSearch" id="itemNameSearch">
+              </form>
               
               <div class="pos_btns col d-inline-flex justify-content-center" >
                 <a href="{% url 'sales_transaction' %}" class="btn px-3 py-2 btn-light mx-4 border border-3 border-primary"><i class="fa-solid fa-clock-rotate-left fa-lg me-2 shadow"></i>Transactions</a>
@@ -55,7 +36,6 @@
 
             <!-- Item Drawer -->
             <div class="item_drawer w-100 h-100 bg-transparent d-flex flex-wrap justify-content-center overflow-y-scroll pb-5 mb-3" id="itemDrawer">
-
                 
                 {% for product in products %}
                 
