@@ -18,8 +18,8 @@
             </div>
 
             <div class="cptable p-2 card flex-fill overflow-x-scroll overflow-y-scroll" style="max-height:80%;">
-                <table class="cptbl table table-hover rounded shadow-sm" style="min-width: 155%; font-size: 0.7rem; font-family: 'Montserrat';">
-                    <thead class="table-dark text-center rounded">
+                <table class="cptbl table table-hover rounded shadow-sm" style="min-width: 80%; font-size: 0.7rem; font-family: 'Montserrat';">
+                    <thead class="table-dark text-center position-sticky top-0 rounded">
                         <th>Customer #</th>
                         <th>Last Name</th>
                         <th>First Name</th>
@@ -34,7 +34,7 @@
                     <tbody id="cptbody">
                         {% for customer in customers %}
                         <tr class="text-center">
-                            <td>{{ customer.id }}</td>
+                            <td>C2022 - {{ customer.id }}</td>
                             <td>{{ customer.last_name }}</td>
                             <td>{{ customer.first_name }}</td>
                             <td>{{ customer.sex }}</td>
@@ -60,11 +60,11 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Create Customer Profile</h5>
+              <h5 class="modal-title">Register Customer Profile</h5>
               <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form method="post" id="add_cust_form">
+              <form class="px-4" method="post" id="add_cust_form" style="font-family: 'Barlow'; color: black;">
                 {% csrf_token %}
                 {{ customer_form.as_p }}
                 <button type="submit" id="add_cust_submit" class="d-none"></button>
@@ -72,8 +72,8 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="regcust">Create</button>
+              <button type="button" class="btn btn-secondary fs-6" data-mdb-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary fs-6" id="regcust">Register Customer</button>
             </div>
           </div>
         </div>

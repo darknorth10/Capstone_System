@@ -17,15 +17,20 @@ def searchItems(request):
     return JsonResponse({'success': itemName}, status=200)
 
 
+
 def pointofsale(request):
   products = Product.objects.all().order_by('category')
 
 
   # sorts items by name or category when ajax request
   if 'prod_name_search' in request.session:
-    
     itemName = request.session['prod_name_search']
-    products = Product.objects.filter(Q(product_name__icontains=itemName) | Q(category__icontains=itemName))
+
+    if itemName is not None :
+      products = Product.objects.filter(Q(product_name__icontains=itemName) | Q(category__icontains=itemName))
+    else :
+      products = Product.objects.all().order_by('category')
+    request.session['prod_name_search'] = None
   else:
     products = Product.objects.all().order_by('category')
 
@@ -105,6 +110,24 @@ def pointofsale(request):
   context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform, 'bankform': bankform}
 
   return render(request, 'UserInterface/pos.html', context)
+
+
+# delete item in cart ajax
+def delete_item(request):
+
+  if request.method == 'POST':
+    itemName = request.POST.get('cartItemName')
+
+    cartItem = Cart.objects.get(name=itemName)
+
+    print(cartItem)
+    if Cart.objects.all().count() == 1:
+      Cart.objects.all().delete()
+    else:
+      cartItem.delete()
+
+    return JsonResponse({'success': True}, status=200)
+
 
 
 # clear current transaction

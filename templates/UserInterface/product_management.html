@@ -10,15 +10,19 @@
         <div class="pmactionbar bg-white rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
             <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
             
-            <div class="input-group" style="width: 30%;">
+            <form method="post" class="input-group" style="width: 30%;" id="searchProductForm2">
+              {% csrf_token %}
                 <div class="form-outline">
-                  <input type="search" id="form1" class="form-control bg-light shadow-sm" />
-                  <label class="form-label" for="form1">Search</label>
+                  <input type="text" id="searchProduct" name="prodName" class="form-control bg-light shadow-sm" >
+                  <label class="form-label" for="">Search</label>
                 </div>
-                <button type="button" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                   <i class="fas fa-search"></i>
                 </button>
-              </div>
+                <input type="hidden" name="" value="por">
+              </form>
+
+
         </div>
         <!-- Product table -->
         <div class="pmtablediv card bg-white h-100 my-3 p-2" style=" max-height: 90%; overflow: scroll;">
@@ -40,7 +44,7 @@
                 <tbody class="text-center">
                     {% for product in products %}
                     <tr>
-                        <td>{{ product.id }}</td>
+                        <td>P2023 - {{ product.id }}</td>
                         <td>{{ product.product_name }}</td>
                         <td>{{ product.brand }}</td>
                         <td>{{ product.category }}</td>

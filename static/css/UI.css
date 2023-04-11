@@ -762,3 +762,7 @@ thead th:last-of-type {
   text-align: center;
   font-size: 1rem;
 }
+
+.errorlist {
+  color: rgb(255, 84, 84);
+}

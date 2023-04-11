@@ -605,7 +605,7 @@ $(document).ready(function() {
             data: $(this).serialize(),
             success: function (response) {
               console.log(response.success);
-              $('#itemDrawer').load(window.location.href + ' #itemDrawer>*')
+              location.reload();
             }
           });
           
@@ -615,6 +615,62 @@ $(document).ready(function() {
         $("#searchItemForm").submit()
     
       
+  });
+
+
+  // search for product via click event or on enter keypress
+    
+  $("#searchProductForm2").submit(function (e) { 
+    e.preventDefault();
+    
+    $.ajax({
+      type: "post",
+      url: window.location.href + "search_product",
+      data: $(this).serialize(),
+      success: function (response) {
+        if (response.success) {
+          console.log(response.test)
+          location.reload()
+        }
+      }
+    });
+
+   
+  });
+  // searches product on change event on the product management
+  $("#searchProduct").change(function (e) { 
+      $("#searchProductForm2").submit()
+  });
+
+
+  // deletes item in cart pos using ajax
+
+  $(".itemlist").on('click', '.delitem', function () {
+    var itemName = $(this).attr('data-itemname');
+
+    $('input[name="cartItemName"]').val(itemName);
+
+    $("#delCartItem").submit(function (e) { 
+      e.preventDefault();
+
+      $.ajax({
+        type: "post",
+        url: window.location.href + "delete_item/",
+        data: $(this).serialize(),
+        success: function (response) {
+          if (response.success) {
+              location.reload();
+              console.log(response.success);
+          } else {
+            console.log('error');
+          }
+        }
+      });
+
+    });
+
+    // auto submit
+    $("#delCartItem").submit();
   });
 });
 

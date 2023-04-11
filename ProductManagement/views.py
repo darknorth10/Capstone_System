@@ -1,10 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product
 from .forms import ProductForm, changeProductForm, addStocksForm
-# from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date
+from django.http import JsonResponse
+from django.db.models import Q
 # Create your views here.
+
+def searchProduct(request):
+  if request.method == 'POST':
+    search_productName = request.POST.get('prodName')
+    request.session['search_product'] = search_productName
+    return JsonResponse({'success': True, 'test': search_productName}, status=200)
 
 def product_management(request):
   products = Product.objects.all().order_by('category')
@@ -31,6 +38,22 @@ def product_management(request):
       product.current_stock = 0
       product.availability = False
       product.save()
+  
+  # search for products
+
+  if 'search_product' in request.session :
+      search_term = request.session['search_product']
+
+      if search_term is not None :
+        products = Product.objects.filter(Q(product_name__icontains=search_term) | Q(category__icontains=search_term) ).order_by('category')
+        print(request.session['search_product'])
+      else :
+        products = Product.objects.all().order_by('category')
+      
+
+  else :
+    products = Product.objects.all().order_by('category')
+    print("no session")
         
   return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
 
