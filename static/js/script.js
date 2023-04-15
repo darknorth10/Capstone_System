@@ -645,7 +645,7 @@ $(document).ready(function() {
 
   // deletes item in cart pos using ajax
 
-  $(".itemlist").on('click', '.delitem', function () {
+  $(document).on('click', '.delitem', function () {
     var itemName = $(this).attr('data-itemname');
 
     $('input[name="cartItemName"]').val(itemName);

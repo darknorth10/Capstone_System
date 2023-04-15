@@ -69,7 +69,7 @@
               
       
               {% for cart in carts %}
-              <li class="itemlist mb-1 d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark fa-lg me-2 text-danger float-start pt-2" data-itemname="{{ cart.name }}"></i>{{ cart.name }}{% if not cart.size == "N/A" %}<span class="text-primary">({{ cart.size }})</span> {% endif %} 
+              <li class="itemlist mb-1 d-flex justify-content-between p-2 rounded shadow-sm"><span class="d-inline-block"><i class="delitem fas fa-circle-xmark fa-lg me-2 text-danger float-start pt-2" data-itemname="{{ cart.id }}"></i>{{ cart.name }}{% if not cart.size == "N/A" %}<span class="text-primary">({{ cart.size }})</span> {% endif %} 
                 <span style="font-size: 0.9em;">x{{ cart.quantity }}</span></span><span class="d-inline-block align-self-end">{{ cart.total_price }}</span></li>
               {% endfor %}
     

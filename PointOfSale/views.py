@@ -118,11 +118,12 @@ def delete_item(request):
   if request.method == 'POST':
     itemName = request.POST.get('cartItemName')
 
-    cartItem = Cart.objects.get(name=itemName)
+    cartItem = Cart.objects.get(id=itemName)
 
     print(cartItem)
     if Cart.objects.all().count() == 1:
       Cart.objects.all().delete()
+      messages.success(request, 'Transaction has been cleared')
     else:
       cartItem.delete()
 
