@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
+from .models import Product, ProductArchive
 from .forms import ProductForm, changeProductForm, addStocksForm
 from django.contrib import messages
 from datetime import date
 from django.http import JsonResponse
 from django.db.models import Q
+from AuditTrail.models import AuditTrail
 # Create your views here.
 
 def searchProduct(request):
@@ -28,6 +29,8 @@ def product_management(request):
     if product_form.is_valid():
       product_form.save()
       messages.success(request, 'Product registered successfully')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has registered a new product.', location='Product Management')
+      audit_log.save()
       product_form = ProductForm()
     else:
       print(product_form.errors)
@@ -58,9 +61,6 @@ def product_management(request):
   return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
 
 
-def add_product(request):
-  return
-
 def edit_product(request, id):
   selected_product = Product.objects.get(id=id)
   obj = get_object_or_404(Product, id=id)
@@ -68,11 +68,14 @@ def edit_product(request, id):
   product_form.fields['price'].widget.attrs.update({'class': 'form-control'})
   product_form.fields['availability'].widget.attrs.update({'class': 'form-check-input'})
   product_form.fields['product_img'].widget.attrs.update({'class': 'form-control'})
+  product_form.fields['category'].widget.attrs.update({'class': 'role-select'})
   
   if request.method == 'POST':
     if product_form.is_valid():
       product_form.save()
       messages.success(request, 'Product updated successfully')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated a product.', location='Product Management')
+      audit_log.save()
       return redirect('product_management')
     else:
       print(product_form.errors)
@@ -107,8 +110,32 @@ def add_stock(request, id):
         selected_product.save()
         
       messages.success(request, 'Stocks are successfully added.')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a stock on a product.', location='Product Management')
+      audit_log.save()
       return redirect('product_management')
     else:
       print(form.errors)
 
   return render(request, 'UserInterface/addProductStock.html', context = {'product':selected_product, 'form': form,})
+
+
+
+def void_product(request):
+  if request.method == 'POST':
+    voidProdName = request.POST.get('voidName')
+    obj = get_object_or_404(Product, product_name=voidProdName)
+    voidProduct =ProductArchive(product_no = obj.id, name=obj.product_name, brand=obj.brand, category=obj.category, size=obj.product_size, price=obj.price, stocks=obj.current_stock, product_img=obj.product_img)
+    voidProduct.save()
+    obj.delete()
+    messages.success(request, "An Item has been moved to the archives.")
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has voided a product.', location='Product Management')
+    audit_log.save()
+    return redirect('product_management')
+
+
+def archive_product(request):
+  archives = ProductArchive.objects.all()
+  context = {
+    'archives': archives
+  }
+  return render(request, 'UserInterface/product_archives.html', context)

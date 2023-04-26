@@ -39,6 +39,11 @@ class Transaction(models.Model):
         ('Pending', 'Pending'),
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
+    ORDER_CHOICES = [
+        ('Delivery', 'Delivery'),
+        ('Pickup', 'Pickup'),
+    ]
+    order_type = models.CharField(max_length=10, choices=ORDER_CHOICES  , null=True, blank=True)
 
     installment = models.CharField(max_length=10, blank=True, null=True, default='false')
     installment_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0.00)
@@ -65,7 +70,7 @@ class Installment(models.Model):
     customer_name = models.CharField(max_length=45, null=True, blank=True)
     amount_paid = models.DecimalField(null=False, decimal_places=2, max_digits=10)
     date_paid = models.DateField(auto_now=True) #not included in form
-
+    
     TYPE_CHOICES = [
         ('false', '----- Select Payment Method -----'),
         ('Cash', 'Cash'),

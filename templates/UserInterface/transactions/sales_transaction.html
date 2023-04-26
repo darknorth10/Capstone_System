@@ -26,6 +26,7 @@
                     <th>Installment</th>
                     <th>Total Product</th>
                     <th>Date of Purchace</th>
+                    <th>Order Type</th>
                     <th>Delivery Address</th>
                     <th>Actions</th>
                 </thead>
@@ -39,8 +40,9 @@
                             <td>{{ transaction.installment }}</td>
                             <td>{{ transaction.total_products }}</td>
                             <td>{{ transaction.date_of_purchace }}</td>
+                            <td>{{ transaction.order_type }}</td>
                             <td>{{ transaction.delivery_address }}</td>
-                            <td class="parentReceiptBtn py-2"> <a class="receiptbtn btn m-0" data-transnumber="{{ transaction.transaction_no }}" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">Detailed View</a></td>
+                            <td class="parentReceiptBtn py-2"> <a class="receiptbtn btn m-0" data-transnumber="{{ transaction.transaction_no }}" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">View Items</a></td>
                         </tr>
                     {% endfor %}
                         

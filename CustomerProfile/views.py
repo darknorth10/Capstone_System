@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Customer
 from .forms import CustomerForm
 from django.contrib import messages
+from AuditTrail.models import AuditTrail
 # Create your views here.
 
 def index(request):
@@ -14,6 +15,8 @@ def index(request):
             customers_form.save()
             customers_form = CustomerForm()
             messages.success(request, 'Customer profile has been registered')
+            audit_log = AuditTrail(user=request.user, action=f'{request.user} has registered a regular customer.', location='Customer Profile')
+            audit_log.save()
         else:
             print(customers_form.errors)
 

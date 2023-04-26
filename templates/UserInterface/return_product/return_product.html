@@ -1,0 +1,116 @@
+{% extends 'UserInterface/base.html' %}
+
+{% block content %}
+<div class="return_product h-100 w-100 overflow-y-auto">
+    <h5 class="rp_header px-3 py-5 m-0 text-black">Return Product</h5>
+
+    <div class="rp_content w-100 h-100 d-flex" style="font-family: 'Barlow';">
+        <div class="left_content w-50 h-100 px-4 py-2">
+            <div class="card w-100 mt-3 mx-auto overflow-hidden">
+                <div class="card-title bg-primary text-white p-3" >
+                    <h6>Return / Exhange Product Form</h6>
+                    
+                </div>
+                <form class="d-flex align-items-center px-3" method="post" action="{% url 'transac' %}">
+                    {% csrf_token %}
+                    <div class="form-outline m-2">
+                        <input type="number" step="1" min="1" class="form-control" name="transac" required>
+                        <label class="form-label" for=""><i class="fa-solid fa-arrow-right-arrow-left mx-2"></i>Transaction Number</label>
+                    </div>
+           
+                        <button type="submit" class="btn btn-secondary w-50">Search</button>
+                            
+                </form>
+                
+                <!-- select item to return and how many -->
+                <form class="d-flex align-items-center justify-content-center my-2 row px-4" method="post">
+                    {% csrf_token %}
+                    
+                    <div class="col">
+                        <select class="role-select w-100 border border-2 border-dark rounded" name="itemName" required>
+                            <option value="">Select Item to Return</option>
+                             {% for item in items %}
+                                <option value="{{ item.name }}" data-size="{{ item.size }}" data-quantity="{{ item.pieces }}" data-tnum="{{ item.transaction_no }}">{{ item.name }}</option>
+                             {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="form-outline  m-2">
+                            {{ returnform.quantity }}
+                            <label class="form-label" for="">Quantity</label>
+                        </div>
+                    </div>
+
+                    {{ returnform.name }}
+                    {{ returnform.size }}
+                    {{ returnform.orig_quantity }}
+                    {{ returnform.transact_no }}
+                    
+                    
+                    
+                    
+                    {% if returnform.quantity.errors or  returnform.non_field_errors  %}
+                        <div class="err text-center px-4 rounded pt-3 pb-0" style="background-color: rgb(255, 234, 234);">
+                            {{ returnform.quantity.errors }}  
+                            {{ returnform.non_field_errors }} 
+                        </div>
+                                
+                    {% endif %}
+
+                    <div class="col-12 my-2">
+                          <div class="form-outline mb-4">
+                            {{ returnform.description }}
+                            <label class="form-label" for="form4Example3">Description</label>
+                          </div>
+                    </div>
+                    {% if returnform.description.errors %}
+                        <div class="err text-center px-4 rounded pt-3 pb-0" style="background-color: rgb(255, 234, 234);">
+                            {{ returnform.description.errors }}  
+                        </div>
+                                
+                    {% endif %}
+
+                    <div class="col-12 p-1 my-2">
+                        <button type="submit" class="btn btn-primary w-100">Return Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="right_content w-100 h-100 p-2">
+            <div class="pmtablediv card bg-white h-100 my-3" style=" max-height: 90%; overflow: scroll;">
+                <table class="pmtable table table-hover table-striped table-secondary" style="font-size: 0.7rem; font-family: 'Montserrat'; width: 100%;">
+                    <thead class="table-dark text-center position-sticky top-0">
+                        <tr>
+                            <th>Transaction #</th>
+                            <th>Transaction Ref</th>
+                            <th>Product Name</th>
+                            <th>Size</th>
+                            <th>Quantity Returned</th> 
+                            <th>Date Returned</th>
+                            <th>Description</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        {% for item in returnTable %}
+                        <tr>
+                            <td>P2023 - {{ item.id }}</td>
+                            <td>{{ item.transact_no }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.size }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.date_returned }}</td>
+                            <td>{{ item.description }}</td>
+    
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

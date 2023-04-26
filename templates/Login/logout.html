@@ -3,10 +3,94 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Logged Out</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/dtlogo.png'%}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Quicksand&family=Barlow:wght@300;400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/f8a99d4330.js" crossorigin="anonymous"></script>
+
+    <style>
+      @keyframes scale-up-center{0%{transform:scale(.5)}100%{transform:scale(1)}}
+
+      .content {
+        animation:scale-up-center .4s cubic-bezier(.39,.575,.565,1.000) both;
+      }
+    </style>
   </head>
-  <body>
-    {{ message }}
-    <br />
-    <a href="{% url 'login' %}">Go to Login</a>
+  <body style="background-color: #eee;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="#">
+          <img
+            src="{% static 'images/dunmark_logo.jpg' %}"
+            height="40"
+            alt="DM Logo"
+            loading="lazy"
+            style="margin-top: -1px;"
+          />
+        </a>
+
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarButtonsExample"
+          aria-controls="navbarButtonsExample"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="#" style="font-family: 'Montserrat'; font-size: 1.2; font-weight: bold; letter-spacing: 1px;">Dunmark Tileshop</a>
+            </li>
+          </ul>
+          <!-- Left links -->
+
+          <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-link px-3 me-2">
+              Login
+            </button>
+    
+            <a
+              class="btn btn-dark px-3"
+              href="https://github.com/mdbootstrap/mdb-ui-kit"
+              role="button"
+              ><i class="fa fa-globe fa-lg" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+   
+    <div class="content bg-white shadow-sm rounded w-50 mx-auto mt-5">
+      <div class="row w-100">
+        <div class="col-12 pt-5 pb-2">
+          <img class="d-block mx-auto" src="{% static 'images/undraw_to_the_moon_re_q21i.svg' %}" height="400" alt="">
+        </div>
+
+        <div class="col-12">
+          <p class="text-center py-4" style="color: rgb(70, 70, 70); font-family: 'Quicksand'; font-size: 1.7rem;">{{ message }}</p>
+        </div>
+        <a class="text-center btn btn-secondary w-25 mx-auto mb-5" style="font-family: 'Barlow'; font-size: 0.9rem;" href="{% url 'login' %}">Go to Login</a>
+
+      </div>
+    </div>
+    
+    
   </body>
 </html>

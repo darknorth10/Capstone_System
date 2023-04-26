@@ -590,6 +590,9 @@ body {
   border-radius: 0 5px 0 0;
 }
 
+.pmtable thead tr {
+  font-size: 0.9rem;
+}
 #add_prod_form div .form-control {
   font-family: 'Montserrat';
   font-size: 0.9rem;
@@ -765,4 +768,20 @@ thead th:last-of-type {
 
 .errorlist {
   color: rgb(255, 84, 84);
+}
+
+.return_pruduct {
+  height: 100%;
+  width: 100%;
+}
+.rp_header {
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.7rem;
+  text-align: center;
+  letter-spacing: 1px;
+
+  background-image: url('../images/peakpx4.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }

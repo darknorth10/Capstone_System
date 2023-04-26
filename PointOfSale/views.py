@@ -7,6 +7,7 @@ from django.db.models import Sum, Q
 from django.contrib import messages
 from django.http import JsonResponse
 import locale
+from AuditTrail.models import AuditTrail
 
 # search item by name on key up
 def searchItems(request):
@@ -123,6 +124,8 @@ def delete_item(request):
     print(cartItem)
     if Cart.objects.all().count() == 1:
       Cart.objects.all().delete()
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has remove an item.', location='Point of Sale')
+      audit_log.save()
       messages.success(request, 'Transaction has been cleared')
     else:
       cartItem.delete()
@@ -136,6 +139,8 @@ def pos_clear(request):
 
    if request.method == 'POST':
     Cart.objects.all().delete()
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has cleared a transaction.', location='Point of Sale')
+    audit_log.save()
     messages.success(request, 'Transaction has been cleared')
     return redirect('pos')
 
@@ -190,6 +195,8 @@ def add_transaction(request):
       #del existing items in cart after saving
        Cart.objects.all().delete()
        messages.success(request, 'Transaction completed successfully')
+       audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new cash transaction.', location='Point of Sale')
+       audit_log.save()
 
        print('successfully added transaction')
 
@@ -253,7 +260,8 @@ def add_gcash_transaction(request):
 
        Cart.objects.all().delete()
        messages.success(request, 'Transaction completed successfully')
-
+       audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new gcash transaction.', location='Point of Sale')
+       audit_log.save()
        print('successfully added transaction')
 
     else:
@@ -314,7 +322,8 @@ def add_bank_transaction(request):
         #del existing items in cart after saving
        Cart.objects.all().delete()
        messages.success(request, 'Transaction completed successfully')
-
+       audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new bank transaction.', location='Point of Sale')
+       audit_log.save()
        print('successfully added transaction')
 
     else:
@@ -360,6 +369,8 @@ def installment_view(request):
 
         
         balanceform = BalanceForm(auto_id='balance_%s')
+        audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new payment for installment.', location='Point of Sale')
+        audit_log.save()
         messages.success(request, 'Transaction completed successfully')
       
     else: # if not valid

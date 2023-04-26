@@ -1,0 +1,42 @@
+{% extends 'UserInterface/base.html' %}
+
+
+{% block content %}
+    <div class="archiveProduct p-1 bg-dark">
+
+        <h5 class="fs-4 p-3 text-center text-white d-flex" style="font-family:  'Barlow'; letter-spacing: 1px;"><a href="{% url 'product_management' %}" class="btn btn-secondary px-3 py-2" style="width: 120px;">Back</a>
+            <span class="d-inline-block mx-auto">Product Archives</span></h5>
+        <div class="pmtablediv card bg-white h-100 my-3 p-2" style="max-height: 90%; overflow-y : scroll;">
+            <table class="pmtable table table-hover table-striped" style="font-size: 0.7rem; font-family: 'Montserrat'; width: 100%;">
+                <thead class="table-dark text-center position-sticky top-0">
+                    <tr>
+                        <th>Product #</th>
+                        <th>Product Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Size</th>
+                        <th>Price</th> 
+                        <th>Stock</th>  
+                        <th>Date Archived</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for archive in archives %}
+                    <tr>
+                        <td>P2023 - {{ archive.product_no }}</td>
+                        <td>{{ archive.name }}</td>
+                        <td>{{ archive.brand }}</td>
+                        <td>{{ archive.category }}</td>
+                        <td>{{ archive.size }}</td>
+                        <td>{{ archive.price }}</td>
+                        <td>{{ archive.stocks }}</td>
+                        <td>{{ archive.date_archived }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+    

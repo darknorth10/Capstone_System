@@ -7,13 +7,14 @@
     <h5 class="pmheader py-2 mb-4">Product Management</h5>
     <div class="pmcontent h-75 rounded p-0">
         <!-- Action bar -->
-        <div class="pmactionbar bg-white rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
+        <div class="pmactionbar bg-light rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
             <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
+            <a href="{% url 'archive_product' %}" class="btn btn-secondary shadow-sm">Archived Products</a>
             
             <form method="post" class="input-group" style="width: 30%;" id="searchProductForm2">
               {% csrf_token %}
                 <div class="form-outline">
-                  <input type="text" id="searchProduct" name="prodName" class="form-control bg-light shadow-sm" >
+                  <input type="text" id="searchProduct" name="prodName" class="form-control bg-white" >
                   <label class="form-label" for="">Search</label>
                 </div>
                 <button type="submit" class="btn btn-primary">
@@ -59,6 +60,7 @@
                         <td class="py-2">
                           <a href="{% url 'edit_prod' product.id %}" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a>
                           <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
+                          <a class="voidbtn btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(159, 30, 30);" data-voidProd="{{ product.product_name }}">Void Product</a>
                         </td>
 
                     </tr>
@@ -137,4 +139,31 @@
         </div>
       </div>
 
+      <!-- void product and save to archive -->
+      <button class="d-none" data-mdb-target="#confirmVoid" data-mdb-toggle="modal" id="voidTrigger">asasa</button>
+      <div class="modal top fade" id="confirmVoid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
+        <div class="modal-dialog  ">
+          <div class="modal-content" style="font-family: 'Barlow';">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center fs-5">Are you sure you want to void Product : <span id="curr_prod" class="text-danger">sample</span> and save to the archives?</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary fs-6" data-mdb-dismiss="modal">
+                Cancel
+              </button>
+
+              <form method="post" action="{% url 'void_product' %}">
+                {% csrf_token %}
+                <input type="hidden" name="voidName">
+                <button type="submit" class="btn btn-danger fs-6" id="conf_addStock">Confirm</button> 
+              </form>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    
 {% endblock %}

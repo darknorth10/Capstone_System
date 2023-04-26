@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'SalesTransaction',
     'ProductManagement',
     'Reports',
+    'ReturnProduct',
     'VisitorsPage',
     'AuditTrail',
     

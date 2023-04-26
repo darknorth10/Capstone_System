@@ -19,7 +19,7 @@ class ProductForm(ModelForm):
 class changeProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ['price', 'availability', 'product_img']
+        fields = ['product_name', 'category', 'brand', 'price', 'availability', 'product_img']
 
 # add stock quantity
 class addStocksForm(ModelForm):

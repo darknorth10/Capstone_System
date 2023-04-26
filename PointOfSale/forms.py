@@ -31,8 +31,9 @@ class CartQuantityForm(ModelForm):
 class CashForm(ModelForm):
     class Meta:
         model = Transaction
-        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'change', 'transaction_type', 'status', 'installment']
-        widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'change': HiddenInput(), 'status': HiddenInput(), 'installment': HiddenInput(),}
+        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'change', 'transaction_type', 'status', 'installment', 'order_type']
+        widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'change': HiddenInput(), 'status': HiddenInput(), 'installment': HiddenInput(), 'order_type': Select(attrs={'class': 'role-select rounded', 'required': 'required'}),
+        }
 
     def clean(self):
         paid_amount = self.cleaned_data.get('amount')
@@ -47,10 +48,10 @@ class GcashForm(ModelForm):
 
     class Meta:
         model = Transaction
-        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'gcash_no', 'reference_no', 'transaction_type', 'status', 'installment']
+        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'gcash_no', 'reference_no', 'transaction_type', 'status', 'installment', 'order_type']
         widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'status': HiddenInput(), 'customer_name': TextInput(attrs={'class': 'form-control'}),
         'contact': TextInput(attrs={'class': 'form-control'}), 'email': TextInput(attrs={'class': 'form-control'}), 'delivery_address': TextInput(attrs={'class': 'form-control'}),
-        'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'gcash_no': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'reference_no': TextInput(attrs={'class': 'form-control'}), 'installment': HiddenInput(),
+        'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'gcash_no': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'reference_no': TextInput(attrs={'class': 'form-control'}), 'installment': HiddenInput(), 'order_type': Select(attrs={'class': 'role-select rounded', 'required': 'required'}),
          }
 
     def clean(self):
@@ -66,11 +67,11 @@ class BankingForm(ModelForm):
 
     class Meta:
         model = Transaction
-        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'banking_type', 'reference_no', 'transaction_type', 'status', 'account_name', 'bank_name', 'installment']
+        fields = ['customer_name', 'contact', 'email', 'delivery_address', 'total_price', 'amount', 'banking_type', 'reference_no', 'transaction_type', 'status', 'account_name', 'bank_name', 'installment', 'order_type']
         widgets = {'transaction_type': HiddenInput(), 'total_price': HiddenInput(), 'status': HiddenInput(), 'customer_name': TextInput(attrs={'class': 'form-control'}),
         'contact': TextInput(attrs={'class': 'form-control'}), 'email': TextInput(attrs={'class': 'form-control'}), 'delivery_address': TextInput(attrs={'class': 'form-control'}),
         'amount': NumberInput(attrs={'class': 'form-control', 'step': 1, 'min': '0'}), 'reference_no': TextInput(attrs={'class': 'form-control'}),
-        'account_name': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'bank_name': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'banking_type': Select(attrs={'class': 'role-select rounded', 'required': 'required'}), 'installment': HiddenInput(),
+        'account_name': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'bank_name': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'banking_type': Select(attrs={'class': 'role-select rounded', 'required': 'required'}), 'installment': HiddenInput(), 'order_type': Select(attrs={'class': 'role-select rounded', 'required': 'required'}),
          }
     def clean(self):
         paid_amount = self.cleaned_data.get('amount')
@@ -80,6 +81,7 @@ class BankingForm(ModelForm):
         if paid_amount is not None:
             if paid_amount > total_price:
                 raise ValidationError("Paid amount exceeds total price")
+                
 class BalanceForm(ModelForm):
 
     class Meta:

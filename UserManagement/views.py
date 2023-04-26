@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from LoginAuthentication.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.http import JsonResponse
 from django.contrib import messages
+from AuditTrail.models import AuditTrail
 
 # Create your views here.
 @login_required(login_url='login')
@@ -24,6 +25,8 @@ def user_management(request):
 
     if form_adduser.is_valid():
       form_adduser.save()
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new user.', location='User Management')
+
       messages.success(request, 'User added successfully')
       form_adduser = CustomUserCreationForm()
     else:
@@ -46,6 +49,8 @@ def edit_user(request, id):
   if request.method == 'POST':
     if form_update.is_valid():
       form_update.save()
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated a user.', location='User Management')
+      audit_log.save()
       messages.success(request, 'User updated successfully')
       return redirect('usermanagement')
     else:
@@ -66,12 +71,16 @@ def update_status_inactive(request, id):
     if not User_status.is_active:
       User_status.is_active = True
       User_status.save()
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has activated a user.', location='User Management')
+      audit_log.save()
       messages.success(request, 'User activated successfully')
       return redirect('usermanagement')
     # deactivates user status
     else:
       User_status.is_active = False
       User_status.save()
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has deactivated a user.', location='User Management')
+      audit_log.save()
       messages.error(request, 'User has been deactivated')
       return redirect('usermanagement')
   

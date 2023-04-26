@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from . import forms
+from django.contrib import messages
+from AuditTrail.models import AuditTrail
 
 # Create your views here.
 
@@ -20,6 +22,9 @@ def login_page(request):
       
       if user is not None:
         login(request, user)
+        messages.success(request, f'Welcome {request.user}, have a great day!')
+        audit = AuditTrail(user=request.user, action=f'{request.user} has logged in.', location='Login Authentication')
+        audit.save()
         return redirect('dashboard')
       else:
         print("Wrong username or pass")
@@ -32,6 +37,7 @@ def login_page(request):
 
 #Logout view
 def logout_user(request):
+  audit_log = AuditTrail(user=request.user, action=f'{request.user} has logged out.', location='Login Authentication')
   logout(request)
-  message = "You've been logged out."
+  message = "You've logged out."
   return render(request, 'Login/logout.html', context={'message':message})

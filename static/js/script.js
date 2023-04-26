@@ -596,28 +596,26 @@ $(document).ready(function() {
 
       $("#itemNameSearch").val(itemName);
   
-        $("#searchItemForm").submit(function (e) { 
-          e.preventDefault();
-  
-          $.ajax({
-            type: "POST",
-            url: window.location.href + "search_items/",
-            data: $(this).serialize(),
-            success: function (response) {
-              console.log(response.success);
-              location.reload();
-            }
-          });
-          
-        });
-  
-        // submit everytime search name input value changes
-        $("#searchItemForm").submit()
+      // submit everytime search name input value changes
+      $("#searchItemForm").submit()
     
       
   });
 
+  $("#searchItemForm").submit(function (e) { 
+    e.preventDefault();
 
+    $.ajax({
+      type: "POST",
+      url: window.location.href + "search_items/",
+      data: $(this).serialize(),
+      success: function (response) {
+        console.log(response.success);
+        location.reload();
+      }
+    });
+    
+  });
   // search for product via click event or on enter keypress
     
   $("#searchProductForm2").submit(function (e) { 
@@ -671,6 +669,31 @@ $(document).ready(function() {
 
     // auto submit
     $("#delCartItem").submit();
+  });
+
+
+  // Void Product 
+  $(document).on('click', '.voidbtn', function () {
+    var itemName = $(this).attr('data-voidProd');
+
+    console.log(itemName);
+    $("#curr_prod").text(itemName);
+    $("input[name='voidName']").val(itemName);
+    $("#voidTrigger").click();
+  });
+
+
+  $('select[name="itemName"]').change(function (e) { 
+      console.log('test')
+
+      var optSelected = $('option:selected', this);
+
+      $("#return_name").val($(this).val());
+      $("#return_orig_quantity").val(optSelected.attr('data-quantity')) ;
+      $("#return_size").val(optSelected.attr('data-size'));
+      $("#return_transact_no").val(optSelected.attr('data-tnum'));
+
+
   });
 });
 
