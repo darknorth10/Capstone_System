@@ -57,7 +57,8 @@ def product_management(request):
   else :
     products = Product.objects.all().order_by('category')
     print("no session")
-        
+
+  request.session['search_product'] = None
   return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
 
 

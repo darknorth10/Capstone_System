@@ -5,6 +5,8 @@ from LoginAuthentication.forms import CustomUserCreationForm, CustomUserChangeFo
 from django.http import JsonResponse
 from django.contrib import messages
 from AuditTrail.models import AuditTrail
+from UserManagement.forms import ResetPassword
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 @login_required(login_url='login')
@@ -87,3 +89,40 @@ def update_status_inactive(request, id):
   return render(request, 'UserInterface/userstatus.html', context = {'User': User_status})
 
 
+# reset password 
+def reset_password(request, username):
+  
+  if CustomUser.objects.filter(username=username).exists():
+    changepassuser = CustomUser.objects.get(username=username)
+    print('asassa')
+
+  else:
+
+    return redirect('usermanagement')
+
+
+
+  resetpassform = ResetPassword()
+  if request.method == 'POST':
+    resetpassform = ResetPassword(request.POST)
+
+    if resetpassform.is_valid():
+      new_password = resetpassform.cleaned_data['password1']
+      changepassuser.password = make_password(new_password)
+      changepassuser.save()
+
+      messages.success(request, 'Password Changed')
+      
+      return redirect('usermanagement')
+
+    else:
+      messages.error(request, 'Error changing password')
+
+      print(resetpassform.errors)
+  context = {
+    'form' : CustomUserCreationForm(),
+    'Users' : changepassuser,
+    'ChangePassForm' : resetpassform
+  }
+
+  return render(request, 'UserInterface/resetpass.html', context)

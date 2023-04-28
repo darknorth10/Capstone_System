@@ -64,19 +64,20 @@
             <td style="text-transform: capitalize;">{{ User.role }}</td>
             <td class="userstatusbtn" id="">
               <div class="d-flex flex-column align-items-center">
-                <a class="btn btn-outline-primary btn-sm btn-rounded mb-1"  href="{% url 'edit_user' User.id %}">
+                <a class="btn btn-outline-primary btn-sm btn-rounded mb-1 w-50"  href="{% url 'edit_user' User.id %}">
                   Edit
                 </a>
                 
                 {% if User.username != user.username %}
                   {% if User.is_active %}
-                  <a class="btndeact btn btn-danger btn-sm btn-rounded" href="{% url 'update_status' User.id %}">
+                  <a class="btndeact btn btn-danger btn-sm btn-rounded px-2 w-50" href="{% url 'update_status' User.id %}">
                     Deactivate
                   </a> {% else %}
-                  <a class="btnact btn btn-primary btn-sm btn-rounded" style="padding: auto 40px;" href="{% url 'update_status' User.id %}">
+                  <a class="btnact btn btn-primary btn-sm btn-rounded w-50" href="{% url 'update_status' User.id %}">
                     Activate
                   </a>
                   {% endif %}
+                  <a class="btn btn-secondary px-2 w-50 my-2 btn-sm btn-rounded" href="{% url 'reset_pass' User.username %}">Reset Password</a>
                 {% endif %}
                   
                 

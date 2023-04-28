@@ -15,7 +15,7 @@ def search_transaction(request):
 
 def return_product(request):
   
-  item_no = Transaction.objects.all()
+  item_no = None
   tnum = 0
   
   if 'transact_no' in request.session:

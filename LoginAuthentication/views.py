@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from . import forms
 from django.contrib import messages
 from AuditTrail.models import AuditTrail
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 
@@ -41,3 +42,7 @@ def logout_user(request):
   logout(request)
   message = "You've logged out."
   return render(request, 'Login/logout.html', context={'message':message})
+
+
+def forgot_password(request, username):
+    return render(request, 'Login/resetpass.html', context)

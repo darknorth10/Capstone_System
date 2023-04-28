@@ -641,37 +641,6 @@ $(document).ready(function() {
   });
 
 
-  // deletes item in cart pos using ajax
-
-  $(document).on('click', '.delitem', function () {
-    var itemName = $(this).attr('data-itemname');
-
-    $('input[name="cartItemName"]').val(itemName);
-
-    $("#delCartItem").submit(function (e) { 
-      e.preventDefault();
-
-      $.ajax({
-        type: "post",
-        url: window.location.href + "delete_item/",
-        data: $(this).serialize(),
-        success: function (response) {
-          if (response.success) {
-              location.reload();
-              console.log(response.success);
-          } else {
-            console.log('error');
-          }
-        }
-      });
-
-    });
-
-    // auto submit
-    $("#delCartItem").submit();
-  });
-
-
   // Void Product 
   $(document).on('click', '.voidbtn', function () {
     var itemName = $(this).attr('data-voidProd');

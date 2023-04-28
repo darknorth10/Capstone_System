@@ -11,6 +11,6 @@ urlpatterns = [
   path('clear/', views.pos_clear, name='clear'),
   path('installments/', views.installment_view, name='installment_view'),
   path('search_items/', views.searchItems, name='search_items'),
-  path('delete_item/', views.delete_item, name='delete_items'),
+  path('delete_item/<int:id>/', views.delete_item, name='delete_item'),
 
 ]

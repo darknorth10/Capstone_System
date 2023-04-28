@@ -114,12 +114,9 @@ def pointofsale(request):
 
 
 # delete item in cart ajax
-def delete_item(request):
+def delete_item(request, id):
 
-  if request.method == 'POST':
-    itemName = request.POST.get('cartItemName')
-
-    cartItem = Cart.objects.get(id=itemName)
+    cartItem = Cart.objects.get(id=id)
 
     print(cartItem)
     if Cart.objects.all().count() == 1:
@@ -130,7 +127,7 @@ def delete_item(request):
     else:
       cartItem.delete()
 
-    return JsonResponse({'success': True}, status=200)
+    return redirect('pos')
 
 
 

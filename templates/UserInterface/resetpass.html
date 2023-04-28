@@ -1,0 +1,35 @@
+{% extends 'UserInterface/base.html'%}
+
+{% block content%}
+<a class="btn btn-dark d-block mx-4 mt-4" href="{% url 'usermanagement'%}" style="width: 150px;">Go back</a>
+
+    <div class="w-50 bg-white rounded shadow-3 mx-auto my-3 p-0" style="font-family: 'Barlow';">
+        <div class="card-header p-3 rounded bg-dark" style="color: white; font-family: 'Quicksand';">
+            <h5 style="font-size: 0.9em; letter-spacing: 1px;">Reset Password info for  User: <span style="color: yellow;">{{ Users.username }}</span></h5>
+        </div>
+        <form method="post" id="resetPassForm" class="m-0 p-4" style="font-size: 1.1rem;">
+            
+            {% csrf_token %}
+            
+            <div class="row px-5" >
+                <div class="form-outline mb-5">
+                    {{ ChangePassForm.password1 }}
+                    <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>New Password</label>
+                    <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
+                  </div>
+  
+                  <div class="form-outline mb-3" id="pass2-outline">
+                    {{ ChangePassForm.password2 }}
+                    <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>
+                  </div>
+
+            </div>
+            <div class="col my-3 d-flex justify-content-end pe-4">
+                <button class="btn btn-danger w-25 me-2" style="font-family: 'Barlow'; ">Reset Password</button>    
+            </div>
+        </form>
+        
+    </div>
+    
+    
+{% endblock %}a

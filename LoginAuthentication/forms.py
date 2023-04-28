@@ -11,10 +11,10 @@ class CustomUserCreationForm(UserCreationForm):
     fields = ("first_name", "last_name", "email", "username", "role")
 
 class CustomUserChangeForm(UserChangeForm):
-  password = None
+
   class Meta:
     model = CustomUser
-    fields = ("first_name", "last_name", "email", "username", "role")
+    fields = ("first_name", "password", "last_name", "email", "username", "role")
 
 # Login Form
 class LoginForm(forms.Form):
