@@ -12,12 +12,17 @@
             {% csrf_token %}
             
             <div class="row px-5" >
+                {% if ChangePassForm.errors %}
+                <div class="form-helper rounded text-danger text-center py-1 ps-4 mb-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; background-color: rgb(255, 228, 228);">
+                  <p class="text-center">{{ ChangePassForm.non_field_errors }}</p>
+                </div>
+                {% endif %}
+
                 <div class="form-outline mb-5">
                     {{ ChangePassForm.password1 }}
                     <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>New Password</label>
                     <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
                   </div>
-  
                   <div class="form-outline mb-3" id="pass2-outline">
                     {{ ChangePassForm.password2 }}
                     <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>

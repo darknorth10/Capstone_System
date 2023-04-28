@@ -8,17 +8,40 @@
     
     <!-- system icon -->
     <link rel="icon" type="image/x-icon" href="{% static 'images/dtlogo.png'%}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
+    
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Quicksand&family=Barlow:wght@300;400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
   </head>
   <body>
+    {% if messages %}
+            
+          {% for message in messages  %}
+          <div class="alert alert-{%  if message.tags == 'error'%}{{ 'danger' }}{% else %}{{ message.tags }}{% endif %} shadow-lg border d-flex align-items-center" id="alert_box">
+            <h5 class="flex-grow-1">{{ message }}</h5>
+            <a href="#" class="btn-close" style="font-size: 0.7rem;" id="close_alert"></a>
+          </div>
+          {% endfor %}
+            
+    {% endif %}
+
     {% block content %}
     {% endblock content %}
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+    <script>
+      $(document).ready(function() {
+        $("#id_username").focus()
+      })
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+
   </body>
-  <script src="{% static 'js/jquery.min.js'%}"></script>
-  <script>
-    $(document).ready(function() {
-      $("#id_username").focus()
-    })
-  </script>
+  
 </html>
