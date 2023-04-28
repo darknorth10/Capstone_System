@@ -27,8 +27,7 @@ class Transaction(models.Model):
     gcash_no = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')], null=True, blank=True)
 
     BANKING_CHOICES = [
-        ('Credit', 'Credit'),
-        ('Debit', 'Debit'),
+        ('Bank Transfer', 'Bank Transfer'),
         ('Cheque', 'Cheque'),
     ]
     account_name = models.CharField(max_length=45, null=True, blank=True)

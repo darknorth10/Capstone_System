@@ -160,6 +160,7 @@ def add_transaction(request):
           obj.status = "Pending"
           obj.installment_paid = obj.amount
        else:
+          obj.amount
           obj.status = "Complete"
        obj.save()
        

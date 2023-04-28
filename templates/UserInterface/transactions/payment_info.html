@@ -117,7 +117,7 @@
                         <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
                             <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 132, 118);"> <!-- rgb(30, 98, 132) -->
                                 <th>Trans No.</th>
-                                <th>Amount Paid</th>
+                                <th>Cash Paid</th>
                                 <th>Change</th>
                                 <th>Date of Purchace</th>
                                 <th>Customer Name</th>
@@ -130,7 +130,7 @@
                                     {% if p.status == "Complete" and p.transaction_type == "Cash" and p.installment == "false" %}
                                     <tr class="text-center">
                                         <td>{{ p.transaction_no }}</td>
-                                        <td>{{ p.amount }}</td>
+                                        <td>{{ p.total_price }}</td>
                                         <td>{{ p.change }}</td>
                                         <td>{{ p.date_of_purchace }}</td>
                                         <td>{{ p.customer_name }}</td>
@@ -156,7 +156,7 @@
                             <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
                                 <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(30, 66, 132);"> <!-- rgb(30, 98, 132) -->
                                     <th>Trans No.</th>
-                                    <th>Amount Paid</th>
+                                    <th>Cash Paid</th>
                                     <th>Change</th>
                                     <th>Date of Purchace</th>
                                     <th>Customer Name</th>
@@ -171,7 +171,7 @@
                                         {% if p.status == "Complete" and p.transaction_type == "Gcash" and p.installment == "false" %}
                                         <tr class="text-center">
                                             <td>{{ p.transaction_no }}</td>
-                                            <td>{{ p.amount }}</td>
+                                            <td>{{ p.total_price }}</td>
                                             <td>{{ p.change }}</td>
                                             <td>{{ p.date_of_purchace }}</td>
                                             <td>{{ p.customer_name }}</td>
@@ -199,7 +199,7 @@
                             <table class="table table-hover shadow" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold; max-height: 80%;">
                                 <thead class="text-light text-center position-sticky top-0" style="background-color: rgb(132, 113, 30);"> <!-- rgb(30, 98, 132) -->
                                     <th>Trans No.</th>
-                                    <th>Amount Paid</th>
+                                    <th>Cash Paid</th>
                                     <th>Change</th>
                                     <th>Date of Purchace</th>
                                     <th>Customer Name</th>
@@ -215,7 +215,7 @@
                                         {% if p.status == "Complete" and p.transaction_type == "Banking" and p.installment == "false" %}
                                         <tr class="text-center">
                                             <td>{{ p.transaction_no }}</td>
-                                            <td>{{ p.amount }}</td>
+                                            <td>{{ p.total_price }}</td>
                                             <td>{{ p.change }}</td>
                                             <td>{{ p.date_of_purchace }}</td>
                                             <td>{{ p.customer_name }}</td>
