@@ -47,7 +47,7 @@
                                 {% else %}
                                 <span class="badge badge-warning rounded-pill d-inline">Not Eligible</span>
                                 {% endif %}</td>
-                            <td class="py-2"><a href="#" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a></td>
+                            <td class="py-2"><a href="{% url 'edit_customer' customer.id %}" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

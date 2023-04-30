@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>404 Not Found</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
+
+    </head>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+    <body>
+        {% load static %}
+
+        <div class="h-100 w-100">
+            <div class="w-75 h-50 mx-auto">
+                <img class="d-block mx-auto" src="{% static 'images/404.svg' %}">
+            </div>  
+        </div>
+
+    </body>
+</html>

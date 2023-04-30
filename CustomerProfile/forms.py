@@ -10,3 +10,4 @@ class CustomerForm(ModelForm):
         'sex': Select(attrs={'class': 'role-select rounded p-2', 'required': 'required'}), 'phone_number': TextInput(attrs={'class': 'form-control', 'required': 'required'}), 'permanent_address': TextInput(attrs={'class': 'form-control'}),
         'credit_eligibility':Select(attrs={'class': 'role-select rounded p-2', 'required': 'required'}), 'birthdate': DateInput(attrs={'type': 'date', 'class': 'rounded px-3 py-2', 'required': 'required'}),
          }
+

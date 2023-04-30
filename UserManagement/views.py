@@ -33,7 +33,7 @@ def user_management(request):
       form_adduser = CustomUserCreationForm()
     else:
       print('error')
-      messages.error(request, 'Error saving user') 
+      messages.error(request, 'Error saving user :' + form_adduser.errors.as_text()) 
       
   return render(request, 'UserInterface/user_management.html',
     context = { 'Users': CustomUser.objects.all(), 'form': form_adduser }

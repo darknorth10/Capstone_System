@@ -14,16 +14,16 @@
       <button class="btn btn-primary fs-6 ms-4" id="adduser-btn" data-mdb-toggle="modal" data-mdb-target="#modal-user"><i class="fa-solid fa-add"></i> New User</button>
       <!-- search -->
       <form style="width:25%;" class="pe-3" id="searchuser_form" method="get">
-      <div class="input-group" id="um-search">
-        <div class="form-outline">
-          <input type="text" name='keyword' id="search_bar" class="form-control bg-white shadow-sm fs-6" />
-          <label class="form-label" for="form1">Search User</label>
+        <div class="input-group" id="um-search">
+          <div class="form-outline">
+            <input type="text" name='keyword' id="search_bar" class="form-control bg-white shadow-sm fs-6" />
+            <label class="form-label" for="form1">Search User</label>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-    </form>
+      </form>
     </div>
 
     <!-- User management table div -->
@@ -92,87 +92,87 @@
     </div>
 
 
-    <!-- Create user modal form-->
-    <div class="um-modals">
-      <div class="modal fade" tabindex="3" data-mdb-backdrop="static" data-mdb-keyboard="false" id="modal-user">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-primary ms-4">Create New User</h5>
-              
-            </div>
-            <div class="modal-body" id="nu-modalbody">
+  </div>
 
-              <!-- Form -->
-              <form class="px-3" method="post" accept-charset="utf-8" id="userform">
+      <!-- Create user modal form-->
+      <div class="um-modals">
+        <div class="modal fade" tabindex="3" data-mdb-backdrop="static" data-mdb-keyboard="false" id="modal-user">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-primary ms-4">Create New User</h5>
                 
-                {% csrf_token %}
-
-                <div class="row mb-4">
-                  <div class="col">
-                    <div class="form-outline">
-                      {{ form.first_name }}
-                      <label class="form-label" for="id_first_name"><i class="fa-solid fa-person mx-2"></i>First Name</label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="form-outline">
-                      {{ form.last_name }}
-                      <label class="form-label" for="id_last_name"><i class="fa-solid fa-people-roof mx-2"></i>Last Name</label>
-                    </div>
-                  </div>
-                </div>
-               
-                <div class="form-outline border-danger mb-4">
-                  {{ form.email }}
-                  <label class="form-label" for="id_email"><i class="fa-solid fa-envelope mx-2"></i>Email address</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  {{ form.username }}
-                  <label class="form-label" for="id_username"><i class="fa-solid fa-user mx-2"></i>Username</label>
+              </div>
+              <div class="modal-body" id="nu-modalbody">
+  
+                <!-- Form -->
+                <form class="px-3" method="post" accept-charset="utf-8" id="userform">
                   
+                  {% csrf_token %}
+  
+                  <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
+                        {{ form.first_name }}
+                        <label class="form-label" for="id_first_name"><i class="fa-solid fa-person mx-2"></i>First Name</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-outline">
+                        {{ form.last_name }}
+                        <label class="form-label" for="id_last_name"><i class="fa-solid fa-people-roof mx-2"></i>Last Name</label>
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <div class="form-outline border-danger mb-4">
+                    {{ form.email }}
+                    <label class="form-label" for="id_email"><i class="fa-solid fa-envelope mx-2"></i>Email address</label>
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    {{ form.username }}
+                    <label class="form-label" for="id_username"><i class="fa-solid fa-user mx-2"></i>Username</label>
+                    
+                    {% if form.errors %}
+                    <div class="form-helper text-danger py-1 ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.username.errors }}</div>
+                    {% endif %}
+                  
+                  </div>
+                  
+                  <div class="form-outline mb-5">
+                    <i class="fas fa-exclamation-circle trailing" id="fas1"></i>
+                    {{ form.password1 }}
+                    <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>Password</label>
+                    <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
+                  </div>
+  
+                  <div class="form-outline mb-2" id="pass2-outline">
+                    <i class="fas fa-exclamation-circle trailing" id="fas"></i>
+                    {{ form.password2 }}
+                    <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>
+                  </div>
+  
                   {% if form.errors %}
-                  <div class="form-helper text-danger py-1 ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.username.errors }}</div>
-                  {% endif %}
-                
-                </div>
-                
-                <div class="form-outline mb-5">
-                  <i class="fas fa-exclamation-circle trailing" id="fas1"></i>
-                  {{ form.password1 }}
-                  <label class="form-label" for="id_password1"><i class="fa-solid fa-key mx-2"></i>Password</label>
-                  <div class="form-helper py-2 ps-4" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; color: black;">Must contain atleast 8 characters, combination of letters and atleast 2 number</div>
-                </div>
-
-                <div class="form-outline mb-2" id="pass2-outline">
-                  <i class="fas fa-exclamation-circle trailing" id="fas"></i>
-                  {{ form.password2 }}
-                  <label class="form-label" for="id_password2"><i class="fa-solid fa-key mx-2"></i>Confirm Password</label>
-                </div>
-
-                {% if form.errors %}
-                  <div class="form-helper text-danger ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.password2.errors }}</div>
-                  {% endif %}
-
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="id_role">Choose Role : </label>
-                  {{ form.role }}
-                </div>
-                
-                
-                <div class="modal-footer">
-                  <input type="reset" value="" style="display: none;" id="adduser_reset">
-                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="adduser_close">Close</button>
-                  <button type="submit" class="btn btn-primary" id="userform-submit">Create User</button>
-                </div>
-              </form>
+                    <div class="form-helper text-danger ps-4 mb-2" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400;">{{ form.password2.errors }}</div>
+                    {% endif %}
+  
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="id_role">Choose Role : </label>
+                    {{ form.role }}
+                  </div>
+                  
+                  
+                  <div class="modal-footer">
+                    <input type="reset" value="" style="display: none;" id="adduser_reset">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="adduser_close">Close</button>
+                    <button type="submit" class="btn btn-primary" id="userform-submit">Create User</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-  </div>
   
-{% endblock %}
+{% endblock content %}

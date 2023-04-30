@@ -13,19 +13,7 @@
                     <span class="input-group-text">Stocks to be Added :</span>
                     {{ form.current_stock }}
                 </div>
-                
-                {% if form.non_field_errors is not None %}
-                <div class="alert alert-danger p-0 text-center">
-                    <strong>{{ form.non_field_errors }}</strong>   
-                </div>
-                {% endif %}
-                {% if form.errors %}
-                <div class="alert alert-primary p-0 text-center">
-                    <strong style="font-size: 0.9em;">{{ form.current_stock.errors }}</strong>   
-                </div>
-                {% endif %}
                     
-   
                     
                 <button type="button" class="btn btn-primary w-100 fs-6" data-mdb-toggle="modal" data-mdb-target="#confirmAddStock">ADD STOCKS</button>
             </form>

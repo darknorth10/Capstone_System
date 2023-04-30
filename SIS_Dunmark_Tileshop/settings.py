@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*tb99%@!26(hyb6_r_m#f%=c4_xxrir9(*rndok5-hik_de0k$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,7 +139,7 @@ TIME_ZONE = 'Asia/Manila'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # SMTP server
 EMAIL_HOST = 'smtp.gmail.com'

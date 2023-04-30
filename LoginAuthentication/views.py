@@ -84,7 +84,7 @@ def email_check(request):
         return redirect('forgot_password', username)
 
       else:
-        message = 'Username does not exist.'
+        message = 'There is no email bounded to the account please contact your administrator.'
      
 
     else:
@@ -118,8 +118,9 @@ def forgot_password(request, username):
         changepassuser.save()
         messages.success(request, 'Password has been changed successfully.')
         return redirect('login')
-    else:
-      messages.error(request, 'OTP is invalid or incorrect.')
+        
+      else:
+        messages.error(request, 'OTP is invalid or incorrect.')
 
       print(form.errors)
   

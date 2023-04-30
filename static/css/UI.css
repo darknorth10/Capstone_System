@@ -136,7 +136,7 @@ body {
 }
 
 .notif-logout-div {
-  width: 170px;
+  width: 280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -310,7 +310,7 @@ body {
 }
 
 #dash-annual {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;  
   padding-bottom: 15px;
   font-family: 'Barlow';
@@ -330,7 +330,7 @@ body {
 }
 .stock-graph {
   width: 55%;
-  height: 130%;
+  height: 120%;
   background: white;
   padding: 15px;
 }
@@ -376,7 +376,7 @@ body {
 }
 .progress {
   background-color: rgb(236, 240, 250);
-  height: 20%;
+  height: 15%;
 }
 
 .progress-bar {
@@ -400,8 +400,8 @@ body {
   overflow: hidden;
 }
 .chart-area {
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -784,4 +784,8 @@ thead th:last-of-type {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+} 
+
+#customerform_edit input {
+  margin: 0;
 }

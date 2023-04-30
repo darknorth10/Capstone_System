@@ -116,6 +116,7 @@ def add_stock(request, id):
       return redirect('product_management')
     else:
       print(form.errors)
+      messages.error(request, f"{form.non_field_errors().as_text()} {form.errors.as_text()}")
 
   return render(request, 'UserInterface/addProductStock.html', context = {'product':selected_product, 'form': form,})
 

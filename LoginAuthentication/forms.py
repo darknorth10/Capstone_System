@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from .models import CustomUser
 from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 
 
 # Modified Registration form due to custom user model
@@ -30,6 +31,9 @@ class ForgotPassForm(forms.Form):
    otp = forms.CharField(max_length=6, widget=TextInput(attrs={'class': 'form-control text-center', 'maxlength': 6}))
 
    def clean(self):
+      validate_password(self.cleaned_data.get('password1'))
+      
       if self.cleaned_data.get('password2') != self.cleaned_data.get('password1'):
           raise ValidationError('Passwords do not match')
+               
       

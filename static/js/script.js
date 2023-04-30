@@ -1,15 +1,20 @@
 
 // Dashboard Top Selling Graph
 $('.dashboard').ready(function () {
+  
+  var top1 = $("#top1");
+  var top2 = $("#top2");
+  var top3 = $("#top3");
+
   const data = {
     labels: [
-      'Green',
-      'Blue',
-      'Dark'
+      top1.attr("data-name"),
+      top2.attr("data-name"),
+      top3.attr("data-name")
     ],
     datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
+      label: 'Top Selling Products',
+      data: [top1.attr("data-count"), top2.attr("data-count"), top3.attr("data-count")],
       backgroundColor: [
         '#1CDCB0',
         '#33A3EE',
@@ -17,13 +22,23 @@ $('.dashboard').ready(function () {
       ],
       hoverOffset: 4
     }]
+    
   };
 
   const mychart = document.getElementById("myChart");
   new Chart(mychart, {
     type: 'doughnut',
     data: data,
+    
+    options: {
+      layout: {
+          padding: 20
+      }
+  }
   });
+
+  const myModal = new mdb.Modal(document.getElementById('dashboardModal'), {})
+  myModal.toggle()
 });
 
 // document is ready and loaded
@@ -45,7 +60,7 @@ $(document).ready(function() {
       $('#navlogo').hide()
       $('#shrink').css('transform', 'rotate(180deg)');
       $('.left-symbol').css('width', '30%')
-      $('.text-label h2:last-of-type').css('font-size', '1em')
+      $('.text-label h2:last-of-type').css('font-size', '1.1em')
       shrink = false;
     } else {
       $('.sidenav').css('width', "18%");
@@ -60,7 +75,7 @@ $(document).ready(function() {
       //$('.sidenav-menu').css('gap', '15px');
       $('#shrink').css('transform', 'rotate(0deg)');
       $('.left-symbol').css('width', '20%')
-      $('.text-label h2:last-of-type').css('font-size', '0.9em')
+      $('.text-label h2:last-of-type').css('font-size', '1em')
       shrink = true;
       
     }
