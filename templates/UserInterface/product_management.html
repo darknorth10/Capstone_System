@@ -26,7 +26,7 @@
 
         </div>
         <!-- Product table -->
-        <div class="pmtablediv card bg-white h-100 my-3 p-2" style=" max-height: 90%; overflow: scroll;">
+        <div class="pmtablediv card bg-white h-100 my-3" style=" max-height: 90%; overflow: scroll;">
             <table class="pmtable table table-hover table-striped" style="font-size: 0.7rem; font-family: 'Montserrat'; width: 100%;">
                 <thead class="table-dark text-center position-sticky top-0">
                     <tr>
@@ -85,7 +85,10 @@
             <div class="modal-body">
               <form method="post" class="p-1" id="add_prod_form" enctype="multipart/form-data">
                 {% csrf_token %}
-                
+                {% if product_form.errors %}
+                    <div class="form-helper text-danger py-1 ps-4 mb-2 text-center" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; background-color: rgb(255, 241, 241);">{{ product_form.errors }}</div>
+                {% endif %}
+
                 <div class="form-outline px-2 mb-4 shadow-inner">
                   {{ product_form.product_name }}
                   <label class="form-label" for="id_product_name">Product Name</label>
@@ -115,6 +118,11 @@
                 <div class="input-group mb-3 shadow-inner">
                   <span class="input-group-text">Initial Stocks :</span>
                   {{ product_form.current_stock }}
+                </div>
+
+                <div class="input-group mb-3 shadow-inner">
+                  <span class="input-group-text">Maximum Stocks :</span>
+                  {{ product_form.max_stock }}
                 </div>
 
                 <label class="form-label" for="id_product_img">Select Product Image :</label>

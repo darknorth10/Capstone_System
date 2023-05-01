@@ -1,10 +1,11 @@
 
 // Dashboard Top Selling Graph
-$('.dashboard').ready(function () {
+$(document).ready(function () {
   
   var top1 = $("#top1");
   var top2 = $("#top2");
   var top3 = $("#top3");
+
 
   const data = {
     labels: [
@@ -13,7 +14,7 @@ $('.dashboard').ready(function () {
       top3.attr("data-name")
     ],
     datasets: [{
-      label: 'Top Selling Products',
+      label: 'Transactions',
       data: [top1.attr("data-count"), top2.attr("data-count"), top3.attr("data-count")],
       backgroundColor: [
         '#1CDCB0',
@@ -39,13 +40,175 @@ $('.dashboard').ready(function () {
 
   const myModal = new mdb.Modal(document.getElementById('dashboardModal'), {})
   myModal.toggle()
+
+
+
+
 });
 
 // document is ready and loaded
 $(document).ready(function() {
 
-  var shrink = false;
+  //dashboard stock level
+    // stock level
+    var prod1 = $("#prod1");
+    var prod2 = $("#prod2");
+    var prod3 = $("#prod3");
+    var prod4 = $("#prod4");
+    var prod5 = $("#prod5");
+  
+    // change color and level of stocks
 
+    //prod1
+   var prod1stock = (parseInt(prod1.attr('data-stock')) / parseInt(prod1.attr('data-max'))) * 100;
+   var pgcolor;
+
+   if(prod1stock >= 75) {
+    pgcolor = "bg-primary";
+    $("#stocklabel1").text('Good');
+
+   } else if(prod1stock < 75 && prod1stock > 30 ) {
+    pgcolor = "bg-success";
+    $("#stocklabel1").text('Normal');
+
+   } else if(prod1stock <= 30 && prod1stock > 15 ) {
+    pgcolor = "bg-warning";
+    $("#stocklabel1").text('Warning');
+
+   } else if(prod1stock <= 15 && prod1stock > 0 ) {
+    pgcolor = "bg-danger";
+    $("#stocklabel1").text('Critical');
+
+   } else if(prod1stock == 0) {
+    pgcolor = "bg-secondary";
+    $("#stocklabel1").text('Out of Stock');
+
+   }
+   $("#product1stock").css('width', `${prod1stock}%`);
+   $("#product1stock").attr('class', `progress-bar ${pgcolor}`);
+   
+   // product 2
+   var prod2stock = (parseInt(prod2.attr('data-stock')) / parseInt(prod2.attr('data-max'))) * 100;
+   var pgcolor2;
+
+   if(prod2stock >= 75) {
+    pgcolor2 = "bg-primary";
+    $("#stocklabel2").text('Good');
+   } else if(prod2stock < 75 && prod2stock > 30 ) {
+    pgcolor2 = "bg-success";
+    $("#stocklabel2").text('Normal');
+   } else if(prod2stock <= 30 && prod2stock > 15 ) {
+    pgcolor2 = "bg-warning";
+    $("#stocklabel2").text('Warning');
+   } else if(prod2stock <= 15 && prod2stock > 0 ) {
+    pgcolor2 = "bg-danger";
+    $("#stocklabel2").text('Critical');
+   } else if(prod2stock == 0) {
+    pgcolor2 = "bg-secondary";
+    $("#stocklabel2").text('Out of Stock');
+   }
+
+    $("#product2stock").css('width', `${prod2stock}%`);
+    $("#product2stock").attr('class', `progress-bar ${pgcolor2}`);
+
+   // product 3
+   var prod3stock = (parseInt(prod3.attr('data-stock')) / parseInt(prod3.attr('data-max'))) * 100;
+   var pgcolor3;
+
+   if(prod3stock >= 75) {
+    pgcolor3 = "bg-primary";
+    $("#stocklabel3").text('Good');
+
+   } else if(prod3stock < 75 && prod3stock > 30 ) {
+    pgcolor3 = "bg-success";
+    $("#stocklabel3").text('Normal');
+
+   } else if(prod3stock <= 30 && prod3stock > 15 ) {
+    pgcolor3 = "bg-warning";
+    $("#stocklabel3").text('Warning');
+
+   } else if(prod3stock <= 15 && prod3stock > 0 ) {
+    pgcolor3 = "bg-danger";
+    $("#stocklabel3").text('Critical');
+
+   } else if (prod3stock == 0){
+    pgcolor3 = "bg-secondary";
+    $("#stocklabel3").text('Out of Stock');
+
+   }
+
+    $("#product3stock").css('width', `${prod3stock}%`);
+    $("#product3stock").attr('class', `progress-bar ${pgcolor3}`);
+
+
+   // product 4
+   var prod4stock = (parseInt(prod4.attr('data-stock')) / parseInt(prod4.attr('data-max'))) * 100;
+   var pgcolor4;
+
+   if(prod4stock >= 75) {
+    pgcolor4 = "bg-primary";
+    $("#stocklabel4").text('Good');
+
+   } else if(prod4stock < 75 && prod4stock > 30 ) {
+    pgcolor4 = "bg-success";
+    $("#stocklabel4").text('Normal');
+
+   } else if(prod4stock <= 30 && prod4stock > 15 ) {
+    pgcolor4 = "bg-warning";
+    $("#stocklabel4").text('Warning');
+
+   } else if(prod4stock <= 15 && prod4stock > 0 ) {
+    pgcolor4 = "bg-danger";
+    $("#stocklabel4").text('Critical');
+
+   } else {
+    pgcolor4 = "bg-secondary";
+    $("#stocklabel4").text('Out of Stock');
+    console.log(prod4stock)
+   }
+
+    $("#product4stock").css('width', `${prod4stock}%`);
+    $("#product4stock").attr('class', `progress-bar ${pgcolor4}`);
+
+   // product 5
+   var prod5stock = (parseInt(prod5.attr('data-stock')) / parseInt(prod5.attr('data-max'))) * 100;
+   var pgcolor5;
+
+   if(prod5stock >= 75) {
+    pgcolor5 = "bg-primary";
+    $("#stocklabel5").text('Good');
+
+   } else if(prod5stock < 75 && prod5stock > 30 ) {
+    pgcolor5 = "bg-success";
+    $("#stocklabel5").text('Normal');
+
+   } else if(prod5stock <= 30 && prod5stock > 15 ) {
+    pgcolor5 = "bg-warning";
+    $("#stocklabel5").text('Warning');
+
+   } else if(prod5stock <= 15 && prod5stock > 0 ) {
+    pgcolor5 = "bg-danger";
+    $("#stocklabel5").text('Critical');
+
+   } else if(prod5stock == 0) {
+    pgcolor5 = "bg-secondary";
+    $("#stocklabel5").text('Out of Stock');
+
+   }
+
+    $("#product5stock").css('width', `${prod5stock}%`);
+    $("#product5stock").attr('class', `progress-bar ${pgcolor5}`);
+   
+  
+
+
+
+
+
+
+
+  // side nav  
+  var shrink = false;
 
   $('#shrink').click(function() {
     
@@ -167,6 +330,7 @@ $(document).ready(function() {
   $('#id_category').attr('class', 'role-select rounded');
   $('#id_price').attr('class', 'form-control');
   $('#id_current_stock').attr('class', 'form-control');
+  $('#id_max_stock').attr('class', 'form-control');
   $('#id_availability').attr('class', 'form-check-input');
   $('#id_product_img').attr('class', 'form-control');
 

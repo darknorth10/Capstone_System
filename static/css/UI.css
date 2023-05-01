@@ -408,6 +408,9 @@ body {
   justify-content: center;
 }
 
+#product1stock {
+  width: 0%;
+}
 
 /* User Management */
 .user-management {

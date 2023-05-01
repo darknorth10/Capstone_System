@@ -99,21 +99,27 @@ def add_stock(request, id):
     if form.is_valid():
       
       new_stock = selected_product.current_stock + form.cleaned_data['current_stock']
-      print(new_stock)
-      # update current stocks
-      selected_product.current_stock = new_stock
-      selected_product.date_last_stocked = date.today()
-      selected_product.save()
-      print(date.today())
-      # make the product aavailable when restocked and greater than 0
-      if selected_product.current_stock >= 0:
-        selected_product.availability = True
+      
+      if new_stock > obj.max_stock:
+        messages.error(request, 'Stocks cannot exceed maximum stocks.')
+      
+      else:
+
+        print(new_stock)
+        # update current stocks
+        selected_product.current_stock = new_stock
+        selected_product.date_last_stocked = date.today()
         selected_product.save()
-        
-      messages.success(request, 'Stocks are successfully added.')
-      audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a stock on a product.', location='Product Management')
-      audit_log.save()
-      return redirect('product_management')
+        print(date.today())
+        # make the product aavailable when restocked and greater than 0
+        if selected_product.current_stock >= 0:
+          selected_product.availability = True
+          selected_product.save()
+          
+        messages.success(request, 'Stocks are successfully added.')
+        audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a stock on a product.', location='Product Management')
+        audit_log.save()
+        return redirect('product_management')
     else:
       print(form.errors)
       messages.error(request, f"{form.non_field_errors().as_text()} {form.errors.as_text()}")

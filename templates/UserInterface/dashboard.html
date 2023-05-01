@@ -8,14 +8,14 @@
     <div class="card shadow-sm">
       <div class="left-symbol"><h3 style="color: rgb(7, 156, 107);"><i class="fa-solid fa-money-bill-trend-up"></i></h3></div>
       <div class="text-label">
-        <h2>Sales ( Monthly ) </h2>
+        <h2>Sales ( Current Month ) </h2>
         <h2 id="dash-annual">Php <span>{{ current_month_sales }}</span></h2>
       </div>
     </div>
     <div class="card shadow-sm">
       <div class="left-symbol"><h3 style="color: rgb(14, 151, 106);"><i class="fa-solid fa-dollar"></i></h3></div>
       <div class="text-label">
-        <h2>Sales ( Daily ) </h2>
+        <h2>Sales ( Today ) </h2>
         <h2 id="dash-annual">Php <span>{{ current_sales_today }}</span></h2>
       </div>
     </div>
@@ -47,90 +47,75 @@
 
         <div class="ceramic">
           <h4 class="label-progress">
-            <span>Ceramic Tiles</span>
-            <span>Good</span>
+            <span>{{ prod1.product_name }}</span>
+            <span id="stocklabel1">Good</span>
           </h4>
 
           <div class="progress p-0 rounded-pill shadow-inner">
             <div
-              class="progress-bar bg-primary"
-              role="progressbar"
-              style="width: 100%;"
-              aria-valuenow="100"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >   </div>
+              class="progress-bar"
+              id="product1stock"
+              role="progressbar"   
+            ></div>
           </div>
         </div>
 
         <div class="porcelain">
           <h4 class="label-progress">
-            <span>Porcelain Tiles</span>
-            <span>Normal</span>
+            <span>{{ prod2.product_name }}</span>
+            <span id="stocklabel2">Normal</span>
           </h4>
 
           <div class="progress p-0 rounded-pill shadow-inner">
             <div
-              class="progress-bar bg-success"
+              class="progress-bar"
               role="progressbar"
-              style="width: 70%;"
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
+              id="product2stock"
             ></div>
           </div>
         </div>
 
         <div class="adhesive">
           <h4 class="label-progress">
-            <span>Adhesive Products</span>
-            <span>Warning</span>
+            <span>{{ prod3.product_name }}</span>
+            <span id="stocklabel3">Warning</span>
           </h4>
 
           <div class="progress p-0 rounded-pill shadow-inner">
             <div
-              class="progress-bar bg-warning"
+              class="progress-bar"
               role="progressbar"
-              style="width: 50%;"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
+              id="product3stock"
             ></div>
           </div>
         </div>
 
         <div class="grout">
           <h4 class="label-progress">
-            <span>Tile Grout</span>
-            <span>Critical</span>
+            <span>{{prod4.product_name}}</span>
+            <span id="stocklabel4">Critical</span>
           </h4>
 
           <div class="progress p-0 rounded-pill shadow-inner">
             <div
-              class="progress-bar bg-danger"
+              class="progress-bar"
               role="progressbar"
-              style="width: 10%;"
-              aria-valuenow="10"
-              aria-valuemin="0"
-              aria-valuemax="100"
+              id="product4stock"
             ></div>
           </div>
         </div>
 
         <div class="sanitary">
           <h4 class="label-progress">
-            <span>Sanitary Wares</span>
-            <span>Out of Stock</span>
+            <span>{{ prod5.product_name }}</span>
+            <span id="stocklabel5">Out of Stock</span>
           </h4>
 
           <div class="progress p-0 rounded-pill shadow-inner">
             <div
-              class="progress-bar bg-secondary"
+              class="progress-bar"
               role="progressbar"
-              style="width: 0%;"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
+              id="product5stock"
             ></div>
           </div>
         </div>
@@ -153,6 +138,12 @@
     <input type="hidden" id="top1" data-name="{{ top1.name }}" data-count="{{ top1.count }}">
     <input type="hidden" id="top2" data-name="{{ top2.name }}" data-count="{{ top2.count }}">
     <input type="hidden" id="top3" data-name="{{ top3.name }}" data-count="{{ top3.count }}">
+
+    <input type="hidden" id="prod1" data-name="{{ prod1.product_name }}" data-stock="{{ prod1.current_stock }}" data-max="{{ prod1.max_stock }}" >
+    <input type="hidden" id="prod2" data-name="{{ prod2.product_name }}" data-stock="{{ prod2.current_stock }}" data-max="{{ prod2.max_stock }}" >
+    <input type="hidden" id="prod3" data-name="{{ prod3.product_name }}" data-stock="{{ prod3.current_stock }}" data-max="{{ prod3.max_stock }}" >
+    <input type="hidden" id="prod4" data-name="{{ prod4.product_name }}" data-stock="{{ prod4.current_stock }}" data-max="{{ prod4.max_stock }}" >
+    <input type="hidden" id="prod5" data-name="{{ prod5.product_name }}" data-stock="{{ prod5.current_stock }}" data-max="{{ prod5.max_stock }}" >
       
   </div>
 </div>
@@ -163,11 +154,11 @@
 
 {% if user.is_default %}
   <!-- Modal -->
-  <div class="modal top fade" id="dashboardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
+  <div class="modal top fade" id="dashboardModal" tabindex="-1" aria-labelledby="boom" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title w-100 text-center text-danger" id="exampleModalLabel" style="font-family: 'Barlow'; font-size: 0.9rem;">***** YOU NEED TO CHANGE YOUR PASSWORD *****</h5>
+          <h5 class="modal-title w-100 text-center text-danger" id="boom" style="font-family: 'Barlow'; font-size: 0.9rem;">***** YOU NEED TO CHANGE YOUR PASSWORD *****</h5>
         </div>
         <div class="modal-body">
           <p class="text-center d-flex justify-content-center align-items-center" style="font-family: 'Barlow'; font-size: 0.9rem;">Click <a class="btn btn-secondary btn-sm mx-2" href="{% url 'force_change_password' user.id %}">Here</a> to change your password.</p>

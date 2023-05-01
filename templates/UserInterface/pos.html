@@ -41,7 +41,7 @@
                 
                 {% if product.availability %}
                   <div class="itemwrapper 1 p-2 " style="width: 30%; height: 60%;" data-productname="{{ product.product_name }}" data-productid="{{ product.id }}" data-currentstock="{{ product.current_stock }}">
-                    <div class="item card shadow h-100 w-100">
+                    <div class="item card border border-1 border-dark shadow h-100 w-100">
                         <h3 class="pt-2">Php {{ product.price }}</h3>
                         <img src="{{ product.product_img.url }}" alt="Item Image" class="card-image-top">
                         <h3 class="card-title"><span>Name:</span> {{ product.product_name }}</h3>
@@ -252,7 +252,7 @@
                 <!-- PAYMENT input -->
                 <div class="form-outline bg-white" id="cash_amountpaid">
                   {{ cashform.amount }}
-                  <label class="form-label" for="typeText">Amount Paid</label>
+                  <label class="form-label" for="typeText">Cash Payment</label>
                 </div>
               </div>
               <div class="col">
@@ -345,7 +345,7 @@
                 <!-- PAYMENT input -->
                 <div class="form-outline bg-white">
                   {{ gcashform.amount }}
-                  <label class="form-label" for="">Amount Paid</label>
+                  <label class="form-label" for="">Cash Payment</label>
                 </div>
               </div>
               <div class="col">
@@ -449,7 +449,7 @@
                 <!-- PAYMENT input -->
                 <div class="form-outline bg-white">
                   {{ bankform.amount }}
-                  <label class="form-label" for="">Amount Paid</label>
+                  <label class="form-label" for="">cash Payment</label>
                 </div>
               </div>
               <div class="col">

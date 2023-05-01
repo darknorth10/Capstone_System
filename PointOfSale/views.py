@@ -102,7 +102,7 @@ def pointofsale(request):
     formatted_subtotal = "{:,}".format(subtotal['subtotal_cart'])
   else:
     formatted_subtotal = 0
-
+  
   cashform = CashForm()
   gcashform = GcashForm(auto_id='gcash_%s')
   bankform = BankingForm(auto_id='bank_%s')

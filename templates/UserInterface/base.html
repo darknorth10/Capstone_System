@@ -50,7 +50,7 @@
                 <li><a href="{% url 'audit_trail' %}" {% if request.resolver_match.url_name == "audit_trail" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail"><i class="fa-solid fa-circle-info"></i><span>Audit Trail</span></a></li>
                 <li><a href="{% url 'sales_transaction' %}" {% if request.resolver_match.url_name == "sales_transaction" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"></i><span>Reports</span></a></li>
                 {% endif %}
-                <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Settings"><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
+                <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="About System"><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
             </ul>
         </div>
         
