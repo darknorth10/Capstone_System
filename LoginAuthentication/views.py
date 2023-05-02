@@ -71,6 +71,7 @@ def email_check(request):
 
         # ================ send email =================
         a = cache.get('otp')
+        
         send_mail(
           'Reset your Password',
             f'Here is your OTP {a} please do not share it with others.',

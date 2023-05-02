@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, Http404
+from django.http import JsonResponse
 from  LoginAuthentication.models import CustomUser 
 from django.contrib.auth.decorators import login_required
 from ProductManagement.models import Product
@@ -9,6 +10,45 @@ from django.contrib.auth.hashers import make_password
 from django.db.models import Sum, Count, Q
 from django.utils import timezone
 import datetime
+import json
+from .models import Notification
+from django.core.mail import send_mail
+
+
+# NOTIFICATION
+def get_notifications():
+    for prod in Product.objects.all():
+      if (prod.current_stock / prod.max_stock) * 100 < 25 and (prod.current_stock / prod.max_stock) * 100 >= 15  :
+        print(f"Warning on {prod.product_name} stock level.")
+        if not Notification.objects.filter(name=prod.product_name).exists():
+          n = Notification(message=f"Warning on {prod.product_name} stock level.", status='pending', name=prod.product_name)
+          n.save()
+
+        #check if exist in notif, if yes set to read if not ignored
+      elif (prod.current_stock / prod.max_stock) * 100 < 15 and (prod.current_stock / prod.max_stock) * 100 > 0 :
+          if not Notification.objects.filter(name=prod.product_name).exists():
+              n = Notification(message=f"You need to restock on {prod.product_name}, it will be running out of stocks soon.", status='pending', name=prod.product_name)
+              n.save()
+          else:
+              c = Notification.objects.get(name=prod.product_name)
+              c.message = f"You need to restock on {prod.product_name}, it will be running out of stocks soon."
+              c.status = 'pending'
+              c.save()
+      elif prod.current_stock == 0 :
+          if not Notification.objects.filter(name=prod.product_name).exists():
+              n = Notification(message=f"You need to restock on {prod.product_name}, it has run out of stock.", status='pending', name=prod.product_name)
+              n.save()
+          else:
+              c = Notification.objects.get(name=prod.product_name)
+              c.message = f"You need to restock on {prod.product_name}, it has run out of stock."
+              c.status = "pending"
+              c.save()
+      else:
+
+        if Notification.objects.filter(name=prod.product_name).exists():
+            b = Notification.objects.get(name=prod.product_name)
+            b.status = "read"
+            b.save()
 
 
 
@@ -44,9 +84,7 @@ def dashboard(request):
 
   formatted_sales_today = "{:,}".format(today)
   formatted_sales_month = "{:,}".format(curr_month)
- 
-
-
+  get_notifications()
   return render(request, 'UserInterface/dashboard.html', 
   context = {'User': CustomUser.objects.all(),
     'product_registered': product_count,
@@ -63,6 +101,7 @@ def dashboard(request):
     'current_month_sales' : formatted_sales_month,
     'current_sales_today' : formatted_sales_today,
   })
+
 
 
 @login_required(login_url='login')
@@ -96,3 +135,51 @@ def force_change_password(request, id):
 
 def error_404_view(request, exception):
   return render(request, '404.html')
+
+
+
+
+# ALERT AND nOTIFICATION
+def get_notification(request):
+    for prod in Product.objects.all():
+      if (prod.current_stock / prod.max_stock) * 100 < 25 and (prod.current_stock / prod.max_stock) * 100 >= 15  :
+        print(f"Warning on {prod.product_name} stock level.")
+        if not Notification.objects.filter(name=prod.product_name).exists():
+          n = Notification(message=f"Warning on {prod.product_name} stock level.", status='pending', name=prod.product_name)
+          n.save()
+
+          # notify on email
+          send_mail(
+            'Products Stocks Level Alert',
+              f"Warning on {prod.product_name} stock level.",
+              '',
+              ['abbyalbus123@gmail.com'],
+              fail_silently=False,
+          )
+          messages.success(request, 'Alerts are sent to the owner.')
+        #check if exist in notif, if yes set to read if not ignored
+      elif (prod.current_stock / prod.max_stock) * 100 < 15 :
+          if not Notification.objects.filter(name=prod.product_name).exists():
+              n = Notification(message=f"You need to restock on {prod.product_name}, it will be running out of stocks soon.", status='pending', name=prod.product_name)
+              n.save()
+          else:
+              c = Notification.objects.get(name=prod.product_name)
+              c.message = f"You need to restock on {prod.product_name}, it will be running out of stocks soon."
+          
+          # notify on email
+          send_mail(
+            'Products Stocks Level Alert',
+              f"You need to restock on {prod.product_name}, it will be running out of stocks soon.",
+              '',
+              ['abbyalbus123@gmail.com'],
+              fail_silently=False,
+          )
+          messages.success(request, 'Alerts are sent to the owner.')
+
+      else:
+        if Notification.objects.filter(name=prod.product_name).exists():
+            b = Notification.objects.get(name=prod.product_name)
+            b.status = "read"
+            b.save()
+
+    return redirect('dashboard')

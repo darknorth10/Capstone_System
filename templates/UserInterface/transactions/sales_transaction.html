@@ -42,7 +42,12 @@
                             <td>{{ transaction.date_of_purchace }}</td>
                             <td>{{ transaction.order_type }}</td>
                             <td>{{ transaction.delivery_address }}</td>
-                            <td class="parentReceiptBtn py-2"> <a class="receiptbtn btn m-0" data-transnumber="{{ transaction.transaction_no }}" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">View Items</a></td>
+                            <td class="parentReceiptBtn py-2"> <a class="receiptbtn btn m-0" data-transnumber="{{ transaction.transaction_no }}" style="background-color: rgb(34, 102, 152); font-size: 0.8em; color: #fff;">View Items</a>
+                              <a href="{% url 'print_receipt' transaction.transaction_no %}" role="button" class="btn btn-primary" style="background-color: rgb(38, 133, 201); font-size: 0.8em; color: #fff;">
+                                Print Receipt
+                                <i class="fa-solid fa-print fa-lg ps-2"></i>
+                              </a>
+                            </td>
                         </tr>
                     {% endfor %}
                         
@@ -71,14 +76,14 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-mdb-dismiss="modal">
-            Print Receipt
-            <i class="fa-solid fa-print fa-lg ps-2"></i>
-          </button>
+          
         </div>
       </div>
     </div>
   </div>
 
 
-{% endblock %}
+
+
+{% endblock content %}
+    

@@ -77,30 +77,53 @@
 
              <div class="notif-logout-div">
                 <!-- Notifications -->
-                <div class="notification" style="z-index: 5;">  
+                
+                <div class="notification" style="z-index: 999;">  
                   <!-- icon -->
-                  <a class="rounded" id="notif-btn">
+                  <a class="rounded" id="notif-btn" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Notification">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                    
+                    {% if num > 0 %}
+                      <span class="badge rounded-pill badge-notification bg-danger">{{ num }}</span>
+                    {% endif %}
+                      
                   </a>
                   <!-- notif content -->
-                  <div class="card" id="notif-content">
+                  <div class="card" id="notif_content">
+                    <div class="headernotif position-sticky top-0 bg-secondary">
+                      <h3 class="notifLabel bg-dark text-white">Notificaton</h3>
+                      <button class="btn btn-secondary btn-sm" id="notifclose">Close</button>
+                    </div>
                     
+
+                    <ul type="none" id="notif_list">
+                      {% for notif in notifs %}
+                        <li class="px- 3"><p class="p-0 ps-4 m-0">{{ notif.message }}</p><p class="pe-4 pb-1" style="margin: 0; font-size: 0.7rem; text-align: end;">{{ notif.date_occur }}</p></li>
+                      
+                      {% endfor %}
+                      
+                    </ul>
                   </div>
 
                   
                 </div>
+
+
                 
                 <!-- Logout div -->
                 <div class="d-flex me-3">
-                  <div class="dropdown">
+                  <div class="dropdown" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Logout"
+                  >
                     <button
                       type="button"
                       class="btn btn-white dropdown-toggle"
                       data-mdb-toggle="modal" data-mdb-target="#logoutModal"
                       style="font-family: 'Quicksand'; font-size: 0.7rem;"
                     >
-                      {{ user }}
+               
+                      
+                     {{ user.username }}
+                        
                     </button>
                     
                   </div>
@@ -136,6 +159,8 @@
         </div>
       </div>
     </div>
+
+ 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
     <!-- Custom Javascript-->

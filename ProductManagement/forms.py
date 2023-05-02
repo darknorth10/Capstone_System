@@ -8,7 +8,7 @@ class ProductForm(ModelForm):
     product_size = ModelChoiceField(queryset=TileSize.objects.all()) 
     class Meta:
         model  = Product
-        fields = ['product_name', 'brand', 'category', 'product_size', 'current_stock', 'max_stock', 'availability', 'product_img']
+        fields = ['product_name', 'brand', 'category', 'price', 'product_size', 'current_stock', 'max_stock', 'availability', 'product_img']
         
         
 

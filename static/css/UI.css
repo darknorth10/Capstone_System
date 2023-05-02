@@ -444,6 +444,8 @@ body {
   animation: fade-in-right 0.5s;
   text-shadow: 2px 2px 1px #212121;
 }
+
+
 .pos_header {
   font-family: 'Quicksand';
   color: rgb(33, 33, 33);
@@ -454,6 +456,12 @@ body {
   animation: fade-in-right 0.5s;
   text-shadow: 1px 1px 1px #212121;
 }
+
+.pmtablediv, .cptable, .sett {
+  animation: fade-in-right 0.5s;
+
+}
+
 .um-actionbar {
   height: 15%;
   width: 100%;
@@ -792,3 +800,49 @@ thead th:last-of-type {
 #customerform_edit input {
   margin: 0;
 }
+
+
+#notif_content {
+  width: 30vw;
+  min-height: 60vh;
+  max-height: 80vh;
+  position: absolute;
+  top: 6%;
+  right: 2%;
+  background-color: #F1F3F4;
+  animation:fade-in-top .6s cubic-bezier(.39,.575,.565,1.000) both;
+  display: none;
+  overflow-y: scroll;
+
+}
+
+.notifLabel {
+  font-family: 'Barlow';
+  font-size: 1rem;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  letter-spacing: 1px;
+
+}
+
+#notifclose {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+
+}
+
+#notif_list {
+  height: 80%;
+  font-family: 'Barlow';
+  font-size: 0.9rem;
+  padding: 5px;
+  
+}
+#notif_list li {
+  border-bottom: 1px solid rgb(221, 221, 221);
+  text-align: justify;
+  
+}
+
+@keyframes fade-in-top{0%{transform:translateY(-50px);opacity:0}100%{transform:translateY(0);opacity:1}}

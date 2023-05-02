@@ -51,3 +51,4 @@ def addCategory(request):
       messages.error(request, 'Error adding product category, category is already registered.')
       print(catform.errors)
       return redirect('settings')
+

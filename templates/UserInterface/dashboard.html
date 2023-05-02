@@ -41,9 +41,11 @@
     <!--Product Level Graph-->
 
     <div class="stock-graph card shadow-sm mb-5 pb-3">
+ 
       <div class="stock-progress">
           <!--Graph Header-->
-        <h1 class="stock-header mb-3">Top Selling Products Stock Level</h1>
+        <h1 class="stock-header d-flex align-items-center justify-content-between mb-3"><span class="d-block ms-5 ps-3">Top Selling Products Stock Level</span>  <a class="btn btn-sm btn-secondary px-3" href="{% url 'check_stocks' %}" style="font-family:  'Barlow';">Check Stocks</a>
+        </h1>
 
         <div class="ceramic">
           <h4 class="label-progress">

@@ -6,6 +6,7 @@ from datetime import date
 from django.http import JsonResponse
 from django.db.models import Q
 from AuditTrail.models import AuditTrail
+from Dashboard.views import get_notifications
 # Create your views here.
 
 def searchProduct(request):
@@ -16,7 +17,7 @@ def searchProduct(request):
 
 def product_management(request):
   products = Product.objects.all().order_by('category')
-
+  get_notifications()
   # products with 0 stock will updated to unavailable
   
 

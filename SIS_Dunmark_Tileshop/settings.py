@@ -81,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'Dashboard.context_processor.notification',
             ],
         },
     },
@@ -140,6 +142,7 @@ TIME_ZONE = 'Asia/Manila'
 USE_I18N = True
 
 USE_TZ = False
+
 
 # SMTP server
 EMAIL_HOST = 'smtp.gmail.com'

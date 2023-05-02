@@ -843,6 +843,30 @@ $(document).ready(function() {
 
 
   });
+
+
+  var notifShow = false;
+
+  // $("#notif-btn").css('display', 'block');
+  $("#notif-btn").click(function (e) { 
+    e.preventDefault();
+
+    if(!notifShow) {
+      notifShow = true;
+      $("#notif_content").css('display', 'block');
+    } else {
+      notifShow = false;
+      $("#notif_content").css('display', 'none');
+    }
+
+  });
+
+  $("#notifclose").click(function (e) { 
+    e.preventDefault();
+    notifShow = false;
+    $("#notif_content").css('display', 'none');
+  });
+
 });
 
 

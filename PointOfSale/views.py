@@ -8,7 +8,10 @@ from django.contrib import messages
 from django.http import JsonResponse
 import locale
 from AuditTrail.models import AuditTrail
-
+from Dashboard.models import Notification
+from django.core.mail import send_mail
+from Dashboard.views import get_notifications
+            
 # search item by name on key up
 def searchItems(request):
   
@@ -97,7 +100,9 @@ def pointofsale(request):
 
   # Subtotal Format from cart database  
   subtotal = Cart.objects.aggregate(subtotal_cart=Sum('total_price'))
-  
+
+
+  #render Subtotal
   if subtotal['subtotal_cart'] is not None:
     formatted_subtotal = "{:,}".format(subtotal['subtotal_cart'])
   else:
@@ -106,7 +111,7 @@ def pointofsale(request):
   cashform = CashForm()
   gcashform = GcashForm(auto_id='gcash_%s')
   bankform = BankingForm(auto_id='bank_%s')
-
+  get_notifications()
 
   context = {'products': products, 'carts': cart, 'form': form, 'subtotal': formatted_subtotal, 'subtotal_raw': subtotal['subtotal_cart'], 'cashform': cashform, 'gcashform': gcashform, 'bankform': bankform}
 
@@ -195,7 +200,7 @@ def add_transaction(request):
        messages.success(request, 'Transaction completed successfully')
        audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new cash transaction.', location='Point of Sale')
        audit_log.save()
-
+       get_notifications()
        print('successfully added transaction')
 
     else:
@@ -261,6 +266,7 @@ def add_gcash_transaction(request):
        audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new gcash transaction.', location='Point of Sale')
        audit_log.save()
        print('successfully added transaction')
+       get_notifications()
 
     else:
       print(gashform.errors)
@@ -323,6 +329,7 @@ def add_bank_transaction(request):
        audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new bank transaction.', location='Point of Sale')
        audit_log.save()
        print('successfully added transaction')
+       get_notifications()
 
     else:
       print(bankform.errors)
