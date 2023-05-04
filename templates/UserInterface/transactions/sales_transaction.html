@@ -4,18 +4,10 @@
 
 <div class="sales_transaction w-100 h-100 m-0 p-2">
     <div class="trans_content h-100 2-100 d-flex flex-column p-3">
-        <h3 class="heading bg-transparent mb-3 text-center">Reports</h3>
-        <div class="trans_actionbar bg-transparent w-100 rounded d-flex justify-content-between my-3">
+        <h3 class="heading bg-transparent mb-3 text-center">Sales Transactions</h3>
+        <div class="trans_actionbar bg-transparent w-100 rounded d-flex justify-content-between my-3" style="font-family: 'Barlow'; font-size: 1.1em; ">
             <a href="{% url 'payment_info' %}" class="btn shadow btn-outline-white" style="background-color: rgb(30, 136, 134);" >View Payment Informations</a>
-            <div class="input-group w-25">
-                <div class="form-outline shadow">
-                  <input type="search" id="form1" class="form-control bg-light shadow-sm" />
-                  <label class="form-label" for="form1">Search</label>
-                </div>
-                <button type="button" class="btn btn-secondary">
-                  <i class="fas fa-search"></i>
-                </button>
-            </div>
+            <a href="{% url 'pos' %}" class="btn btn-secondary px-3 me-3">Point of Sale</a>
         </div>
         <div class="trans_table bg-primary bg-white shadow rounded overflow-y-scroll" style="max-height: 75%;">
             <table class="table" style="min-width: 100%; font-family: 'Montserrat'; font-size: 0.7em; font-weight: bold;">

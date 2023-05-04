@@ -1,0 +1,38 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Sales Transaction</p>
+    
+    <div class="table">
+        <table>
+            <thead class="table-primary">
+                <th>Transanction No.</th>
+                <th>Type</th>
+                <th>Installment</th>
+                <th>Total Product</th>
+                <th>Total Price</th>
+                <th>Change</th>
+                <th>Date Purchased</th>
+            </thead>
+            <tbody>
+                
+                {% for users in User  %}
+                    <tr>
+                        <td>{{users.first_name}} {{users.last_name}}</td>
+                        <td>{{users.email}}</td>
+                        <td>{{users.username}}</td>
+                        
+                        <td>{{customer.installment}}</td>
+                            
+                        <td>{{users.role }}</td>
+                        <td>{{users.date_joined.date }}</td>
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

@@ -58,9 +58,16 @@
                           <span class="badge badge-warning rounded-pill d-inline">Unavailable</span>
                           {% endif %}</td>
                         <td class="py-2">
+                          
+                          {% if user.role == "admin" %}
                           <a href="{% url 'edit_prod' product.id %}" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a>
                           <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
                           <a class="voidbtn btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(159, 30, 30);" data-voidProd="{{ product.product_name }}">Void Product</a>
+                          {% else %}
+                          <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
+
+                          {% endif %}
+                            
                         </td>
 
                     </tr>

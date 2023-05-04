@@ -83,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'Dashboard.context_processor.notification',
+                'VisitorsPage.context_template.contact',
             ],
         },
     },

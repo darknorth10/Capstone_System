@@ -11,6 +11,9 @@ from django.contrib.auth.hashers import make_password
 # Create your views here.
 @login_required(login_url='login')
 def user_management(request):
+  if request.user.role == 'cashier':
+    return redirect('usermanagement')
+
   #instance of user creation form for creating user
   form_adduser = CustomUserCreationForm()
 
@@ -64,6 +67,9 @@ def edit_user(request, id):
 
 # update user status (active or inactive)
 def update_status_inactive(request, id):
+  if request.user.role == 'cashier':
+    return redirect('usermanagement')
+
   User_status = CustomUser.objects.get(id=id)
 
   if request.method == "POST":
@@ -91,7 +97,9 @@ def update_status_inactive(request, id):
 
 # reset password 
 def reset_password(request, username):
-  
+  if request.user.role == 'cashier':
+    return redirect('usermanagement')
+    
   if CustomUser.objects.filter(username=username).exists():
     changepassuser = CustomUser.objects.get(username=username)
     print('asassa')

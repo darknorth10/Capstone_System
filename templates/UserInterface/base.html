@@ -45,11 +45,11 @@
                 <li><a href="{% url 'pos' %}" {% if request.resolver_match.url_name == "pos" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Point of Sale"><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
                 <li><a href="{% url 'product_management' %}" {% if request.resolver_match.url_name == "product_management" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Product Management"><i class="fa-solid fa-table-columns"></i><span>Product Management</span></a></li>
                 <li><a href="{% url 'return_product' %}" {% if request.resolver_match.url_name == "return_product" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Return Product"><i class="fa-solid fa-arrow-right-arrow-left"></i><span>Return Product</span></a></li>
-                <li><a href="{% url 'settings' %}" {% if request.resolver_match.url_name == "settings" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Settings"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
                 {% if user.is_staff %}
+                <li><a href="{% url 'settings' %}" {% if request.resolver_match.url_name == "settings" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Settings"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
                 <li><a href="{% url 'audit_trail' %}" {% if request.resolver_match.url_name == "audit_trail" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail"><i class="fa-solid fa-circle-info"></i><span>Audit Trail</span></a></li>
-                <li><a href="{% url 'sales_transaction' %}" {% if request.resolver_match.url_name == "sales_transaction" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"></i><span>Reports</span></a></li>
                 {% endif %}
+                <li><a href="{% url 'reports' %}" {% if request.resolver_match.url_name == "reports" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"></i><span>Reports</span></a></li>
                 <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="About System"><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
             </ul>
         </div>
@@ -88,6 +88,15 @@
                     {% endif %}
                       
                   </a>
+
+                  <!-- visitors page -->
+                  <a
+                    class="btn btn-light px-3 ms-4"
+                    href="{% url 'base' %}"
+                    target="_blank"
+                    role="button"
+                    data-mdb-placement="right" title="Notification"
+                    ><i class="fa fa-globe fa-lg" aria-hidden="true"></i></a>
                   <!-- notif content -->
                   <div class="card" id="notif_content">
                     <div class="headernotif position-sticky top-0 bg-secondary">

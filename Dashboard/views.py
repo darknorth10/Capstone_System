@@ -61,10 +61,10 @@ def dashboard(request):
   total_transactions = Transaction.objects.all().count()
 
   products = Product.objects.all()
-  product_stock_level = Product.objects.all()[:5]
+  product_stock_level = Product.objects.all()
 
   if Item.objects.values('name').annotate(count=Count('transaction_no')).order_by('-count').count() >= 3:
-      products = Item.objects.values('name').annotate(count=Count('transaction_no')).order_by('-count')[:5]
+      products = Item.objects.values('name').annotate(count=Count('transaction_no')).order_by('-count')
 
   if Item.objects.values('name').annotate(count=Count('name')).order_by('-count').count() >= 5:
       product_stock_level = Product.objects.filter(Q(product_name=products[0]['name']) | Q(product_name=products[1]['name']) | Q(product_name=products[2]['name']) | Q(product_name=products[3]['name']) | Q(product_name=products[4]['name']))
@@ -171,7 +171,7 @@ def get_notification(request):
             'Products Stocks Level Alert',
               f"You need to restock on {prod.product_name}, it will be running out of stocks soon.",
               '',
-              ['abbyalbus123@gmail.com'],
+              ['aldrinalmoradie69@gmail.com'],
               fail_silently=False,
           )
           messages.success(request, 'Alerts are sent to the owner.')

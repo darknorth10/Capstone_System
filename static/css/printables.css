@@ -1,0 +1,69 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;
+        font-size: 10pt;
+      }
+}
+
+
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 16pt;
+ }   
+
+
+.header {
+    text-align: center;
+    font-family: 'Courier';
+    color: black;
+    font-size: 1rem;
+}
+
+.img_header {
+    margin: 10px auto;
+}
+
+.img_header img {
+    width: 30%;
+    height: 60px;
+    display: block;
+    margin: 10px auto;
+}
+
+.table {
+    font-size: 0.8rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 100%;
+
+}
+.table table {
+    width: 95%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: auto;
+}
+.table table th, .table table td {
+    border: 1px solid black;
+    padding: 5px 5px 5px 15px;
+
+}
+
+.table table td {
+    font-size: 0.8rem;
+    color: #212121;
+}
+
+
+#customer_tbl table td {
+    font-size: 0.6rem;
+}
+#customer_tbl table th {
+    font-size: 0.7rem;
+}

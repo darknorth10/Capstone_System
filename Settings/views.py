@@ -1,17 +1,27 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from ProductManagement.forms import SizeForm, CategoryForm
 from ProductManagement.models import Product, TileSize, ProductCategory
+from VisitorsPage.forms import PhoneForm, EmailForm, LocationForm
+from VisitorsPage.models import Contact
 
 # Create your views here.
 def settings(request):
 
+  obj = get_object_or_404(Contact, id=1)
+  
   sizeform = SizeForm()
   catform = CategoryForm(auto_id='cat_%s')
+  pform = PhoneForm(instance=obj)
+  eform = EmailForm(instance=obj)
+  lform = LocationForm(instance=obj)
 
   context = {
     'sizeform' : sizeform,
     'catform' : catform,
+    'pform' : pform,
+    'eform' : eform,
+    'lform' : lform,
   }
 
   return render(request, 'UserInterface/settings.html', context)
@@ -52,3 +62,36 @@ def addCategory(request):
       print(catform.errors)
       return redirect('settings')
 
+
+def update_phone(request):
+  obj = get_object_or_404(Contact, id=1)
+
+  if request.method == 'POST':
+    form = PhoneForm(request.POST or None, instance=obj)
+
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Contact updated successfully.')
+      return redirect('settings')
+
+def update_email  (request):
+  obj = get_object_or_404(Contact, id=1)
+
+  if request.method == 'POST':
+    form = EmailForm(request.POST or None, instance=obj)
+
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Email updated successfully.')
+      return redirect('settings')
+
+def update_location(request):
+  obj = get_object_or_404(Contact, id=1)
+
+  if request.method == 'POST':
+    form = LocationForm(request.POST or None, instance=obj)
+
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Location updated successfully.')
+      return redirect('settings')

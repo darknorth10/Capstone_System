@@ -121,7 +121,6 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 10px;
     
 }
 
@@ -846,3 +845,5 @@ thead th:last-of-type {
 }
 
 @keyframes fade-in-top{0%{transform:translateY(-50px);opacity:0}100%{transform:translateY(0);opacity:1}}
+
+

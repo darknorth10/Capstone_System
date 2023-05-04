@@ -1,0 +1,43 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Customer Report</p>
+    
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>Fullname</th>
+                <th>Sex</th>
+                <th>Birthday</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Credit eligibility</th>
+            </thead>
+            <tbody>
+                
+                {% for customer in customers  %}
+                    <tr>
+                        <td>{{customer.firstname}} {{customer.last_name}}</td>
+                        <td>{{customer.sex}}</td>
+                        <td>{{customer.birthdate}}</td>
+                        <td>{{ customer.email }}</td>
+                        <td>{{ customer.phone_number }}</td>
+                        <td>{{customer.permanent_address }}</td>
+
+                        {% if customer.eligibility == 'eligible' %}
+                            <td>Eligible</td>
+                        {% else %}
+                            <td>Ineligible</td>
+                        {% endif %}
+                            
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

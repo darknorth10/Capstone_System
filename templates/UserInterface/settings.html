@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="settings class w-100 h-100">
-    <h1 class="p-4 w-100 text-center text-white" style="font-family: 'Barlow'; font-size: 1.6rem; letter-spacing: 1px; background-color: rgb(13, 7, 61);">Settings</h1>
+    <h1 class="p-4 w-100 text-center text-white" style="font-family: 'Barlow'; font-size: 1.3rem; letter-spacing: 1px; background-color: rgb(13, 7, 61);">Settings</h1>
     <div class="sett card bg-white mx-auto w-75 h-75 my-3  overflow-hidden">
         <div class="row h-100">
             <div class="col-6 p-3 border border-2 h-100">
@@ -49,9 +49,65 @@
             
             <div class="col-6 p-3 border border-2 h-100">
                 <h2 class="px-4 py-3" style="font-family: 'Barlow'; font-size: 1.2rem; border-bottom:1px solid rgb(206, 206, 206) ;color: rgb(84, 13, 150);">Visitor's Page</h2>
+                <div class="row w-100 h-75 m-0">
+                    <div class="col-12 my-3">
+
+                        <form method="post" action="{% url 'up_p' %}">
+                            {% csrf_token %}
+                            
+                            <h3 class="p-2" style="font-family: 'Barlow'; font-size: 0.9rem;">Update Contact :</h3>
+                            <div class="input-group mb-3 shadow-inner">
+                                <span class="input-group-text">Phone Number :</span>
+                                {{ pform.phone }}
+                            </div>
+
+                            <div class="a d-flex justify-content-end">
+                                <button type="submit" class="btn text-white" style="background-color: rgb(13, 7, 61); font-family: 'Barlow'; font-size: 0.9rem;">UPDATE</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+
+                    <div class="col-12 my-3">
+
+                        <form method="post" action="{% url 'ue_p' %}">
+                            {% csrf_token %}
+                            
+                            <h3 class="p-2" style="font-family: 'Barlow'; font-size: 0.9rem;">Edit Business Email Address:</h3>
+                              <div class="input-group mb-3 shadow-inner">
+                                <span class="input-group-text">Email Address :</span>
+                                {{ eform.email }}
+                              </div>
+
+                            <div class="a d-flex justify-content-end">
+                                <button type="submit" class="btn text-white" style="background-color: rgb(13, 7, 61); font-family: 'Barlow'; font-size: 0.9rem;">UPDATE</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                    <div class="col-12 my-3">
+
+                        <form method="post" action="{% url 'ul_p' %}">
+                            {% csrf_token %}
+                            
+                            <h3 class="p-2" style="font-family: 'Barlow'; font-size: 0.9rem;">Edit Store Location :</h3>
+                            <div class="input-group mb-3 shadow-inner">
+                                <span class="input-group-text">Store Location :</span>
+                                {{ lform.location }}
+                              </div>
+
+                            <div class="a d-flex justify-content-end">
+                                <button type="submit" class="btn text-white" style="background-color: rgb(13, 7, 61); font-family: 'Barlow'; font-size: 0.9rem;">UPDATE</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
-
-
 
         </div>
 

@@ -1,0 +1,41 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">User Report</p>
+    
+    <div class="table">
+        <table>
+            <thead class="table-primary">
+                <th>Fullname</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Date Created</th>
+            </thead>
+            <tbody>
+                
+                {% for users in User  %}
+                    <tr>
+                        <td>{{users.first_name}} {{users.last_name}}</td>
+                        <td>{{users.email}}</td>
+                        <td>{{users.username}}</td>
+                        
+                        {% if users.is_active %}
+                            <td>Active</td>
+                        {% else %}
+                            <td>Inactive</td>
+                        {% endif %}
+                            
+                        <td>{{users.role }}</td>
+                        <td>{{users.date_joined.date }}</td>
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

@@ -40,7 +40,7 @@ def generate_receipt_pdf(request, transaction_no):
 
   #pdf object
   p = canvas.Canvas(buf, pagesize=(176, 400), bottomup=0)
-
+  
   #draw to canvas
   txtobj = p.beginText()
   txtobj.setTextOrigin(15, 20)

@@ -16,7 +16,7 @@ def searchProduct(request):
     return JsonResponse({'success': True, 'test': search_productName}, status=200)
 
 def product_management(request):
-  products = Product.objects.all().order_by('category')
+  products = Product.objects.all().order_by('-id')
   get_notifications()
   # products with 0 stock will updated to unavailable
   
@@ -52,7 +52,7 @@ def product_management(request):
         products = Product.objects.filter(Q(product_name__icontains=search_term) | Q(category__icontains=search_term) ).order_by('category')
         print(request.session['search_product'])
       else :
-        products = Product.objects.all().order_by('category')
+        products = Product.objects.all().order_by('-id')
       
 
   else :
@@ -64,6 +64,8 @@ def product_management(request):
 
 
 def edit_product(request, id):
+  if request.user.role == 'cashier':
+      return redirect('product_management')
   selected_product = Product.objects.get(id=id)
   obj = get_object_or_404(Product, id=id)
   product_form = changeProductForm(request.POST or None, request.FILES or None, instance=obj)
@@ -129,7 +131,10 @@ def add_stock(request, id):
 
 
 
-def void_product(request):
+def   void_product(request):
+  if request.user.role == 'cashier':
+    return redirect('product_management')
+
   if request.method == 'POST':
     voidProdName = request.POST.get('voidName')
     obj = get_object_or_404(Product, product_name=voidProdName)

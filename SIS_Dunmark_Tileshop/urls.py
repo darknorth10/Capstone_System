@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('/', include('VisitorsPage.urls')),
+    path('', include('VisitorsPage.urls')),
     path('Login/', include('LoginAuthentication.urls')),
     path('Dashboard/', include('Dashboard.urls')),
     path('CustomerProfile/', include('CustomerProfile.urls')),
@@ -31,7 +31,8 @@ urlpatterns = [
     path('Return_product/', include('ReturnProduct.urls')),
     path('Settings/', include('Settings.urls')),
     path('Audit_trail/', include('AuditTrail.urls')),
-    path('Reports/', include('SalesTransaction.urls')),
+    path('SalesTransaction/', include('SalesTransaction.urls')),
+    path('Reports/', include('Reports.urls')),
     path('About_system/', include('AboutSystem.urls')),
     
 ]

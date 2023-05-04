@@ -6,17 +6,9 @@
 <div class="payment_info_page w-100 h-100 m-0 p-2">
     <div class="trans_content h-100 2-100 d-flex flex-column p-3">
         <h3 class="heading bg-transparent mb-3 text-center">Payment Infomation</h3>
-        <div class="trans_actionbar bg-transparent w-100 rounded d-flex justify-content-between my-3">
+        <div class="trans_actionbar bg-transparent w-100 rounded my-3">
             <a href="{% url 'sales_transaction' %}" class="btn btn-light border border-primary border-3 shadow">Back to Transactions</a>
-            <div class="input-group w-25">
-                <div class="form-outline shadow">
-                    <input type="search" id="form1" class="form-control bg-light shadow-sm" />
-                    <label class="form-label" for="form1">Search</label>
-                  </div>
-                <button type="button" class="btn btn-secondary">
-                  <i class="fas fa-search"></i>
-                </button>
-            </div>
+           
         </div>
 
 
@@ -207,7 +199,7 @@
                                     <th>Email</th>
                                     <th>Account</th>
                                     <th>Type</th>
-                                    <th>BAnk Name</th>
+                                    <th>Bank Name</th>
                                 </thead>
                                 <tbody>
                                     {% for p in payment  %}
@@ -309,7 +301,7 @@
                                     <th>Contact</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                 
                                 </thead>
                                 <tbody>
                                     {% for p in payment  %}
@@ -324,7 +316,7 @@
                                             <td>{{ p.contact }}</td>
                                             <td>{{ p.email }}</td>
                                             <td>{{ p.status }}</td>
-                                            <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
+                                            
                                         </tr>
                                         {% endif %}
                                             
@@ -353,7 +345,6 @@
                                         <th>Gcash No.</th>
                                         <th>Reference</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         {% for p in payment  %}
@@ -369,7 +360,6 @@
                                                 <td>{{ p.gcash_no }}</td>
                                                 <td>{{ p.reference_no }}</td>
                                                 <td>{{ p.status }}</td>
-                                                <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
                                             </tr>
                                             {% endif %}
                                                 
@@ -400,7 +390,6 @@
                                         <th>Type</th>
                                         <th>Bank Name</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         {% for p in payment  %}
@@ -418,7 +407,6 @@
                                                 <td>{{ p.banking_type }}</td>
                                                 <td>{{ p.bank_name }}</td>
                                                 <td>{{ p.status }}</td>
-                                                <td class="py-2"><button class="px-3 py-2 btn btn-primary">View Gives</button></td>
                                             </tr>
                                             {% endif %}
                                                 
