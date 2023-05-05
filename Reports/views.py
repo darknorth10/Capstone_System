@@ -5,6 +5,8 @@ from CustomerProfile.models import Customer
 from ProductManagement.models import ProductCategory, TileSize, Product
 from SalesTransaction.models import Transaction, Item, Installment
 from django.db.models import Sum, Count
+from ReturnProduct.models import ReturnItem
+from AuditTrail.models import AuditTrail
 # Create your views here.
 def reports(request):
 
@@ -30,6 +32,8 @@ def create_user_report(request):
     elif role == "admin":
       request.session['um'] = 3
 
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a users report.', location='Reports')
+    audit_log.save()
     return redirect('print_user_report')
 
 
@@ -45,6 +49,9 @@ def create_customer_report(request):
     else :
         request.session['eligible'] = 3
   
+  
+  audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a customer report.', location='Reports')
+  audit_log.save()
 
   return redirect('print_customer_report')
     
@@ -122,7 +129,8 @@ def create_sales_report(request):
         request.session['ttype'] = ttype
         request.session['from'] = from_d
         request.session['to'] = to_d
-
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a sales report.', location='Reports')
+    audit_log.save()
     return redirect('all_transactions')
 
 def sales_transaction_all(request):
@@ -168,7 +176,8 @@ def create_installments_report(request):
       request.session['from_d'] = from_d
       request.session['to_d'] = to_d
       request.session['ttype'] = ttype
-
+  audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated an installment report.', location='Reports')
+  audit_log.save()
   return redirect('installment_report')
 
 def print_installments(request):
@@ -215,6 +224,9 @@ def create_product_report(request):
       request.session['prod'] = 4
       request.session['cat'] = cat 
       request.session['size'] = size 
+    
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a product report.', location='Reports')
+    audit_log.save()
 
     return redirect('product_report')
 
@@ -222,6 +234,9 @@ def create_product_report(request):
 
 def create_top_selling_report(request):
   if request.method == 'GET':
+    
+    audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a top selling report.', location='Reports')
+    audit_log.save()
 
     return redirect('top_selling_report')
   
@@ -269,6 +284,68 @@ def print_top_selling_report(request):
     'products': products,
    }
    return render(request, 'UserInterface/reports/top_selling.html', context)
-  
 
+
+
+def create_return_report(request):
+    if request.method == 'GET':
+      request.session['from_d'] = from_d = request.GET.get('from_d')
+      request.session['to_d'] = to_d = request.GET.get('to_d')
+
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has generated a returned product report.', location='Reports')
+      audit_log.save()
+
+      return redirect('return_product_report')
+
+
+
+
+def return_product_report(request):
+  from_d = request.session['from_d']
+  to_d = request.session['to_d']
+
+  returns = ReturnItem.objects.filter(date_returned__gte=from_d, date_returned__lte=to_d)
+
+  context = {
+    'returns': returns
+  }
+
+  return render(request, 'UserInterface/reports/return_item_report.html', context)
+
+
+def create_audit_report(request):
+    if request.method == 'GET':
+        location = request.GET.get('location')
+        from_d = request.GET.get('from_d')
+        to_d = request.GET.get('to_d')
+
+
+        if location == "all":
+            request.session['audit'] = 1
+            request.session['from_d'] = from_d
+            request.session['to_d'] = to_d
+
+
+        else:
+            request.session['audit'] = 2
+            request.session['location'] = location
+            request.session['from_d'] = from_d
+            request.session['to_d'] = to_d
+
+        return redirect('audit_report')
+
+
+def audit_report(request):
+    audits = AuditTrail.objects.all().order_by('-timestamp')
+
+    if request.session['audit'] == 2:
+            from_date = request.session['from_d']
+            to_d = request.session['to_d']
+            location = request.session['location']
+            audits = AuditTrail.objects.filter(location=location).order_by('-timestamp')
+    
+    context = {
+      'audits': audits,
+    }
+    return render(request, 'UserInterface/reports/audit_reports.html', context)
 

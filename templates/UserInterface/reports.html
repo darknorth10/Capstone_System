@@ -327,7 +327,7 @@
         aria-labelledby="ex6-tab-6"
         >
         <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Returned Products</h3>
-        <form method="get" action="{% url 'create_customer_report' %}">
+        <form method="get" action="{% url 'create_return_report' %}">
             {% csrf_token %}
             
 
@@ -346,7 +346,7 @@
                 </div>
             </div>
 
-            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Do not select anything if you wanted to list all product.</p>
+            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Give range of date to filter returned items.</p>
 
             <div class="div d-flex justify-content-center">
                 <button type="submit" class="btn btn-secondary w-75 my-2 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
@@ -361,29 +361,16 @@
         aria-labelledby="ex7-tab-7"
         >
         <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Audit Trail</h3>
-        <form method="get" action="{% url 'create_customer_report' %}">
+        <form method="get" action="{% url 'print_audit_report' %}">
             {% csrf_token %}
 
-            <div class="row mt-4">
-                <div class="col-4 pt-2">
-                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by User :</h4>
-                </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2">
-                        <option value="all">All</option>
-                        
-                        {% for cat in cats %}
-                            <option value="{{ cat.category }}">{{ cat.category }}</option>
-                        {% endfor %}
-                            
-                    </select>
-                </div>
-
-                <div class="col-4 pt-2">
+            <div class="row my-4">
+            
+                <div class="col pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Module :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2" required>
+                <div class="col-6">
+                    <select name="location" class="role-select rounded px-2" required>
                         <option value="all">All</option>
                         <option value="Login Authentication">Login Authentication</option>
                         <option value="User Management">User Management</option>
@@ -400,7 +387,7 @@
 
             
 
-            <div class="row mt-4 px-3">
+            <div class="row my-4 px-3">
                 <div class="col-3 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">From :</h4>
                 </div>
@@ -415,12 +402,11 @@
                 </div>
             </div>
 
-            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Do not select anything if you wanted to list all product.</p>
 
-            <div class="div d-flex justify-content-center">
+            <div class="div my-4 d-flex justify-content-center">
                 <button type="submit" class="btn btn-secondary w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
             </div>
-        </form>
+          </form>
         </div>
 
     </div>

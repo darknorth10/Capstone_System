@@ -9,4 +9,4 @@ class ReturnItem(models.Model):
     transact_no = models.IntegerField(null=False)
     orig_quantity = models.IntegerField(null=True)
     description = models.TextField(null=True, max_length=80)
-    date_returned = models.DateField(auto_now=True)
+    date_returned = models.DateField(auto_now=True) 

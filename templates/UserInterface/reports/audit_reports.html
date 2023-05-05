@@ -1,0 +1,31 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Audit Trail Report</p>
+    
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>User</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+                <th>Module</th>
+            </thead>
+            <tbody>
+                
+                {% for audit in audits  %}
+                    <tr>
+                        <td>{{ audit.user }}</td>
+                        <td>{{ audit.action  }}</td>
+                        <td>{{ audit.timestamp }}</td>
+                        <td>{{ audti.location }}</td>
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

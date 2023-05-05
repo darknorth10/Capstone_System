@@ -13,6 +13,7 @@ import datetime
 import json
 from .models import Notification
 from django.core.mail import send_mail
+from VisitorsPage.models import Contact 
 
 
 # NOTIFICATION
@@ -165,13 +166,13 @@ def get_notification(request):
           else:
               c = Notification.objects.get(name=prod.product_name)
               c.message = f"You need to restock on {prod.product_name}, it will be running out of stocks soon."
-          
+          a = Contact.objects.get(id)
           # notify on email
           send_mail(
             'Products Stocks Level Alert',
               f"You need to restock on {prod.product_name}, it will be running out of stocks soon.",
               '',
-              ['aldrinalmoradie69@gmail.com'],
+              [a.email],
               fail_silently=False,
           )
           messages.success(request, 'Alerts are sent to the owner.')

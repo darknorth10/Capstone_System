@@ -1,0 +1,37 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Product Report</p>
+
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>From Transaction No.</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Returned Quantity</th>
+                <th>Reason/Description</th>
+                <th>Date Returned</th>
+            </thead>
+            <tbody>
+                
+                {% for prod in returns  %}
+                    <tr>
+                        <td>{{ prod.transact_no }}</td>
+                        <td>{{ prod.name }}</td>
+                        <td>{{ prod.size }}</td>
+                        <td>{{ prod.quantity }}</td>
+                        <td>Php {{ prod.description }}</td>
+                        <td>{{ prod.date_returned }}</td>
+
+                            
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

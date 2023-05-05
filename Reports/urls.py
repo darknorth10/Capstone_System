@@ -15,5 +15,10 @@ urlpatterns = [
   path('print_product_report/', views.create_product_report, name="print_product_report"),
   path('top_selling_products/', views.print_top_selling_report, name="top_selling_report"),
   path('print_top_selling/', views.create_top_selling_report, name="print_top_selling_report"),
+  path('create_return_report/', views.create_return_report, name="create_return_report"),
+  path('return_product_report/', views.return_product_report, name="return_product_report"),
+  path('return_product_report/', views.return_product_report, name="return_product_report"),
+  path('audit_report/', views.audit_report, name="audit_report"),
+  path('create_audit_report/', views.create_audit_report, name="print_audit_report"),
 
 ] 
