@@ -58,11 +58,11 @@ class Item(models.Model):
     size = models.CharField(max_length=15, null=False)
     pieces = models.PositiveIntegerField(null=False)
     total = models.DecimalField(max_digits=9, decimal_places=2, null=False)
-
+     
     def __str__(self):
         return "Item for Transaction no. " + str(self.transaction_no)
 
-
+ 
 class Installment(models.Model):
     transaction_no = models.BigAutoField(primary_key=True)
     transaction_reference = models.IntegerField(null=True, blank=True) # hidden

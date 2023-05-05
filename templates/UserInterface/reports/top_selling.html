@@ -1,0 +1,35 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Product Report : Top Selling Products</p>
+
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>No. of Transactions</th>
+                <th>Stocks Sold</th>
+                <th>Total Price</th>
+
+            </thead>
+            <tbody>
+                
+                {% for prod in products  %}
+                    <tr>
+                        <td>{{ prod.name }}</td>
+                        <td>{{ prod.size }}</td>
+                        <td>{{ prod.count }}</td>
+                        <td>{{ prod.sold }}</td>
+                        <td>Php {{ prod.price }}</td>
+                            
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

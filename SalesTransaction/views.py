@@ -47,6 +47,7 @@ def generate_receipt_pdf(request, transaction_no):
   txtobj.setFont('Courier', 7)
 
   txtobj.textLine('Receipt : Transaction # ' + str(transaction_no))
+  txtobj.textLine('DUNMARK TILESHOP')
   p.drawText(txtobj)
 
   txtobj = p.beginText()

@@ -1,0 +1,38 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Customer Report</p>
+
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>Transanction No.</th>
+                <th>Transaction Reference</th>
+                <th>Customer Name</th>
+                <th>Cash Paid</th>
+                <th>Date Paid</th>
+                <th>Payment Method</th>
+                <th>Reference No.</th>
+            </thead>
+            <tbody>
+                
+                {% for installs in installments  %}
+                    <tr>
+                        <td>{{ installs.transaction_no }}</td>
+                        <td>{{ installs.transaction_reference }}</td>
+                        <td>{{ installs.customer_name }}</td>
+                        <td>Php {{ installs.amount_paid }}</td>
+                        <td>{{ installs.date_paid }}</td>
+                        <td>{{ installs.payment_method }}</td>
+                        <td>{{ installs.reference_no }}</td>
+                            
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block content %}
-    <p class="header">Sales Transaction</p>
+    <p class="header">Sales Reports</p>
     
     <div class="table">
         <table>
@@ -13,20 +13,25 @@
                 <th>Total Product</th>
                 <th>Total Price</th>
                 <th>Change</th>
+                <th>Status</th>
+                <th>Order Type</th>
                 <th>Date Purchased</th>
             </thead>
             <tbody>
                 
-                {% for users in User  %}
+                {% for trans in transactions  %}
                     <tr>
-                        <td>{{users.first_name}} {{users.last_name}}</td>
-                        <td>{{users.email}}</td>
-                        <td>{{users.username}}</td>
+                        <td>{{ trans.transaction_no }}</td>
+                        <td>{{ trans.transaction_type}}</td>
+                        <td>{{ trans.installment }}</td>
                         
-                        <td>{{customer.installment}}</td>
+                        <td>{{trans.total_products}}</td>
                             
-                        <td>{{users.role }}</td>
-                        <td>{{users.date_joined.date }}</td>
+                        <td>Php {{trans.total_price }}</td>
+                        <td>{{ trans.change }}</td>
+                        <td>{{ trans.status }}</td>
+                        <td>{{ trans.order_type }}</td>
+                        <td>{{ trans.date_of_purchace.date }}</td>
                     </tr>
                 {% endfor %}
                     

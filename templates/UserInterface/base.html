@@ -49,7 +49,7 @@
                 <li><a href="{% url 'settings' %}" {% if request.resolver_match.url_name == "settings" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Settings"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
                 <li><a href="{% url 'audit_trail' %}" {% if request.resolver_match.url_name == "audit_trail" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail"><i class="fa-solid fa-circle-info"></i><span>Audit Trail</span></a></li>
                 {% endif %}
-                <li><a href="{% url 'reports' %}" {% if request.resolver_match.url_name == "reports" %} id="nav-active" {% endif %}><i class="fa-solid fa-registered" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"></i><span>Reports</span></a></li>
+                <li><a href="{% url 'reports' %}" {% if request.resolver_match.url_name == "reports" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"><i class="fa-solid fa-registered"></i><span>Reports</span></a></li>
                 <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="About System"><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
             </ul>
         </div>

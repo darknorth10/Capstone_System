@@ -1,0 +1,38 @@
+{% extends 'UserInterface/reports/base.html' %}
+
+{% load static %}
+{% block content %}
+    <p class="header">Product Report</p>
+
+    <div class="table" id="customer_tbl">
+        <table>
+            <thead class="table-primary">
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Current Stocks</th>
+                <th>Maximum Stocks</th>
+                <th>Date last stocked</th>
+            </thead>
+            <tbody>
+                
+                {% for prod in products  %}
+                    <tr>
+                        <td>{{ prod.product_name }}</td>
+                        <td>{{ prod.category }}</td>
+                        <td>{{ prod.product_size }}</td>
+                        <td>Php {{ prod.price }}</td>
+                        <td>{{ prod.current_stock }}</td>
+                        <td>{{ prod.max_stock }}</td>
+                        <td>{{ prod.date_last_stocked }}</td>
+                            
+                    </tr>
+                {% endfor %}
+                    
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+    

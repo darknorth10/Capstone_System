@@ -127,13 +127,13 @@
                     <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="1"><a href="{% url 'guest_up'%}">Adhesive</a></span> {% url 'por_up' as url%}
                     <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="2"><a href="{% url 'por_up' %}">Porcelain</a></span>{% url 'cer_up' as url%}
                     <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="3"><a href="{% url 'cer_up' %}">Ceramic</a></span>
-                    <span class="text-capitalize " data-filter="4"><a href="">Skimcoat</a></span>
-                    <span class="text-capitalize " data-filter="5"><a href="">Sanitary Ware</a></span>
+                    <span class="text-capitalize " data-filter="4"><a href="{% url 'grout' %}">Grout</a></span>
+                    <span class="text-capitalize " data-filter="5"><a href="{% url 'sanitary' %}">Sanitary Ware</a></span>
                 </div>
             </div>
         </section>
         <!--- Tile Gallery-->
-        <div class="container mt-1 p-lg-5 rounded-1" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400" style="background-color: #FDF8FE;">
+        <div class="container mt-1 p-lg-5 rounded-1" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400" style="background-color: #FDF8FE;" id="prodcon">
             {% block productcat %}
             {% endblock %}
         </div>

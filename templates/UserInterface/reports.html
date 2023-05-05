@@ -76,7 +76,7 @@
             role="tab"
             aria-controls="ex6-tabs-6"
             aria-selected="false"
-            >Return Item</a
+            >Returned Products</a
         >
         </li>
         <li class="nav-item border border-1" role="presentation">
@@ -162,15 +162,15 @@
         aria-labelledby="ex3-tab-3"
         >
         <h3 class="p-3 bg-primary" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Sales Transaction</h3>
-        <form method="get" action="{% url 'create_customer_report' %}">
+        <form method="get" action="{% url 'print_sales_report' %}">
             {% csrf_token %}
 
             <div class="row mt-4">
-                <div class="col-4 pt-2">
-                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Transaction Type :</h4>
+                <div class="col pt-2">
+                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by MOP :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2">
+                <div class="col-3">
+                    <select name="ttype" class="role-select rounded px-2">
                         <option value="all">All</option>
                         <option value="Cash">Cash</option>
                         <option value="Gcash">Gcash</option>
@@ -178,23 +178,20 @@
                     </select>
                 </div>
 
-                <div class="col-4 pt-2">
+                <div class="col pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Type :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2" required>
-                        <option value="all">All</option>
+                <div class="col-3">
+                    <select name="inst" class="role-select rounded px-2" required>
                         <option value="true">Installment</option>
-                        <option value="false">Fully Paid</option>
+                        <option value="false" selected>Fully Paid</option>
                     </select>
                 </div>
-               
-
             </div>
 
             
 
-            <div class="row mt-4 px-3">
+            <div class="row my-4 px-3">
                 <div class="col-3 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">From :</h4>
                 </div>
@@ -209,10 +206,8 @@
                 </div>
             </div>
 
-            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Do not select anything if you wanted to list all transaction.</p>
-
             <div class="div d-flex justify-content-center">
-                <button type="submit" class="btn btn-secondary w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
+                <button type="submit" class="btn btn-success w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
             </div>
         </form>
 
@@ -225,25 +220,16 @@
         aria-labelledby="ex4-tab-4"
         >
         <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Installments</h3>
-        <form method="get" action="{% url 'create_customer_report' %}">
+        <form method="get" action="{% url 'create_installments_report' %}">
             {% csrf_token %}
 
             <div class="row mt-4">
-                <div class="col-4 pt-2">
-                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Transaction Reference :</h4>
-                </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2">
-                        <option value="all">All</option>
-                        
-                    </select>
-                </div>
 
-                <div class="col-4 pt-2">
+                <div class="col-6 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Type :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2" required>
+                <div class="col-6">
+                    <select name="ttype" class="role-select rounded px-2" required>
                         <option value="all">All</option>
                         <option value="Cash">Cash</option>
                         <option value="Gcash">Gcash</option>
@@ -254,8 +240,6 @@
 
             </div>
 
-            
-
             <div class="row mt-4 px-3">
                 <div class="col-3 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">From :</h4>
@@ -263,7 +247,7 @@
                 <div class="col-3">
                     <input class="py-1 px-2 rounded-2" type="date" name="from_d" id="" required>
                 </div>
-                <div class="col-1 pt-2">
+                <div class="col-3 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">To :</h4>
                 </div>
                 <div class="col-3">
@@ -271,30 +255,29 @@
                 </div>
             </div>
 
-            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Do not select anything if you wanted to list all installment.</p>
-
-            <div class="div d-flex justify-content-center">
-                <button type="submit" class="btn btn-secondary w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
+\
+            <div class="div d-flex my-3 justify-content-center">
+                <button type="submit" class="btn btn-success w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
             </div>
         </form>
         </div>
 
         <div
-        class="tab-pane h-50 w-100 rounded-3 bg-white shadow overflow-hidden"
+        class="tab-pane h-75 w-100 rounded-3 bg-white shadow overflow-hidden"
         id="ex5-tabs-5"
         role="tabpanel"
         aria-labelledby="ex5-tab-5"
         >
         <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Product Management</h3>
-        <form method="get" action="{% url 'create_customer_report' %}">
+        <form method="get" action="{% url 'print_product_report' %}">
             {% csrf_token %}
 
             <div class="row mt-4">
-                <div class="col-4 pt-2">
+                <div class="col-3 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Category :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2">
+                <div class="col-5">
+                    <select name="cat" class="role-select rounded px-2">
                         <option value="all">All</option>
                         
                         {% for cat in cats %}
@@ -304,11 +287,11 @@
                     </select>
                 </div>
 
-                <div class="col-4 pt-2">
+                <div class="col-2 pt-2">
                     <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">Filter by Size :</h4>
                 </div>
-                <div class="col">
-                    <select name="urole" class="role-select rounded px-2" required>
+                <div class="col-2">
+                    <select name="size" class="role-select rounded px-2" required>
                         <option value="all">All</option>
                         {% for size in sizes %}
                             <option value="{{ size.size }}">{{ size.size }}</option>
@@ -319,29 +302,22 @@
 
             </div>
 
-            
-
-            <div class="row mt-4 px-3">
-                <div class="col-3 pt-2">
-                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">From :</h4>
-                </div>
-                <div class="col-3">
-                    <input class="py-1 px-2 rounded-2" type="date" name="from_d" id="" required>
-                </div>
-                <div class="col-1 pt-2">
-                    <h4 class="text-center" style="font-family: 'Barlow'; font-size: 1.1rem;">To :</h4>
-                </div>
-                <div class="col-3">
-                    <input class="py-1 px-2 rounded-2" type="date" name="to_d" id="" required>
-                </div>
-            </div>
-
-            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Do not select anything if you wanted to list all product.</p>
-
-            <div class="div d-flex justify-content-center">
-                <button type="submit" class="btn btn-secondary w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
+            <div class="div my-4 pt-3 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
             </div>
         </form>
+
+        <div class="row px-3 mt-5">
+            <h3 class="p-3 rounded bg-primary" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Top Selling</h3>
+        <form method="get" action="{% url 'print_top_selling_report' %}">
+            {% csrf_token %}
+            <p class="text-center my-3" style="font-family: 'Barlow';">Note: Just click generate to generate top selling report.</p>
+
+            <div class="div my-4 pt-3 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success w-75 mx-auto" href="#" style="font-family: 'Barlow'; font-size: 0.9rem;">Generate Report</button>
+            </div>
+        </form> 
+        </div>
         </div>
 
         <div
@@ -350,7 +326,7 @@
         role="tabpanel"
         aria-labelledby="ex6-tab-6"
         >
-        <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Returned Item</h3>
+        <h3 class="p-3 bg-dark" style="font-family: 'Barlow'; color: rgb(255, 255, 255); font-size: 1rem; letter-spacing: 0.5px;">Generate Reports : Returned Products</h3>
         <form method="get" action="{% url 'create_customer_report' %}">
             {% csrf_token %}
             

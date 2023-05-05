@@ -10,6 +10,8 @@ urlpatterns = [
       path('Adhesive/',guest_views.guest_up,name='guest_up'),
       path('Porcelain/',guest_views.porcelain_up,name='por_up'),
       path('Ceramic/',guest_views.ceramic_up,name='cer_up'),
+      path('Grout/',guest_views.grout,name='grout'),
+      path('Sanitary/',guest_views.sanitary,name='sanitary'),
    
       
 

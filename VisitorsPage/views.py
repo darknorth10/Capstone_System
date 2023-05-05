@@ -22,3 +22,13 @@ def ceramic_up(request):
     cer_p = Product.objects.filter(category='Ceramic Tiles')
 
     return render(request, 'guesttemp/ceramic.html',{'cer_p':cer_p})
+
+def grout(request):
+    cer_p = Product.objects.filter(category='Tile Grout')
+
+    return render(request, 'guesttemp/grout.html',{'cer_p':cer_p})
+
+def sanitary(request):
+    cer_p = Product.objects.filter(category='Sanitary Wares')
+
+    return render(request, 'guesttemp/sanitary_wares.html',{'cer_p':cer_p})
