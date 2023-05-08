@@ -154,7 +154,7 @@
 
 <!-- if the user is still default account -->
 
-{% if user.is_default %}
+{% if user.is_default and user.role == "cashier" %}
   <!-- Modal -->
   <div class="modal top fade" id="dashboardModal" tabindex="-1" aria-labelledby="boom" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
     <div class="modal-dialog">

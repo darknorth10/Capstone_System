@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'SIS_Dunmark_Tileshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dunmark_db',
+        'NAME': 'test_db',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
