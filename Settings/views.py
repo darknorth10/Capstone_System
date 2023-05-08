@@ -73,7 +73,9 @@ def update_phone(request):
       form.save()
       messages.success(request, 'Contact updated successfully.')
       return redirect('settings')
-
+    else:
+      messages.error(request, 'Phone is not valid.')
+      return redirect('settings')
 def update_email  (request):
   obj = get_object_or_404(Contact, id=1)
 
@@ -83,6 +85,10 @@ def update_email  (request):
     if form.is_valid():
       form.save()
       messages.success(request, 'Email updated successfully.')
+      return redirect('settings')
+    else:
+      messages.error(request, 'Email is not valid.')
+
       return redirect('settings')
 
 def update_location(request):
@@ -94,4 +100,7 @@ def update_location(request):
     if form.is_valid():
       form.save()
       messages.success(request, 'Location updated successfully.')
+      return redirect('settings')
+    else:
+      messages.error(request, 'Location is not valid.')
       return redirect('settings')

@@ -11,6 +11,8 @@ from AuditTrail.models import AuditTrail
 from Dashboard.models import Notification
 from django.core.mail import send_mail
 from Dashboard.views import get_notifications
+from django.contrib.auth.decorators import login_required
+
             
 # search item by name on key up
 def searchItems(request):
@@ -21,7 +23,7 @@ def searchItems(request):
     return JsonResponse({'success': itemName}, status=200)
 
 
-
+@login_required(login_url='login')
 def pointofsale(request):
   products = Product.objects.all().order_by('category')
 

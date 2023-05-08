@@ -43,6 +43,8 @@ def user_management(request):
   )
 
 # for editing user information
+@login_required(login_url='login')
+
 def edit_user(request, id):
   User = CustomUser.objects.get(id=id)
   # creaates form in the instance of objecct given by user id
@@ -66,6 +68,8 @@ def edit_user(request, id):
 
 
 # update user status (active or inactive)
+@login_required(login_url='login')
+
 def update_status_inactive(request, id):
   if request.user.role == 'cashier':
     return redirect('usermanagement')
@@ -96,6 +100,8 @@ def update_status_inactive(request, id):
 
 
 # reset password 
+@login_required(login_url='login')
+
 def reset_password(request, username):
   if request.user.role == 'cashier':
     return redirect('usermanagement')

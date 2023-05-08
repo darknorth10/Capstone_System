@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Transaction, Item
-
+from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib import fonts, pagesizes
@@ -9,7 +9,7 @@ from reportlab.lib.units import inch, mm
 import io
 
 # Create your views here.
- 
+@login_required(login_url='login')
 def sales_transaction(request):
   transactions = Transaction.objects.all().order_by('-transaction_no')
   payments = Transaction.objects.all()
@@ -22,10 +22,12 @@ def sales_transaction(request):
   return render(request, 'UserInterface/transactions/sales_transaction.html', context)
 
 #receipt table
+@login_required(login_url='login')
 def view_detailed(request, id):
   item = Item.objects.filter(transaction_no=id)
   return render(request, 'UserInterface/transactions/detailed_transaction.html', context = {'items': item})
-
+  
+@login_required(login_url='login')
 def payment_info(request):
   payment = Transaction.objects.all().order_by('-transaction_no')
   installment = Transaction.objects.filter(installment='true').order_by('-transaction_no')

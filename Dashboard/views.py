@@ -142,6 +142,8 @@ def error_404_view(request, exception):
 
 # ALERT AND nOTIFICATION
 def get_notification(request):
+    a = Contact.objects.get(id=1)
+
     for prod in Product.objects.all():
       if (prod.current_stock / prod.max_stock) * 100 < 25 and (prod.current_stock / prod.max_stock) * 100 >= 15  :
         print(f"Warning on {prod.product_name} stock level.")
@@ -154,7 +156,7 @@ def get_notification(request):
             'Products Stocks Level Alert',
               f"Warning on {prod.product_name} stock level.",
               '',
-              ['abbyalbus123@gmail.com'],
+              [a.email],
               fail_silently=False,
           )
           messages.success(request, 'Alerts are sent to the owner.')
@@ -166,7 +168,6 @@ def get_notification(request):
           else:
               c = Notification.objects.get(name=prod.product_name)
               c.message = f"You need to restock on {prod.product_name}, it will be running out of stocks soon."
-          a = Contact.objects.get(id)
           # notify on email
           send_mail(
             'Products Stocks Level Alert',

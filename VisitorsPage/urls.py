@@ -12,6 +12,7 @@ urlpatterns = [
       path('Ceramic/',guest_views.ceramic_up,name='cer_up'),
       path('Grout/',guest_views.grout,name='grout'),
       path('Sanitary/',guest_views.sanitary,name='sanitary'),
+      path('feedback/',guest_views.send_message,name='feedback'),
    
       
 

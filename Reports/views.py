@@ -7,7 +7,10 @@ from SalesTransaction.models import Transaction, Item, Installment
 from django.db.models import Sum, Count
 from ReturnProduct.models import ReturnItem
 from AuditTrail.models import AuditTrail
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+@login_required(login_url='login')
 def reports(request):
 
   context = {
@@ -17,7 +20,7 @@ def reports(request):
   }
   return render(request, 'UserInterface/reports.html', context)
 
-
+@login_required(login_url='login')
 def create_user_report(request):
   if request.method == 'GET':
     role = request.GET.get('urole')
@@ -57,7 +60,7 @@ def create_customer_report(request):
     
 
 
-
+@login_required(login_url='login')
 def print_user_report(request):
   user_print = CustomUser.objects.all().order_by('role')
 
@@ -76,7 +79,7 @@ def print_user_report(request):
   
   return render(request, 'UserInterface/reports/print_user_report.html', context)
 
-
+@login_required(login_url='login')
 def print_customer_report(request):
 
   customer_print = Customer.objects.all().order_by('first_name')
@@ -96,7 +99,7 @@ def print_customer_report(request):
  
   return render(request, 'UserInterface/reports/print_customer.html', context)
 
-
+@login_required(login_url='login')
 def create_sales_report(request):
 
   if request.method == 'GET':
@@ -180,6 +183,7 @@ def create_installments_report(request):
   audit_log.save()
   return redirect('installment_report')
 
+@login_required(login_url='login')
 def print_installments(request):
       installments = Installment.objects.all().order_by('-date_paid')
       from_d = request.session['from_d']
@@ -200,7 +204,7 @@ def print_installments(request):
       return render(request, 'UserInterface/reports/print_installment_entries.html', context)
 
 
-
+@login_required(login_url='login')
 def create_product_report(request):
 
   if request.method == 'GET':
@@ -241,7 +245,7 @@ def create_top_selling_report(request):
     return redirect('top_selling_report')
   
 
-
+@login_required(login_url='login')
 def print_product_report(request):
    products = Product.objects.all().order_by('-id')
    cat = ""
@@ -299,7 +303,7 @@ def create_return_report(request):
 
 
 
-
+@login_required(login_url='login')
 def return_product_report(request):
   from_d = request.session['from_d']
   to_d = request.session['to_d']
@@ -334,7 +338,7 @@ def create_audit_report(request):
 
         return redirect('audit_report')
 
-
+@login_required(login_url='login')
 def audit_report(request):
     audits = AuditTrail.objects.all().order_by('-timestamp')
 

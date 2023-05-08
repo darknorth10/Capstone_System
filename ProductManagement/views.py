@@ -7,14 +7,17 @@ from django.http import JsonResponse
 from django.db.models import Q
 from AuditTrail.models import AuditTrail
 from Dashboard.views import get_notifications
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+@login_required(login_url='login')
 def searchProduct(request):
   if request.method == 'POST':
     search_productName = request.POST.get('prodName')
     request.session['search_product'] = search_productName
     return JsonResponse({'success': True, 'test': search_productName}, status=200)
 
+@login_required(login_url='login')
 def product_management(request):
   products = Product.objects.all().order_by('-id')
   get_notifications()
@@ -62,7 +65,7 @@ def product_management(request):
   request.session['search_product'] = None
   return render(request, 'UserInterface/product_management.html', context={'products': products, 'product_form': product_form,})
 
-
+@login_required(login_url='login')
 def edit_product(request, id):
   if request.user.role == 'cashier':
       return redirect('product_management')
@@ -92,6 +95,7 @@ def edit_product(request, id):
   return render(request, 'UserInterface/editproduct.html', context  = {'product': selected_product, 'product_form': product_form,})
 
   # for adding stocks
+@login_required(login_url='login')
 def add_stock(request, id):
   selected_product = Product.objects.get(id=id)
   obj = get_object_or_404(Product, id=id)
@@ -130,8 +134,8 @@ def add_stock(request, id):
   return render(request, 'UserInterface/addProductStock.html', context = {'product':selected_product, 'form': form,})
 
 
-
-def   void_product(request):
+@login_required(login_url='login')
+def void_product(request):
   if request.user.role == 'cashier':
     return redirect('product_management')
 
@@ -146,7 +150,7 @@ def   void_product(request):
     audit_log.save()
     return redirect('product_management')
 
-
+@login_required(login_url='login')
 def archive_product(request):
   archives = ProductArchive.objects.all()
   context = {
