@@ -15,7 +15,7 @@ class ProductForm(ModelForm):
     def clean(self):
         form_data = self.cleaned_data
         
-        if Product.objects.filter(product_name=form_data.get('product_name')).filter(product_size=form_data.get('product_size')).exists():
+        if Product.objects.filter(product_name=form_data.get('product_name')).exists():
              raise ValidationError("Product already exists")
         if form_data.get('max_stock') < form_data.get('current_stock') :
             raise ValidationError("Max stock must be greater than current stock")

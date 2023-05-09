@@ -59,6 +59,7 @@ AUTH_USER_MODEL = 'LoginAuthentication.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -98,7 +99,7 @@ WSGI_APPLICATION = 'SIS_Dunmark_Tileshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_db',
+        'NAME': 'dunmark_db',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
@@ -112,6 +113,7 @@ CACHES = {
         "LOCATION": "my_cache_table",
     }
 }
+
 
 
 # Password validation
@@ -155,8 +157,10 @@ EMAIL_USE_TLS = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = 'static/'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]

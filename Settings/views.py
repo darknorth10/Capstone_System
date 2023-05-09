@@ -4,6 +4,7 @@ from ProductManagement.forms import SizeForm, CategoryForm
 from ProductManagement.models import Product, TileSize, ProductCategory
 from VisitorsPage.forms import PhoneForm, EmailForm, LocationForm
 from VisitorsPage.models import Contact
+from AuditTrail.models import AuditTrail
 
 # Create your views here.
 def settings(request):
@@ -37,7 +38,8 @@ def addSize(request):
     if sizeform.is_valid():
       sizeform.save()
       messages.success(request, 'A new size was registered successfully.')
-
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new product size.', location='Settings')
+      audit_log.save()
       return redirect('settings')
 
     else:
@@ -54,7 +56,8 @@ def addCategory(request):
     if catform.is_valid():
       catform.save()
       messages.success(request, 'A new product category was registered successfully.')
-
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new product category.', location='Settings')
+      audit_log.save()
       return redirect('settings')
 
     else:
@@ -72,6 +75,8 @@ def update_phone(request):
     if form.is_valid():
       form.save()
       messages.success(request, 'Contact updated successfully.')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated business contact number.', location='Settings')
+      audit_log.save()
       return redirect('settings')
     else:
       messages.error(request, 'Phone is not valid.')
@@ -85,6 +90,8 @@ def update_email  (request):
     if form.is_valid():
       form.save()
       messages.success(request, 'Email updated successfully.')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated the business email.', location='Settings')
+      audit_log.save()
       return redirect('settings')
     else:
       messages.error(request, 'Email is not valid.')
@@ -100,6 +107,8 @@ def update_location(request):
     if form.is_valid():
       form.save()
       messages.success(request, 'Location updated successfully.')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated the store location.', location='Settings')
+      audit_log.save()
       return redirect('settings')
     else:
       messages.error(request, 'Location is not valid.')

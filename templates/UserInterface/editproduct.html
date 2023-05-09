@@ -12,6 +12,13 @@
                 </span></h5>
             <form method="post" class="p-1" enctype="multipart/form-data">
                 {% csrf_token %}
+
+                {% if product_form.errors %}
+                <div class="alert alert-primary p-0 text-center">
+                    <h3 style="font-size: 0.9em;">{{ product_form.product_name.errors }}</h3>   
+                </div>
+                {% endif %}
+
                 <div class="row">
                   <div class="col input-group mb-3">
                     <span class="input-group-text">Name :</span>
@@ -29,12 +36,6 @@
                     {{  product_form.category }}
                   </div>
                 </div>
-                
-                {% if product_form.errors %}
-                <div class="alert alert-primary p-0 text-center">
-                    <strong style="font-size: 0.9em;">{{ product_form.product_name.errors }}</strong>   
-                </div>
-                {% endif %}
                   
                 
                 <div class="input-group mb-3 shadow-sm">

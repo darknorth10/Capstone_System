@@ -93,7 +93,7 @@
               <form method="post" class="p-1" id="add_prod_form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% if product_form.errors %}
-                    <div class="form-helper text-danger py-1 ps-4 mb-2 text-center" style="font-size: 0.7em; font-family: 'Montserrat' ; font-weight: 400; background-color: rgb(255, 241, 241);">{{ product_form.errors }}</div>
+                    <div class="form-helper rounded text-danger mb-3 text-center" style="font-size: 0.8em; font-family: 'Montserrat' ; font-weight: 400; background-color: rgb(255, 241, 241);">{{ product_form.non_field_errors }}</div>
                 {% endif %}
 
                 <div class="form-outline px-2 mb-4 shadow-inner">
