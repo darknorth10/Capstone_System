@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'LoginAuthentication',
     'UserManagement',
     'Dashboard',
@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'ReturnProduct',
     'VisitorsPage',
     'AuditTrail',
-    
-    
+
+
 ]
 
 # Custom User Model
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'SIS_Dunmark_Tileshop.urls'
@@ -99,10 +99,10 @@ WSGI_APPLICATION = 'SIS_Dunmark_Tileshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dunmark_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'NAME': 'darknorth$dunmark_db',
+        'USER': 'darknorth',
+        'PASSWORD': 'rootroot',
+        'HOST': 'darknorth.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
