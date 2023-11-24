@@ -15,14 +15,14 @@ def searchProduct(request):
   if request.method == 'POST':
     search_productName = request.POST.get('prodName')
     request.session['search_product'] = search_productName
-    return JsonResponse({'success': True, 'test': search_productName}, status=200)
+    return redirect('product_management')
 
 @login_required(login_url='login')
 def product_management(request):
   products = Product.objects.all().order_by('-id')
   get_notifications()
   # products with 0 stock will updated to unavailable
-  
+
 
   # add product form attribute
   product_form = ProductForm()
@@ -45,7 +45,7 @@ def product_management(request):
       product.current_stock = 0
       product.availability = False
       product.save()
-  
+
   # search for products
 
   if 'search_product' in request.session :
@@ -56,7 +56,7 @@ def product_management(request):
         print(request.session['search_product'])
       else :
         products = Product.objects.all().order_by('-id')
-      
+
 
   else :
     products = Product.objects.all().order_by('category')
@@ -76,7 +76,7 @@ def edit_product(request, id):
   product_form.fields['availability'].widget.attrs.update({'class': 'form-check-input'})
   product_form.fields['product_img'].widget.attrs.update({'class': 'form-control'})
   product_form.fields['category'].widget.attrs.update({'class': 'role-select'})
-  
+
   if request.method == 'POST':
     if product_form.is_valid():
       product_form.save()
@@ -90,7 +90,7 @@ def edit_product(request, id):
         messages.error(request, product_form.non_field_errors())
       elif product_form.has_error('price'):
         messages.error(request, product_form.errors)
-      
+
 
   return render(request, 'UserInterface/editproduct.html', context  = {'product': selected_product, 'product_form': product_form,})
 
@@ -104,12 +104,12 @@ def add_stock(request, id):
 
   if request.method == 'POST':
     if form.is_valid():
-      
+
       new_stock = selected_product.current_stock + form.cleaned_data['current_stock']
-      
+
       if new_stock > obj.max_stock:
         messages.error(request, 'Stocks cannot exceed maximum stocks.')
-      
+
       else:
 
         print(new_stock)
@@ -122,7 +122,7 @@ def add_stock(request, id):
         if selected_product.current_stock >= 0:
           selected_product.availability = True
           selected_product.save()
-          
+
         messages.success(request, 'Stocks are successfully added.')
         audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a stock on a product.', location='Product Management')
         audit_log.save()

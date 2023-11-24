@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+
     <title>Dunmark Tileshop</title>
-    
+
 
     <!-- Icon -->
     <link rel="icon" type="image/x-icon" href="{% static 'images/dtlogo.png'%}">
@@ -16,20 +16,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
     <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/UI.css' %}"/>
-   
+
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/f8a99d4330.js" crossorigin="anonymous"></script>
-    
+
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Quicksand&family=Barlow:wght@300;400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
-    
+
     <!-- Jquery -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
 </head>
 <body>
 
     <div class="main">
-        
+
         <!-- Side navigation -->
         <div class="sidenav">
             <button class="btn btn-primary rounded-circle" id="shrink"><i class="fa-solid fa-chevron-left"></i></button>
@@ -38,14 +38,14 @@
             <!-- nav links -->
             <ul type="none" class="sidenav-menu">
                 <li><a {% if request.resolver_match.url_name == "dashboard" %} id="nav-active" {% endif %} href="{% url 'dashboard' %}" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Dashboard"><i class="fa-solid fa-chart-simple"></i><span>Dashboard</span></a></li>
-                {% if user.is_staff %}
+                {% if user.role == 'admin'   %}
                 <li><a href="{% url 'usermanagement' %}" {% if request.resolver_match.url_name == "usermanagement" or request.resolver_match.url_name == "edit_user" or request.resolver_match.url_name == "update_status" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="User Management"><i class="fa-solid fa-user"></i><span>User Management</span></a></li>
                 {% endif %}
                 <li><a href="{% url 'customer_profile' %}" {% if request.resolver_match.url_name == "customer_profile" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Customer Profile"><i class="fa-solid fa-user-group"></i><span>Customer Profiles</span></a></li>
                 <li><a href="{% url 'pos' %}" {% if request.resolver_match.url_name == "pos" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Point of Sale"><i class="fa-solid fa-cash-register"></i><span>Point of Sale</span></a></li>
                 <li><a href="{% url 'product_management' %}" {% if request.resolver_match.url_name == "product_management" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Product Management"><i class="fa-solid fa-table-columns"></i><span>Product Management</span></a></li>
                 <li><a href="{% url 'return_product' %}" {% if request.resolver_match.url_name == "return_product" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Return Product"><i class="fa-solid fa-arrow-right-arrow-left"></i><span>Return Product</span></a></li>
-                {% if user.is_staff %}
+                {% if user.role == 'admin' %}
                 <li><a href="{% url 'settings' %}" {% if request.resolver_match.url_name == "settings" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Settings"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
                 <li><a href="{% url 'audit_trail' %}" {% if request.resolver_match.url_name == "audit_trail" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Audit Trail"><i class="fa-solid fa-circle-info"></i><span>Audit Trail</span></a></li>
                 <li><a href="{% url 'reports' %}" {% if request.resolver_match.url_name == "reports" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="Reports"><i class="fa-solid fa-registered"></i><span>Reports</span></a></li>
@@ -53,40 +53,40 @@
                 <li><a href="{% url 'about_system' %}" {% if request.resolver_match.url_name == "about_system" %} id="nav-active" {% endif %} data-mdb-toggle="tooltip" data-mdb-placement="right" title="About System"><i class="fa-solid fa-circle-question"></i><span>About System</span></a></li>
             </ul>
         </div>
-        
+
         <!-- content -->
         <div class="content" id="content">
 
             <!-- Alerts -->
-          
+
           {% if messages %}
-            
+
           {% for message in messages  %}
           <div class="alert alert-{%  if message.tags == 'error'%}{{ 'danger' }}{% else %}{{ message.tags }}{% endif %} shadow-lg border d-flex align-items-center" id="alert_box">
             <h5 class="flex-grow-1">{{ message }}</h5>
             <a href="#" class="btn-close" style="font-size: 0.7rem;" id="close_alert"></a>
           </div>
           {% endfor %}
-            
+
           {% endif %}
 
             <!-- Header -->
             <div class="header shadow py-3">
                 <h4><a href="{% url 'dashboard' %}" style="color:rgb(7,33,91);">Dunmark Tileshop</a></h4>
-                
+
 
              <div class="notif-logout-div">
                 <!-- Notifications -->
-                
-                <div class="notification" style="z-index: 999;">  
+
+                <div class="notification" style="z-index: 999;">
                   <!-- icon -->
                   <a class="rounded" id="notif-btn" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Notification">
                     <i class="fa-solid fa-bell"></i>
-                    
+
                     {% if num > 0 %}
                       <span class="badge rounded-pill badge-notification bg-danger">{{ num }}</span>
                     {% endif %}
-                      
+
                   </a>
 
                   <!-- visitors page -->
@@ -103,22 +103,22 @@
                       <h3 class="notifLabel bg-dark text-white">Notificaton</h3>
                       <button class="btn btn-secondary btn-sm" id="notifclose">Close</button>
                     </div>
-                    
+
 
                     <ul type="none" id="notif_list">
                       {% for notif in notifs %}
                         <li class="px- 3"><p class="p-0 ps-4 m-0">{{ notif.message }}</p><p class="pe-4 pb-1" style="margin: 0; font-size: 0.7rem; text-align: end;">{{ notif.date_occur }}</p></li>
-                      
+
                       {% endfor %}
-                      
+
                     </ul>
                   </div>
 
-                  
+
                 </div>
 
 
-                
+
                 <!-- Logout div -->
                 <div class="d-flex me-3">
                   <div class="dropdown" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Logout"
@@ -129,22 +129,22 @@
                       data-mdb-toggle="modal" data-mdb-target="#logoutModal"
                       style="font-family: 'Quicksand'; font-size: 0.7rem;"
                     >
-               
-                      
+
+
                      {{ user.username }}
-                        
+
                     </button>
-                    
+
                   </div>
                 </div>
 
               </div>
             </div>
-            
+
             <!-- Content Here -->
             {% block content %}
             {% endblock %}
-            
+
         </div>
     </div>
 
@@ -169,7 +169,7 @@
       </div>
     </div>
 
- 
+
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
     <!-- Custom Javascript-->

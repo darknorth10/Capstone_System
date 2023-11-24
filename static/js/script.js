@@ -1,7 +1,7 @@
 
 // Dashboard Top Selling Graph
 $(document).ready(function () {
-  
+
   var top1 = $("#top1");
   var top2 = $("#top2");
   var top3 = $("#top3");
@@ -23,14 +23,14 @@ $(document).ready(function () {
       ],
       hoverOffset: 4
     }]
-    
+
   };
 
   const mychart = document.getElementById("myChart");
   new Chart(mychart, {
     type: 'doughnut',
     data: data,
-    
+
     options: {
       layout: {
           padding: 20
@@ -56,7 +56,7 @@ $(document).ready(function() {
     var prod3 = $("#prod3");
     var prod4 = $("#prod4");
     var prod5 = $("#prod5");
-  
+
     // change color and level of stocks
 
     //prod1
@@ -86,7 +86,7 @@ $(document).ready(function() {
    }
    $("#product1stock").css('width', `${prod1stock}%`);
    $("#product1stock").attr('class', `progress-bar ${pgcolor}`);
-   
+
    // product 2
    var prod2stock = (parseInt(prod2.attr('data-stock')) / parseInt(prod2.attr('data-max'))) * 100;
    var pgcolor2;
@@ -198,8 +198,6 @@ $(document).ready(function() {
 
     $("#product5stock").css('width', `${prod5stock}%`);
     $("#product5stock").attr('class', `progress-bar ${pgcolor5}`);
-   
-  
 
 
 
@@ -207,11 +205,13 @@ $(document).ready(function() {
 
 
 
-  // side nav  
+
+
+  // side nav
   var shrink = false;
 
   $('#shrink').click(function() {
-    
+
     if (shrink == true) {
       $('.sidenav').css('width', "60px");
       $('.sidenav').css('justify-content', "center");
@@ -240,14 +240,14 @@ $(document).ready(function() {
       $('.left-symbol').css('width', '20%')
       $('.text-label h2:last-of-type').css('font-size', '1em')
       shrink = true;
-      
+
     }
-    
+
   });
 
 
-  
-  
+
+
   // Alert Function
   $(document).ready(function () {
     if ( $("#alert_box h5").text() != "" ) {
@@ -269,17 +269,17 @@ $(document).ready(function() {
 
   $(".posform input").attr("class", "form-control text-center w-75 p-2 bg-white shadow-inner");
   $(".posform input").attr("min", '1');
-  
-  
+
+
   // user client side validation for password
 
-  $('#id_password1').focus(function () { 
+  $('#id_password1').focus(function () {
     $('#userform-submit').attr('disabled', 'true');
   });
 
   // Password validation using regex
   $('#fas1').hide();
-  $('#id_password1').keyup(function () { 
+  $('#id_password1').keyup(function () {
     const password_pattern = /(?=.*\d)(?=.*[a-z]).{8,}/i;
 
     if ($(this).val().match(password_pattern)) {
@@ -296,7 +296,7 @@ $(document).ready(function() {
 
   // validation indicator in confirm password
   $('#fas').hide();
-  $('#id_password2').keyup(function () { 
+  $('#id_password2').keyup(function () {
     if ($('#id_password1').val() == $('#id_password2').val()) {
       $('#userform-submit').removeAttr('disabled');
       $('#fas').removeAttr('class');
@@ -310,9 +310,9 @@ $(document).ready(function() {
       $('#fas').attr('class', 'fas fa-exclamation-circle trailing');
     }
   });
-  
+
   // close the alert window
-  $('#close_alert').click(function (e) { 
+  $('#close_alert').click(function (e) {
     e.preventDefault();
     $('#alert_box').css('top', '-20%');
   });
@@ -336,7 +336,7 @@ $(document).ready(function() {
 
 
   // form validation for add product
-  $('#id_category').change(function () { 
+  $('#id_category').change(function () {
     if ($(this).val() == "Porcelain Tiles" || $(this).val() == "Ceramic Tiles") {
       $("#id_product_size option[value='N/A']").attr('disabled', 'disabled');
       $("#id_product_size option[value='20 x 20']").removeAttr('disabled');
@@ -350,57 +350,57 @@ $(document).ready(function() {
      $("#id_product_size option[value='30 x 30']").attr('disabled', 'disabled');
      $("#id_product_size option[value='60 x 30']").attr('disabled', 'disabled');
      $("#id_product_size").val('').change();
- 
+
     }
   });
 
  // shows current stock in add stock form
-  $("#id_current_stock").change(function () { 
+  $("#id_current_stock").change(function () {
     $("#curr_stock").text($(this).val())
   });
 // submits add stock form on confirm
-  $("#conf_addStock").click(function () { 
+  $("#conf_addStock").click(function () {
     $("#addstock_form").submit();
   });
 
-  
-  // Customer Profile 
-  
-  $("#regcust").click(function () { 
-    
+
+  // Customer Profile
+
+  $("#regcust").click(function () {
+
     $("#add_cust_submit").click();
   });
 
   // POS
 
   // clicking items will ask for quantity
-  $(document).on("click", ".itemwrapper .item", function () { 
+  $(document).on("click", ".itemwrapper .item", function () {
     var x = $(this).parent().attr("data-productname");
     var y = $(this).parent().attr("data-productid");
     var z = $(this).parent().attr("data-currentstock");
 
     $(".conf_quantity_pos").text(x);
     $('#id_product_id').val(y);
-    
+
 
     $('#id_quantity').val('1');
     $('#curr_stock').text(z);
     $('#quantity_conf').removeAttr('disabled');
 
     $("#pos_quantity_trigger").click();
-    
+
   });
 
   // clear the pos transaction
 
-  $('#clearbtn').click(function () { 
-    
+  $('#clearbtn').click(function () {
+
     $('#clearpos').submit();
 
   });
 
    // desired quantity must be less than the number of currrent stocks else  btn is disabled
-   $("#id_quantity").change(function (e) { 
+   $("#id_quantity").change(function (e) {
     var currentStock = parseInt($("#curr_stock").text());
 
     if ($(this).val() <= currentStock) {
@@ -410,16 +410,16 @@ $(document).ready(function() {
       $('#quantity_conf').attr('disabled', 'disabled');
     }
   });
-  
+
   // increase or decrese quantity pos
-  $('.dcr').click(function () { 
+  $('.dcr').click(function () {
     var currentStock = parseInt($("#curr_stock").text());
 
     if ($(".posform input[type=number]").val() > 1) {
 
         $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) - 1)
     }
-    
+
      // disable confirm button when desired quantity exceeded current stocks
      if ($(".posform input[type=number]").val() <= currentStock) {
       $('#quantity_conf').removeAttr('disabled');
@@ -429,12 +429,12 @@ $(document).ready(function() {
     }
 
   });
-  
-  $('.incr').click(function () { 
+
+  $('.incr').click(function () {
     var currentStock = parseInt($("#curr_stock").text());
-    
+
    $(".posform input[type=number]").val(parseInt($(".posform input[type=number]").val()) + 1);
-     
+
     // disable confirm button when desired quantity exceeded current stocks
     if ($(".posform input[type=number]").val() <= currentStock) {
       $('#quantity_conf').removeAttr('disabled');
@@ -445,7 +445,7 @@ $(document).ready(function() {
 
   });
 
- 
+
 
   //  item search shadow on focus
   $('.positemsearch').focus(function () {
@@ -463,15 +463,15 @@ $(document).ready(function() {
 
    // downpayment value
    var downpayment = parseFloat($('#subtotal').attr('data-subtotal')) * .3;
-  
+
 
    // for selecting mode of payment
-  $('.mop_div div input[name="mop"]').change(function () { 
+  $('.mop_div div input[name="mop"]').change(function () {
     console.log($(this).val())
 
     // enables proceed button
     $('#pos_proceed').removeAttr('disabled');
-    
+
 
     //  Mode of payment forms hide and show
     switch ($(this).val()) {
@@ -495,13 +495,13 @@ $(document).ready(function() {
         $('#gcash_form').hide(0);
         $('#banking_form').hide(0);
         break;
-      
+
       case 'gcash':
         $('.mop_div div').css('outline', '1px solid rgb(145, 145, 145)')
         $('.mop_div div h5').css('color', '#eee')
         $(this).parent().css("outline", '2px solid rgb(124, 166, 213)');
         $(this).siblings('h5').css("color", 'rgb(124, 166, 213)');
-      
+
         $('#gcash_transaction_type').val('Gcash');
         var total_amt = parseFloat($('#subtotal').attr('data-subtotal'))
         $('#gcash_total_price').val(total_amt);
@@ -546,10 +546,10 @@ $(document).ready(function() {
   //  Installment Switch
  var toggelInstallment = false;
  $('.downpayment').hide();
- 
- 
+
+
  $("#installmentswitch").change(function() {
- 
+
      if (toggelInstallment) {
       // Cash
        $(".downpayment").hide();
@@ -570,7 +570,7 @@ $(document).ready(function() {
        $('#gcash_delivery_address').removeAttr('required');
 
 
-       
+
      } else {
       // Cash
        $(".downpayment").show(0);
@@ -590,26 +590,26 @@ $(document).ready(function() {
        $('#gcash_email').attr('required', 'required');
        $('#gcash_delivery_address').attr('required', 'required');
      }
-   
+
  });
- 
+
   //  Change cash on change event
 
   // compute change on change event FOR CASH MOP
- $('#id_amount').keyup(function () { 
+ $('#id_amount').keyup(function () {
     if(!toggelInstallment) {
       if ($(this).val() >= parseFloat($('#subtotal').attr('data-subtotal')) ) {
 
         var a = $(this).val() - parseFloat($('#subtotal').attr('data-subtotal'));
         $(this).attr('data-value', a);
-      
+
         change = a.toLocaleString('en-PH', {currency: 'PHP', style: 'currency'});
         $('.x').text('');
         $('#pos_change').text(change);
         $('.conf_transaction').removeAttr('disabled');
-  
+
         $('#id_change').val(a);
-  
+
       }
       else {
         var a = 0
@@ -644,15 +644,15 @@ $(document).ready(function() {
  });
 
    // keyup event FOR GCASH MOP to add transaction
-   $('#gcash_amount').keyup(function () { 
+   $('#gcash_amount').keyup(function () {
       if(!toggelInstallment) {
-        
+
         if ($(this).val() == parseFloat($('#subtotal').attr('data-subtotal'))) {
 
           $('.conf_transaction').removeAttr('disabled');
 
         }
-        else {   
+        else {
           $('.conf_transaction').attr('disabled', 'disabled');
         }
 
@@ -666,18 +666,18 @@ $(document).ready(function() {
     }
  });
 
-  
+
    // keyup event FOR bank MOP to add transaction
-  $('#bank_amount').keyup(function () { 
+  $('#bank_amount').keyup(function () {
     // if not installment and banking mop
       if(!toggelInstallment) {
-      
+
         if ($(this).val() == parseFloat($('#subtotal').attr('data-subtotal'))) {
 
           $('.conf_transaction').removeAttr('disabled');
 
         }
-        else {   
+        else {
           $('.conf_transaction').attr('disabled', 'disabled');
         }
 
@@ -704,8 +704,8 @@ $(document).ready(function() {
 
 
 
- // show receipt or detailed view in transaction 
-  
+ // show receipt or detailed view in transaction
+
     // onlick to change hidden traansaction no. value and  trigger modal to pop up
  $('.parentReceiptBtn').on('click', '.receiptbtn', function () {
     var trasaction_no = $(this).attr('data-transnumber');
@@ -716,13 +716,13 @@ $(document).ready(function() {
     $('#detailed_div').load(window.location.href + trasaction_no + '/ #detailed_div')
         // shows modal
     $("#trigger3").click()
- 
+
  });
 
 
   // INSTALLMENT BALANCCE TRANSACTION
 
-  $("#trans_reference").change(function (e) { 
+  $("#trans_reference").change(function (e) {
 
     var selectedOption = $('option:selected', this);
 
@@ -745,16 +745,16 @@ $(document).ready(function() {
       $("#balance_cname").text(cname);
       $("#balance_due").text(due_date);
       $("#balance_transaction_reference").val($(this).val());
-      $("#balance_customer_name").val(cname); 
+      $("#balance_customer_name").val(cname);
     }
-    
 
-    
+
+
   });
   $("#balance_transaction_reference").val($("#trans_reference").val());
-  
+
   // hide or show he referrence no in pay balance form depending on the payment method
-  $("#balance_payment_method").change(function (e) { 
+  $("#balance_payment_method").change(function (e) {
     if( $(this).val() == "Cash") {
         $("#balance_refno").hide(0);
         $("#balance_reference_no").removeAttr('required');
@@ -770,18 +770,18 @@ $(document).ready(function() {
 
   // sort items by name or category POS through ajax call
 
-  $("input[name='searchItemName']").change(function (e) { 
+  $("input[name='searchItemName']").change(function (e) {
     var itemName = $(this).val();
 
       $("#itemNameSearch").val(itemName);
-  
+
       // submit everytime search name input value changes
       $("#searchItemForm").submit()
-    
-      
+
+
   });
 
-  $("#searchItemForm").submit(function (e) { 
+  $("#searchItemForm").submit(function (e) {
     e.preventDefault();
 
     $.ajax({
@@ -793,34 +793,12 @@ $(document).ready(function() {
         location.reload();
       }
     });
-    
-  });
-  // search for product via click event or on enter keypress
-    
-  $("#searchProductForm2").submit(function (e) { 
-    e.preventDefault();
-    
-    $.ajax({
-      type: "post",
-      url: window.location.href + "search_product",
-      data: $(this).serialize(),
-      success: function (response) {
-        if (response.success) {
-          console.log(response.test)
-          location.reload()
-        }
-      }
-    });
 
-   
-  });
-  // searches product on change event on the product management
-  $("#searchProduct").change(function (e) { 
-      $("#searchProductForm2").submit()
   });
 
 
-  // Void Product 
+
+  // Void Product
   $(document).on('click', '.voidbtn', function () {
     var itemName = $(this).attr('data-voidProd');
 
@@ -831,7 +809,7 @@ $(document).ready(function() {
   });
 
 
-  $('select[name="itemName"]').change(function (e) { 
+  $('select[name="itemName"]').change(function (e) {
       console.log('test')
 
       var optSelected = $('option:selected', this);
@@ -848,7 +826,7 @@ $(document).ready(function() {
   var notifShow = false;
 
   // $("#notif-btn").css('display', 'block');
-  $("#notif-btn").click(function (e) { 
+  $("#notif-btn").click(function (e) {
     e.preventDefault();
 
     if(!notifShow) {
@@ -861,7 +839,7 @@ $(document).ready(function() {
 
   });
 
-  $("#notifclose").click(function (e) { 
+  $("#notifclose").click(function (e) {
     e.preventDefault();
     notifShow = false;
     $("#notif_content").css('display', 'none');

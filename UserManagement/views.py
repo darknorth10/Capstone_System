@@ -31,13 +31,13 @@ def user_management(request):
     if form_adduser.is_valid():
       form_adduser.save()
       audit_log = AuditTrail(user=request.user, action=f'{request.user} has added a new user.', location='User Management')
-
+      audit_log.save()
       messages.success(request, 'User added successfully')
       form_adduser = CustomUserCreationForm()
     else:
       print('error')
-      messages.error(request, 'Error saving user :' + form_adduser.errors.as_text()) 
-      
+      messages.error(request, 'Error saving user :' + form_adduser.errors.as_text())
+
   return render(request, 'UserInterface/user_management.html',
     context = { 'Users': CustomUser.objects.all(), 'form': form_adduser }
   )
@@ -49,14 +49,14 @@ def edit_user(request, id):
   User = CustomUser.objects.get(id=id)
   # creaates form in the instance of objecct given by user id
   obj = get_object_or_404(CustomUser, id = id)
-  
+
   form_update = CustomUserChangeForm(request.POST or None, instance = obj)
   form_update.fields['username'].widget.attrs.update({'readonly': 'true'})
   errors = form_update.errors
   if request.method == 'POST':
     if form_update.is_valid():
       form_update.save()
-      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated a user.', location='User Management')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has updated user: {User.username}.', location='User Management')
       audit_log.save()
       messages.success(request, 'User updated successfully')
       return redirect('usermanagement')
@@ -78,12 +78,12 @@ def update_status_inactive(request, id):
 
   if request.method == "POST":
     # get user id sent via ajax
-   
+
     # activates user status
     if not User_status.is_active:
       User_status.is_active = True
       User_status.save()
-      audit_log = AuditTrail(user=request.user, action=f'{request.user} has activated a user.', location='User Management')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has activated user: {User_status.username}.', location='User Management')
       audit_log.save()
       messages.success(request, 'User activated successfully')
       return redirect('usermanagement')
@@ -91,21 +91,21 @@ def update_status_inactive(request, id):
     else:
       User_status.is_active = False
       User_status.save()
-      audit_log = AuditTrail(user=request.user, action=f'{request.user} has deactivated a user.', location='User Management')
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has deactivated user: {User_status.username}.', location='User Management')
       audit_log.save()
       messages.error(request, 'User has been deactivated')
       return redirect('usermanagement')
-  
+
   return render(request, 'UserInterface/userstatus.html', context = {'User': User_status})
 
 
-# reset password 
+# reset password
 @login_required(login_url='login')
 
 def reset_password(request, username):
   if request.user.role == 'cashier':
     return redirect('usermanagement')
-    
+
   if CustomUser.objects.filter(username=username).exists():
     changepassuser = CustomUser.objects.get(username=username)
     print('asassa')
@@ -124,9 +124,10 @@ def reset_password(request, username):
       new_password = resetpassform.cleaned_data['password1']
       changepassuser.password = make_password(new_password)
       changepassuser.save()
-
+      audit_log = AuditTrail(user=request.user, action=f'{request.user} has changed password user: {changepassuser.username}.', location='User Management')
+      audit_log.save()
       messages.success(request, 'Password Changed')
-      
+
       return redirect('usermanagement')
 
     else:

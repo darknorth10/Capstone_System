@@ -97,7 +97,7 @@ body {
     background: #113d68;
     color: white;
     padding-left: 15px;
-    
+
 }
 
 .sidenav-menu i {
@@ -121,7 +121,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .header {
@@ -310,7 +310,7 @@ body {
 
 #dash-annual {
   font-size: 1em;
-  font-weight: bold;  
+  font-weight: bold;
   padding-bottom: 15px;
   font-family: 'Barlow';
   letter-spacing: 1px;
@@ -339,7 +339,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .stock-header, .topselling-header {
@@ -383,7 +383,7 @@ body {
   transition: all 0.6s;
 }
 
-.top-selling {  
+.top-selling {
   width: 40%;
   height: 120%;
   background: white;
@@ -717,7 +717,7 @@ thead th:last-of-type {
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  
+
 }
 .mop_div div:hover {
   cursor: pointer;
@@ -744,7 +744,7 @@ thead th:last-of-type {
   padding: 0;
   font-size: 0.9em;
   color: #eee;
-} 
+}
 
 .changecash {
   display: flex;
@@ -794,7 +794,7 @@ thead th:last-of-type {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-} 
+}
 
 #customerform_edit input {
   margin: 0;
@@ -836,12 +836,12 @@ thead th:last-of-type {
   font-family: 'Barlow';
   font-size: 0.9rem;
   padding: 5px;
-  
+
 }
 #notif_list li {
   border-bottom: 1px solid rgb(221, 221, 221);
   text-align: justify;
-  
+
 }
 
 @keyframes fade-in-top{0%{transform:translateY(-50px);opacity:0}100%{transform:translateY(0);opacity:1}}

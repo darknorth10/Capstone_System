@@ -4,7 +4,7 @@ from .forms import ForgotPassForm, LoginForm
 from django.contrib import messages
 from AuditTrail.models import AuditTrail
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import CustomUser 
+from .models import CustomUser
 import random
 from django.core.cache import cache
 from django.core.mail import send_mail
@@ -18,16 +18,16 @@ def login_page(request):
 
   form = LoginForm()
   message = ''
-  
+
   if request.method == "POST":
     form = LoginForm(request.POST)
-    
+
     if form.is_valid():
       user = authenticate(
         username = form.cleaned_data['username'],
         password = form.cleaned_data['password'],
         )
-      
+
       if user is not None:
         login(request, user)
         messages.success(request, f'Welcome {request.user}, have a great day!')
@@ -39,13 +39,14 @@ def login_page(request):
         message = "Wrong username or password"
         form = LoginForm()
     else:
-      form = LoginForm()      
-          
+      form = LoginForm()
+
   return render(request, 'Login/login.html', context={'form': form, 'message': message})
 
 #Logout view
 def logout_user(request):
   audit_log = AuditTrail(user=request.user, action=f'{request.user} has logged out.', location='Login Authentication')
+  audit_log.save()
   logout(request)
   message = "You've logged out."
   return render(request, 'Login/logout.html', context={'message':message})
@@ -72,7 +73,7 @@ def email_check(request):
 
         # ================ send email =================
         a = cache.get('otp')
-        
+
         send_mail(
           'Reset your Password',
             f'Here is your OTP {a} please do not share it with others.',
@@ -87,11 +88,11 @@ def email_check(request):
 
       else:
         message = 'There is no email bounded to the account please contact your administrator.'
-     
+
 
     else:
       message = 'Username does not exist'
- 
+
 
 
   return render(request, 'Login/check_email.html', context={'error_message': message})
@@ -105,10 +106,10 @@ def forgot_password(request, username):
   else:
 
     return redirect('check_email')
-  
+
 
   form = ForgotPassForm()
-  
+
   if request.method == 'POST':
 
     form = ForgotPassForm(request.POST)
@@ -117,15 +118,16 @@ def forgot_password(request, username):
       if form.cleaned_data['otp'] == changepassuser.otp:
         new_password = form.cleaned_data['password1']
         changepassuser.password = make_password(new_password)
-        changepassuser.save()
+        audit_log = AuditTrail(user=request.user, action=f'{changepassuser.username} has changed password through forgot password.', location='Login Authentication')
+        audit_log.save()
         messages.success(request, 'Password has been changed successfully.')
         return redirect('login')
-        
+
       else:
         messages.error(request, 'OTP is invalid or incorrect.')
 
       print(form.errors)
-  
+
 
   context = {
     'form': form,
@@ -142,14 +144,14 @@ def resend_otp(request, username):
     #=====================Send OTP to Email =================#
         #otp generator
         otp = random.randint(100000, 999999)
-        
-        
+
+
         if cache.get('otp') is not None:
           print(cache.get('otp'))
           messages.error(request, 'Error resending OTP, wait for 30 secods to resend.')
 
         else:
-          
+
           cache.add('otp', otp, 30)
           a = cache.get('otp')
           curr_user.otp = cache.get('otp')

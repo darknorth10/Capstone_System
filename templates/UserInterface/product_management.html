@@ -10,14 +10,14 @@
         <div class="pmactionbar bg-light rounded-3 shadow-4 d-flex justify-content-evenly p-3 w-75 mx-auto">
             <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addProductModal">New Product</button>
             <a href="{% url 'archive_product' %}" class="btn btn-secondary shadow-sm">Archived Products</a>
-            
-            <form method="post" class="input-group" style="width: 30%;" id="searchProductForm2">
+
+            <form method="post" class="input-group" action='{% url 'search_product' %}' style="width: 30%;" id="searchProductForm2">
               {% csrf_token %}
                 <div class="form-outline">
                   <input type="text" id="searchProduct" name="prodName" class="form-control bg-white" >
                   <label class="form-label" for="">Search</label>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" style="z-index:1;">
                   <i class="fas fa-search"></i>
                 </button>
                 <input type="hidden" name="" value="por">
@@ -26,7 +26,7 @@
 
         </div>
         <!-- Product table -->
-        <div class="pmtablediv card bg-white h-100 my-3 p-2" style=" max-height: 90%; overflow: scroll;">
+        <div class="pmtablediv card bg-white h-100 my-3" style=" max-height: 90%; overflow: scroll;">
             <table class="pmtable table table-hover table-striped" style="font-size: 0.7rem; font-family: 'Montserrat'; width: 100%;">
                 <thead class="table-dark text-center position-sticky top-0">
                     <tr>
@@ -35,8 +35,8 @@
                         <th>Brand</th>
                         <th>Category</th>
                         <th>Size</th>
-                        <th>Price</th> 
-                        <th>Stock</th> 
+                        <th>Price</th>
+                        <th>Stock</th>
                         <th>Date last stocked</th>
                         <th>Availability</th>
                         <th>Action</th>
@@ -58,7 +58,7 @@
                           <span class="badge badge-warning rounded-pill d-inline">Unavailable</span>
                           {% endif %}</td>
                         <td class="py-2">
-                          
+
                           {% if user.role == "admin" %}
                           <a href="{% url 'edit_prod' product.id %}" class="btn btn-primary" style="font-size: 0.6rem;">Edit</a>
                           <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
@@ -67,7 +67,7 @@
                           <a href="{% url 'add_stock' product.id %}" class="btn text-white mx-2" style="font-size: 0.6rem; background-color: rgb(30, 159, 116);">Add Stocks</a>
 
                           {% endif %}
-                            
+
                         </td>
 
                     </tr>
@@ -77,7 +77,7 @@
         </div>
 
     </div>
-    
+
 
 </div>
 
@@ -87,7 +87,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-primary">Register Product</h5>
-  
+
             </div>
             <div class="modal-body">
               <form method="post" class="p-1" id="add_prod_form" enctype="multipart/form-data">
@@ -105,7 +105,7 @@
                   {{ product_form.brand }}
                   <label class="form-label" for="id_brand">Brand Name</label>
                 </div>
-        
+
                 <div class="form-outline mb-4 d-flex justify-content-end">
                   <label class="form-label me-1" for="id_category">Select Category : </label>
                   {{ product_form.category }}
@@ -121,7 +121,7 @@
                   {{ product_form.price }}
                   <span class="input-group-text">.00</span>
                 </div>
-                 
+
                 <div class="input-group mb-3 shadow-inner">
                   <span class="input-group-text">Initial Stocks :</span>
                   {{ product_form.current_stock }}
@@ -139,9 +139,9 @@
                   {{ product_form.availability }}
                   <label class="form-label" for="id_availability">Post as available</label>
                 </div>
-                
 
-              
+
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary" id="regprod">Register</button>
@@ -149,7 +149,7 @@
               </form>
 
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -172,13 +172,13 @@
               <form method="post" action="{% url 'void_product' %}">
                 {% csrf_token %}
                 <input type="hidden" name="voidName">
-                <button type="submit" class="btn btn-danger fs-6" id="conf_addStock">Confirm</button> 
+                <button type="submit" class="btn btn-danger fs-6" id="conf_addStock">Confirm</button>
               </form>
 
-              
+
             </div>
           </div>
         </div>
       </div>
-    
+
 {% endblock %}

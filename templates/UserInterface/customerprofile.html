@@ -5,14 +5,14 @@
         <h4 class="cpheader fs-5 p-2 mb-4">Customers Profile</h4>
         <div class="customer_content bg-light card shadow d-flex flex-column" style="width: 100%; height: 90%;">
             <div class="cpactionbar bg-light rounded-pill p-2 d-flex align-items-center justify-content-evenly" style="height: 17%;">
-                
+
               <button type="button" class="btn btn-dark" data-mdb-toggle="modal" data-mdb-target="#addCustomerModal">Create Profile</button>
                 <div class="input-group w-25">
                     <div class="form-outline">
                       <input type="search" id="form1" class="form-control" />
                       <label class="form-label" for="form1">Search</label>
                     </div>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" style="z-index:1;">
                       <i class="fas fa-search"></i>
                     </button>
                   </div>
@@ -43,8 +43,9 @@
                             <td>{{ customer.email }}</td>
                             <td>{{ customer.phone_number }}</td>
                             <td>{{ customer.permanent_address }}</td>
-                          
-                            <td>{% if customer.credit_eligibility %}<span class="badge badge-success rounded-pill d-inline">Eligible</span>
+
+                            <td>{% if customer.credit_eligibility == 'eligible' %}
+                                <span class="badge badge-success rounded-pill d-inline">Eligible</span>
                                 {% else %}
                                 <span class="badge badge-warning rounded-pill d-inline">Not Eligible</span>
                                 {% endif %}</td>
@@ -79,7 +80,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
 
 {% endblock %}

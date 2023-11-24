@@ -22,18 +22,18 @@
     body {
         scroll-behavior: smooth;
     }
-    
+
     body::-webkit-scrollbar {
         width: 10px;
         height: 8px;
         background-color: transparent;
         scroll-behavior: smooth;
     }
-    
+
     body::-webkit-scrollbar-thumb {
         background: #6d6d6d;
     }
-    
+
     #myBtn {
         display: none;
         position: fixed;
@@ -50,11 +50,11 @@
         border-radius: 15%;
         height: 50px;
     }
-    
+
     #myBtn:hover {
         background-color: #555;
     }
-    
+
     ul li {
         text-decoration: none;
         list-style-type: none;
@@ -67,7 +67,7 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item "><a class="nav-link active" data-bss-hover-animate="pulse" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link " data-bss-hover-animate="pulse" href="#box-2">Products</a></li>
+                    <li class="nav-item"><a class="nav-link " data-bss-hover-animate="pulse" href="#sortItem">Products</a></li>
                     <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="#tilecalc">Tile calculator</a></li>
                     <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="#contact">Contacts</a></li>
                 </ul>
@@ -120,16 +120,17 @@
     <section>
         <div class="toast-container"></div>
         <section class="py-5">
-            <div class="container " data-aos="fade-right" data-aos-duration="300" data-aos-delay="400">
+            <div class="container" data-aos="fade-right" data-aos-duration="300" data-aos-delay="400" id="sortItem">
                 <h1 class="text-center text-dark">Products Category</h1>
                 <div class="filtr-controls">
-                    <span class="text-capitalize" data-filter="all" style="transform: scale(1);"><a href="{% url 'base' %}">All</a> </span> {% url 'base' as url %}
-                    <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="1"><a href="{% url 'guest_up'%}">Adhesive</a></span> {% url 'por_up' as url%}
-                    <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="2"><a href="{% url 'por_up' %}">Porcelain</a></span>{% url 'cer_up' as url%}
-                    <span class="text-capitalize {% if request.path == url %} active {% endif %}" data-filter="3"><a href="{% url 'cer_up' %}">Ceramic</a></span>
-                    <span class="text-capitalize " data-filter="4"><a href="{% url 'grout' %}">Grout</a></span>
-                    <span class="text-capitalize " data-filter="5"><a href="{% url 'sanitary' %}">Sanitary Ware</a></span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'base' %} active {% endif %}" data-filter="all" style="transform: scale(1);"><a href="{% url 'base' %}">All</a> </span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'guest_up' %} active {% endif %}" data-filter="1"><a href="{% url 'guest_up'%}">Adhesive</a></span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'por_up' %} active {% endif %}" data-filter="2"><a href="{% url 'por_up' %}">Porcelain</a></span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'cer_up' %} active {% endif %}" data-filter="3"><a href="{% url 'cer_up' %}">Ceramic</a></span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'grout' %} active {% endif %}" data-filter="4"><a href="{% url 'grout' %}">Grout</a></span>
+                    <span class="text-capitalize {% if request.resolver_match.url_name == 'sanitary' %} active {% endif %}" data-filter="5"><a href="{% url 'sanitary' %}">Sanitary Ware</a></span>
                 </div>
+
             </div>
         </section>
         <!--- Tile Gallery-->
@@ -140,7 +141,7 @@
 
     </section>
     <!-- ========== End Section ========== -->
-    
+
     <section class="calcu py-5 d-flex" id="content-sec" data-aos="fade-down" data-aos-delay="100" data-aos-duration="600">
 
         <div class="container shadow-sm bg-primary-gradient py-5" id="tilecalc">
@@ -148,7 +149,7 @@
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h3 class="fw-bold">Tile Calculator <i class="fas fa-calculator"></i></h3>
                 </div>
-                
+
             </div>
 
             <div class="py-5 p-lg-5 mt-0">
@@ -158,14 +159,14 @@
                             <div class="card-body px-4 py-5 px-md-5">
                                 <div class="bs-icon-lg d-flex justify-content-center align-items-center mb-3 bs-icon" style="top: 1rem;right: 1rem;position: absolute;"></div>
                                 <h5 class="fw-bold card-title text-center">Tile </h5>
-                                
+
       <form name="calculator-form" id="calculator-form" target="_self" method="post" action="">
         <div class="row d-flex">
           <div >
             <label for="floor-area"><h6>Floor Area *</h6></label>
             <input type="number" class="form-control rounded-0" id="floor-area" name="floor-area" value="" size="30" maxlength="50" aria-required="true" required>
           </div>
-       
+
           </p>
         </div>
         <div class="row">
@@ -197,25 +198,25 @@
                             <div class="card-body px-4 py-5 px-md-5 ">
                                 <div class="bs-icon-lg d-flex justify-content-center align-items-center mb-3 bs-icon" style="top: 1rem;right: 1rem;position: absolute;"></div>
                                 <h5 class="fw-bold card-title text-center mb-4">Approximate Results </h5>
-                                
+
  <div style="position:relative;"class="mb-2 d-flex" >
         <div id="computation-result" class= >
           <h6 >Tiles: <span id="tile-value" class="ms-2 " style="color:#7D99F8;"> 0</span></h6>
           <h6>Recommended Grout Spacing: <span id="grout-value" class="ms-2 " style="color:#7D99F8;"> 0</span></h6>
           <h6>kg Grout: <span id="kg-grout" style="color:#7D99F8;" class="ms-2 "> 0</span> <span id="kg-grout-sqm-per-bag"> </span></h6>
           <h6>kg Adhesive: <span id="kg-adhesive" style="color:#7D99F8;" class="ms-2 "> 0</span> <span id="kg-adhesive-sqm-per-bag"> </span></h6>
-        </div> 
+        </div>
       </div>
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
-      
+
     </section>
- 
+
 
 <!-- Modal for notice -->
 <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" id="link-modal" data-bs-target="#blank-modal">
@@ -234,7 +235,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: #6d6d6d;color:#fff;">Close</button>
-        
+
         </div>
       </div>
     </div>
@@ -298,7 +299,7 @@
     <footer class="bg-primary-gradient">
         <div class="container py-4 py-lg-5" data-aos="fade-down" data-aos-duration="600" data-aos-delay="100">
             <div class="row justify-content-center">
-                
+
                 <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last item social">
                     <div class="fw-bold d-flex align-items-center mb-2"><span class="bs-icon-sm bs-icon-circle bs-icon-primary d-flex justify-content-center align-items-center bs-icon me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                                 <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5  0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5v-1zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"></path>
@@ -311,9 +312,9 @@
             <div class="text-muted d-flex justify-content-between align-items-center pt-3">
                 <p class="mb-0">Copyright © 2023 Dunmark Tileshop</p>
                 <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
+                    <li class="list-inline-item"><a href="https://www.facebook.com/DMTileshop"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
                             <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
-                        </svg></li>
+                        </svg></a></li>
                     <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-twitter">
                             <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path>
                         </svg></li>
@@ -328,7 +329,7 @@
 <!-- jquery for tile calculator -->
 <script>
 $('document').ready(function() {
-    //these variables locate the id's inside the "#content-sec" 
+    //these variables locate the id's inside the "#content-sec"
    var locator_form = $('#content-sec').find("#calculator-form"),
    $selected_tile_size = '20x20',
    $selected_unit_area = 'sqm',
@@ -339,9 +340,9 @@ $('document').ready(function() {
    $kg_adhesive = 0,
    $kg_grout_sqm_per_bag = 0,
    $kg_adhesive_sqm_per_bag =0;
-   
-   
- 
+
+
+
     if (locator_form.length > 0){
         $('#computation-result').css('visibility','hidden');
 		$('#floor-area').on('change', function(event) {
@@ -364,13 +365,13 @@ $('document').ready(function() {
 		});
 
         $('#calculator-form').on('click','#compute-tiles',function(e){
-          
+
        //if the floor-are is zero or negative error!
          if($('#floor-area').val() <=0){
             $('#link-modal').trigger('click');
          }
-         // tiles computation goes here 
-           else { 
+         // tiles computation goes here
+           else {
             switch($selected_tile_size){
                 case '20x20':{
                     $tiles = (($selected_unit_area =='sqm') ? $floor_area / 0.04 : ($floor_area / 10.76) /0.04 );
@@ -380,7 +381,7 @@ $('document').ready(function() {
                  case '20x60':{
                     $tiles = (($selected_unit_area =='sqm') ? $floor_area / 0.12 : ($floor_area / 10.76) /0.12 );
                     $grout = '2-3mm';
-                   
+
                     break;
                  }
                  case '30x30':{
@@ -405,12 +406,12 @@ $('document').ready(function() {
                  }
                 }
                 $kg_grout = ($selected_unit_area == 'sqm') ? Math.ceil($floor_area / 5) * 2 : Math.ceil(($floor_area /10.76)  / 5) * 2;
-				$kg_grout = ($kg_grout > 1 ? $kg_grout : ' '); 
-				$kg_grout = ($kg_grout > 1 ? $kg_grout : ' '); 
+				$kg_grout = ($kg_grout > 1 ? $kg_grout : ' ');
+				$kg_grout = ($kg_grout > 1 ? $kg_grout : ' ');
 				$kg_grout_sqm_per_bag = ($kg_grout == ' ' ? ' ' : ' (5 SQM / 2 KG BAG)');
 				//---compute kg adhesive...
 				$kg_adhesive = ($selected_unit_area == 'sqm') ? Math.ceil($floor_area / 6) * 25 : Math.ceil(($floor_area /10.76)  / 6) * 25;
-				$kg_adhesive = ($kg_adhesive > 1 ? $kg_adhesive : ' '); 
+				$kg_adhesive = ($kg_adhesive > 1 ? $kg_adhesive : ' ');
 				$kg_adhesive_sqm_per_bag = ($kg_adhesive == ' ' ? ' ' : ' (6 SQM / 25 KG BAG)');
 
 				//---show results...
@@ -420,7 +421,7 @@ $('document').ready(function() {
 				$('#kg-grout-sqm-per-bag').html($kg_grout_sqm_per_bag);
 				$('#kg-adhesive').html($kg_adhesive);
 				$('#kg-adhesive-sqm-per-bag').text($kg_adhesive_sqm_per_bag);
-                
+
 				//$('#tile-value').html($tiles.toFixed(2) + 'tiles');
                 $('#computation-result').css('visibility','visible');
                 $('#computation-result').css({visibility:'visible',left:25, opacity:0})
@@ -429,9 +430,9 @@ $('document').ready(function() {
         });
 
     }
-    
- 
-}); 
+
+
+});
 
 </script>
 
@@ -467,9 +468,9 @@ $('document').ready(function() {
     <script src="{%static 'assets/js/bs-init.js'%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="{%static 'assets/js/Animated-Type-Heading.js'%}"></script>
-    <script src="{%static 'assets/js/bold-and-bright.js'%}"></script> 
+    <script src="{%static 'assets/js/bold-and-bright.js'%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
 </body>
 
 </html>
-                                 
+

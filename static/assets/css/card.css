@@ -1,8 +1,10 @@
 .card-animation-cont {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 25px;
+    justify-content: center;
 }
+
 
 .card-animation-cont .card {
     height: 300px;
